@@ -1,11 +1,9 @@
-<!-- MÃ NGUỒN ỔN ĐỊNH NHẤT - CHUẨN THANG 7, KHÓA LƯU KÉP, TỐI ƯU MOBILE/DESKTOP, NGÂN HÀNG ĐỀ TỔNG HỢP -->
-<!-- CẬP NHẬT: QUẢN LÝ DANH SÁCH HỌC SINH TỪ EXCEL, AUTOCOMPLETE TÌM KIẾM, TỰ ĐỘNG ĐIỀN VÀ KHÓA THÔNG TIN -->
 <!DOCTYPE html>
 <html lang="vi">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>KHẢO SÁT VẬT LÍ 12 (NH 2026-2027)</title>
+    <title>HƯỞNG ỨNG TUẦN LỄ HỌC TẬP SUỐT ĐỜI 2026 <title>
     <!-- Hỗ trợ công thức Toán/Lý -->
     <script>
         window.MathJax = {
@@ -27,42 +25,33 @@
         * { -webkit-user-select: none !important; -moz-user-select: none !important; -ms-user-select: none !important; user-select: none !important; -webkit-touch-callout: none !important; box-sizing: border-box; }
         input, textarea, select { -webkit-user-select: text !important; -moz-user-select: text !important; -ms-user-select: text !important; user-select: text !important; }
         body { font-family: 'Segoe UI', sans-serif; background: var(--bg); color: var(--text); margin: 0; overflow-x: hidden; -webkit-tap-highlight-color: transparent; }
-        
-        /* CONTAINER CO GIÃN CHO DESKTOP */
+         /* CONTAINER CO GIÃN CHO DESKTOP */
         .container { max-width: 1100px; margin: 0 auto; min-height: 100vh; display: flex; flex-direction: column; position: relative; z-index: 1; transform-origin: top center; transition: transform 0.2s ease-out; }
-        
-        .q-img { display: block; max-width: 100%; max-height: 280px; margin: 15px auto; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); border: 1px solid #e2e8f0; background: #fff; object-fit: contain; }
+         .q-img { display: block; max-width: 100%; max-height: 280px; margin: 15px auto; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); border: 1px solid #e2e8f0; background: #fff; object-fit: contain; }
         #custom-alert { position: fixed; top: 20px; left: 50%; transform: translateX(-50%); background: var(--danger); color: white; padding: 12px 25px; border-radius: 50px; font-weight: bold; z-index: 100000; box-shadow: 0 10px 25px rgba(239, 68, 68, 0.4); display: none; animation: slideInAlert 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); border: 2px solid white; font-size: 0.95rem; text-transform: uppercase; text-align: center; width: max-content; max-width: 90%; }
         @keyframes slideInAlert { from { top: -50px; opacity: 0; } to { top: 20px; opacity: 1; } }
-
         .fire-text { display: inline-block; color: #fff; text-shadow: 0 0 10px #ff8d00, 0 0 20px #ff4e00, 0 0 30px #d43300; animation: burn 1.5s infinite alternate; margin: 0; }
         @keyframes burn { 0% { transform: skew(0.5deg); text-shadow: 0 0 10px #ff8d00, 0 0 20px #ff4e00; } 100% { transform: skew(-0.5deg); text-shadow: 0 0 15px #ff8d00, 0 0 35px #ff4e00, 0 0 50px #ff0000; } }
-
         header { background: rgba(30, 64, 175, 0.95); backdrop-filter: blur(5px); color: white; padding: 10px 20px; display: none; justify-content: space-between; align-items: center; box-shadow: 0 4px 15px rgba(0,0,0,0.5); position: sticky; top: 0; z-index: 100; }
         .timer { background: #fee2e2; color: #dc2626; padding: 8px 20px; border-radius: 20px; font-weight: bold; border: 2px solid #ef4444; font-size: 1.1rem; flex-shrink: 0; }
-
         #wish-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #000; z-index: 10000; display: none; flex-direction: column; justify-content: center; align-items: center; pointer-events: none; text-align: center; overflow: hidden; }
         #fire-canvas { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
         .wish-content { z-index: 10001; position: relative; width: 90%; max-width: 800px; }
         .wish-title { font-size: 5rem; font-weight: 900; color: #fff; text-transform: uppercase; margin: 0; animation: wishSharp 5s ease-out forwards; text-shadow: 0 0 20px #ff4e00, 0 0 50px #ffae00; }
         .wish-sub { font-size: 1.8rem; color: #fff; margin-top: 20px; opacity: 0; animation: fadeInSub 1s forwards 0.5s; font-weight: 600; }
-        
-        .cheat-warning-box { background: #ef4444; color: #fff; padding: 15px 30px; border-radius: 15px; font-size: 1.3rem; font-weight: 900; border: 4px solid #facc15; box-shadow: 0 0 30px rgba(239, 68, 68, 0.8); margin: 40px auto 0 auto; display: none; z-index: 10002; text-transform: uppercase; animation: pulseWarning 1.2s infinite; max-width: 650px; line-height: 1.4; }
+                .cheat-warning-box { background: #ef4444; color: #fff; padding: 15px 30px; border-radius: 15px; font-size: 1.3rem; font-weight: 900; border: 4px solid #facc15; box-shadow: 0 0 30px rgba(239, 68, 68, 0.8); margin: 40px auto 0 auto; display: none; z-index: 10002; text-transform: uppercase; animation: pulseWarning 1.2s infinite; max-width: 650px; line-height: 1.4; }
         @keyframes wishSharp { 0% { transform: scale(0.6); opacity: 0; } 15% { transform: scale(1); opacity: 1; } 90% { transform: scale(1); opacity: 1; } 100% { transform: scale(1.2); opacity: 0; } }
         @keyframes fadeInSub { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
         @keyframes pulseWarning { 0% { transform: scale(1); background: #ef4444; } 50% { transform: scale(1.03); background: #dc2626; } 100% { transform: scale(1); background: #ef4444; } }
-
         .screen { display: none; padding: 20px; animation: fadeIn 0.4s ease; flex: 1; }
         .screen.active { display: block; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-
         .school-brand { text-align: center; padding: 40px 20px; background: linear-gradient(180deg, rgba(30, 64, 175, 1) 0%, rgba(15, 23, 42, 1) 100%); color: white; border-radius: 0 0 50px 50px; margin: 0 auto 30px auto; border-bottom: 4px solid #ff4e00; max-width: 800px; width: 95%; box-shadow: 0 10px 25px rgba(0,0,0,0.3); }
         .card { background: var(--card); padding: 30px; border-radius: 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); margin-bottom: 25px; border: 1px solid #e2e8f0; }
         .card-start { max-width: 550px; margin: -50px auto 30px auto; position: relative; z-index: 2; display: block; background: var(--card); padding: 30px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.2); border: 1px solid #e2e8f0; }
         
         .section-title { background: #f1f5f9; padding: 12px 18px; border-left: 6px solid #ff4e00; font-weight: bold; margin-bottom: 20px; color: var(--primary); font-size: 1.1rem; text-transform: uppercase; }
         .grid-2-col { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
-
         .option { border: 2px solid #e2e8f0; border-radius: 12px; padding: 14px 20px; margin-bottom: 12px; cursor: pointer; transition: 0.3s; background: #fff; font-size: 1rem; line-height: 1.4; }
         .option.selected { border-color: #ff4e00; background: #fff7ed; font-weight: bold; }
         .option.correct { background: #d1fae5; border-color: var(--success); color: #065f46; font-weight: bold; }
@@ -72,60 +61,47 @@
         .tf-btn { border: 2px solid #cbd5e0; background: white; padding: 10px 18px; border-radius: 10px; cursor: pointer; font-weight: bold; min-width: 75px; transition: 0.2s; }
         .tf-btn.active-t { background: var(--success); color: white; border-color: var(--success); }
         .tf-btn.active-f { background: var(--danger); color: white; border-color: var(--danger); }
-
         .btn { padding: 12px 24px; border-radius: 12px; border: none; font-weight: 800; cursor: pointer; transition: 0.3s; text-transform: uppercase; font-size: 0.95rem; }
         .btn-fire { background: linear-gradient(45deg, #ff4e00, #ff8d00); color: white; box-shadow: 0 4px 15px rgba(255, 78, 0, 0.4); }
         .btn-gray { background: #cbd5e0; color: #475569; }
         .btn:disabled { opacity: 0.5; cursor: not-allowed; }
-        
-        .btn-admin-float { position: fixed; bottom: 20px; right: 20px; z-index: 1000; background: #475569; color: white; border-radius: 50px; padding: 10px 20px; font-size: 0.8rem; box-shadow: 0 4px 10px rgba(0,0,0,0.3); opacity: 0.85; cursor: pointer; border: none; font-weight: bold; }
+                .btn-admin-float { position: fixed; bottom: 20px; right: 20px; z-index: 1000; background: #475569; color: white; border-radius: 50px; padding: 10px 20px; font-size: 0.8rem; box-shadow: 0 4px 10px rgba(0,0,0,0.3); opacity: 0.85; cursor: pointer; border: none; font-weight: bold; }
         .btn-report-float { position: fixed; bottom: 20px; left: 20px; z-index: 1000; background: var(--danger); color: white; border-radius: 50px; padding: 10px 20px; font-size: 0.8rem; box-shadow: 0 4px 10px rgba(239,68,68,0.4); opacity: 0.9; cursor: pointer; border: 2px solid #fff; font-weight: bold; }
-
         input[type="text"], input[type="password"], input[type="email"], input[type="number"], textarea, select { padding: 12px 15px; border: 2px solid #e2e8f0; border-radius: 10px; width: 100%; box-sizing: border-box; outline: none; transition: 0.3s; font-size: 1rem; font-family: inherit; }
         input:focus, textarea:focus, select:focus { border-color: #ff4e00; background: #fffbeb; }
         input[readonly] { background-color: #f1f5f9; cursor: not-allowed; color: #64748b; border-color: #cbd5e0;}
-
         /* CSS MỚI CHO AUTOCOMPLETE */
         .autocomplete { position: relative; display: block; }
         .autocomplete-items { position: absolute; border: 1px solid #d4d4d4; border-bottom: none; border-top: none; z-index: 99; top: 100%; left: 0; right: 0; border-radius: 0 0 10px 10px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.1); max-height: 200px; overflow-y: auto; background: white;}
         .autocomplete-items div { padding: 12px; cursor: pointer; background-color: #fff; border-bottom: 1px solid #e2e8f0; font-size: 0.95rem; }
         .autocomplete-items div:hover { background-color: #e9e9e9; }
         .autocomplete-active { background-color: var(--secondary) !important; color: #ffffff; }
-
         /* CSS TAB ADMIN */
         .admin-tabs { display: flex; margin-bottom: 20px; border-bottom: 2px solid #e2e8f0; }
         .admin-tab { padding: 12px 20px; font-weight: bold; cursor: pointer; color: #64748b; border-bottom: 3px solid transparent; transition: 0.3s; font-size: 0.95rem; text-transform: uppercase;}
         .admin-tab:hover { color: var(--primary); }
         .admin-tab.active { color: var(--primary); border-bottom-color: var(--primary); }
-
         .rank-badge { font-size: 1.5rem; font-weight: 900; margin-top: 15px; padding: 10px 25px; border-radius: 50px; display: inline-block; animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275); color: white; }
-        
         .admin-controls { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 20px; background: #f1f5f9; padding: 15px; border-radius: 15px; align-items: flex-end; }
         .admin-table-container { overflow-x: auto; background: white; border-radius: 10px; border: 1px solid #e2e8f0; max-height: 500px; overflow-y: auto;}
         .admin-table { width: 100%; border-collapse: collapse; min-width: 1000px; }
         .admin-table th { background: var(--primary); color: white; padding: 12px; text-align: left; font-size: 0.85rem; position: sticky; top: 0; z-index: 10; }
         .admin-table td { padding: 12px; border-bottom: 1px solid #f1f5f9; font-size: 0.9rem; }
         .stat-box { flex: 1; min-width: 130px; background: white; padding: 15px; border-radius: 15px; text-align: center; border-bottom: 4px solid #cbd5e0; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
-
         .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); z-index: 20000; display: none; justify-content: center; align-items: center; padding: 15px; overflow-y: auto;}
         .modal-box { background: white; padding: 30px; border-radius: 20px; width: 100%; max-width: 500px; text-align: center; position: relative; margin: auto; box-shadow: 0 15px 40px rgba(0,0,0,0.3); }
-        
         #cheat-modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.98); z-index: 30000; display: none; justify-content: center; align-items: center; text-align: center; padding: 20px;}
         footer { padding: 30px 20px; text-align: center; color: #94a3b8; background: #0f172a; font-size: 0.85rem; border-top: 2px solid #1e293b; margin-top: auto; }
-
         .badge-mode { padding: 4px 8px; border-radius: 4px; font-size: 0.7rem; font-weight: bold; color: white; text-transform: uppercase; }
         .badge-test { background: var(--danger); }
         .badge-practice { background: var(--secondary); }
-
         .short-answer-wrapper { display: flex; gap: 10px; justify-content: center; margin: 25px 0; flex-wrap: wrap; }
         input.char-slot { width: 45px !important; padding: 0 !important; height: 55px; border: 3px solid #cbd5e0; border-radius: 10px; text-align: center; font-size: 1.5rem; font-weight: 900; color: var(--primary); outline: none; transition: 0.2s; }
         input.char-slot:focus { border-color: var(--accent); background: #fff7ed; transform: scale(1.05); }
-
         .explanation { margin-top: 15px; padding: 15px; background: #f8fafc; border-radius: 10px; border: 1px solid #e2e8f0; font-size: 0.95rem; color: #334155; line-height: 1.6; }
         .score-badge { float: right; padding: 4px 12px; border-radius: 20px; font-size: 0.75rem; font-weight: bold; }
         .score-plus { background: #dcfce7; color: #166534; }
         .score-zero { background: #fee2e2; color: #991b1b; }
-
         @media (max-width: 768px) {
             .container { min-height: 100%; height: auto; }
             .screen { padding: 15px 10px; }
@@ -158,15 +134,12 @@
         }
     </style>
 </head>
-
 <body oncontextmenu="return false" oncopy="return false" oncut="return false" onpaste="return false">
-
 <div id="custom-alert">⚠️ Vui lòng hoàn thành câu hỏi này!</div>
-
 <div id="wish-overlay">
     <canvas id="fire-canvas"></canvas>
     <div class="wish-content">
-        <h1 class="wish-title">🔥 CỐ LÊN! 🔥</h1>
+        <h1 class="wish-title">🔥 NỖ LỰC HẾT MÌNH! 🔥</h1>
         <p class="wish-sub">Chúc bạn hoàn thành tốt bài làm!</p>
         <div id="wish-cheat-info" class="cheat-warning-box">HỆ THỐNG SẼ TỰ ĐỘNG NỘP BÀI<br>NẾU CHUYỂN TAB, CHIA ĐÔI MÀN HÌNH<br>HOẶC MỞ ỨNG DỤNG KHÁC</div>
     </div>
@@ -220,7 +193,6 @@
         <button id="btn-cheat-submit" class="btn btn-fire" style="width:100%;">XEM KẾT QUẢ</button>
     </div>
 </div>
-
 <!-- Modal Hộp thư báo lỗi (Admin) -->
 <div id="admin-inbox-modal" class="modal-overlay">
     <div class="card" style="width:100%; max-width:900px; text-align:left; max-height: 90vh; overflow-y: auto; margin: auto;">
@@ -236,7 +208,6 @@
         </div>
     </div>
 </div>
-
 <!-- Modal Xem Ảnh Phóng To -->
 <div id="image-viewer-modal" class="modal-overlay" style="z-index: 40000;" onclick="this.style.display='none'">
     <img id="image-viewer-img" src="" style="max-width: 95%; max-height: 90vh; border-radius: 10px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); object-fit: contain;">
@@ -254,7 +225,6 @@
         </div>
     </div>
 </div>
-
 <div id="delete-auth-modal" class="modal-overlay" style="z-index:20001;">
     <div class="card" style="width:100%; max-width:400px; text-align:center; border: 4px solid var(--danger); padding: 30px 20px; margin: auto;">
         <h2 id="auth-action-title" style="color: var(--danger); margin-top:0;">Xác nhận Hành động</h2>
@@ -267,7 +237,6 @@
         </div>
     </div>
 </div>
-
 <div id="admin-review-modal" class="modal-overlay" style="z-index:20002; align-items:flex-start;">
     <div class="card" style="width:100%; max-width:800px; text-align:left; margin-top: 20px; padding: 20px 15px; margin-left: auto; margin-right: auto;">
         <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 20px; border-bottom: 2px solid #e2e8f0; padding-bottom: 15px;">
@@ -291,7 +260,7 @@
 
         <section id="screen-start" class="screen active">
             <div class="school-brand">
-                <h1 class="fire-text" style="font-size: 2.2rem;">KHẢO SÁT VẬT LÍ 12 (NH 2026-2027)</h1>
+                <h1 class="fire-text" style="font-size: 2.2rem;">HƯỞNG ỨNG TUẦN LỄ HỌC TẬP SUỐT ĐỜI 2026h1>
                 <p id="banner-topic" style="color:white; opacity:0.9; margin-top:8px; font-weight: 600; letter-spacing: 0.5px;">Vui lòng chọn chuyên đề bên dưới</p>
             </div>
 
@@ -299,14 +268,11 @@
                 <h3 style="text-align:center; margin-top: 0; margin-bottom: 20px; color: var(--primary);">THIẾT LẬP BÀI THI</h3>
                 
                 <div style="margin-bottom: 20px; background: #fffbeb; padding: 15px; border-radius: 10px; border: 2px solid #fcd34d;">
-                    <label style="font-size: 0.95rem; font-weight: bold; color: #92400e; display:block; margin-bottom:8px;">🎯 CHỌN CHUYÊN ĐỀ ÔN TẬP:</label>
+                    <label style="font-size: 0.95rem; font-weight: bold; color: #92400e; display:block; margin-bottom:8px;">🎯 CHỌN CHUYÊN ĐỀ:</label>
                     <select id="topic-select" style="font-weight: bold; color: var(--primary); border-color: #fcd34d;">
-                      
-                        <option value="KS_Vatli12"> KHẢO SÁT VẬT LÍ 12 (NH 2026-2027) </option>
-            
-                    </select>
+     <option value="htsd_2026"> ĐẠO ĐỨC TRONG SỬ DỤNG TRÍ TUỆ NHÂN TẠO AI </option>
+               </select>
                 </div>
-
                 <p id="start-error" style="color: var(--danger); text-align: center; font-weight: bold; margin-bottom: 15px; display: none;">⚠️ Vui lòng điền đầy đủ các thông tin!</p>
                 
                 <!-- BẮT ĐẦU CẬP NHẬT GIAO DIỆN NHẬP TÊN -->
@@ -514,8 +480,8 @@
         </section>
 
         <footer>
-            <div style="font-weight: 800; color: #cbd5e0; margin-bottom: 5px;">KHẢO SÁT VẬT LÍ 12 NĂM HỌC 2026-2027</div>
-            <div style="font-size: 0.85rem;">Bản quyền thuộc về Trường THPT Nguyễn Trường Tộ, Thành phố Huế</div>
+            <div style="font-weight: 800; color: #cbd5e0; margin-bottom: 5px;">HƯỞNG ỨNG TUẦN LỄ HỌC TẬP SUỐT ĐỜI 2026</div>
+            <div style="font-size: 0.85rem;">Bản quyền thuộc về Trường THCS Thanh Thuỷ, Thành phố Huế</div>
         </footer>
     </div>
 </div>
@@ -571,7 +537,7 @@ const audioFinish = new Audio('https://www.soundjay.com/misc/sounds/bell-ringing
 // CƠ SỞ DỮ LIỆU ĐƯỢC CHẮT LỌC & TỐI ƯU HÓA (GIỮ NGUYÊN)
 // ==========================================
 const ALL_BANKS = {
-  "KS_Vatli12": {
+  "htsd_2026": {
     mcq: [
       {
         q: "Phát biểu nào sau đây là đúng khi nói về mô hình động học phân tử?",
