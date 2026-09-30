@@ -1,1 +1,2085 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>TUẦN LỄ HỌC TẬP SUỐT ĐỜI </title>
+    <!-- Hỗ trợ công thức Toán/Lý -->
+    <script>
+        window.MathJax = {
+            tex: { inlineMath: [['$', '$'], ['\\(', '\\)']], displayMath: [['$$', '$$']] },
+            svg: { fontCache: 'global' }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <!-- Thư viện hiệu ứng và tiện ích -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+    
+    <style>
+        :root {
+            --primary: #1e40af; --secondary: #3b82f6; --success: #10b981; --danger: #ef4444; 
+            --bg: #0f172a; --card: #ffffff; --text: #1e293b; --accent: #f59e0b;
+        }
+  
+        * { -webkit-user-select: none !important; -moz-user-select: none !important; -ms-user-select: none !important; user-select: none !important; -webkit-touch-callout: none !important; box-sizing: border-box; }
+        input, textarea, select { -webkit-user-select: text !important; -moz-user-select: text !important; -ms-user-select: text !important; user-select: text !important; }
+        body { font-family: 'Segoe UI', sans-serif; background: var(--bg); color: var(--text); margin: 0; overflow-x: hidden; -webkit-tap-highlight-color: transparent; }
+         /* CONTAINER CO GIÃN CHO DESKTOP */
+        .container { max-width: 1100px; margin: 0 auto; min-height: 100vh; display: flex; flex-direction: column; position: relative; z-index: 1; transform-origin: top center; transition: transform 0.2s ease-out; }
+         .q-img { display: block; max-width: 100%; max-height: 280px; margin: 15px auto; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); border: 1px solid #e2e8f0; background: #fff; object-fit: contain; }
+        #custom-alert { position: fixed; top: 20px; left: 50%; transform: translateX(-50%); background: var(--danger); color: white; padding: 12px 25px; border-radius: 50px; font-weight: bold; z-index: 100000; box-shadow: 0 10px 25px rgba(239, 68, 68, 0.4); display: none; animation: slideInAlert 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); border: 2px solid white; font-size: 0.95rem; text-transform: uppercase; text-align: center; width: max-content; max-width: 90%; }
+        @keyframes slideInAlert { from { top: -50px; opacity: 0; } to { top: 20px; opacity: 1; } }
+        .fire-text { display: inline-block; color: #fff; text-shadow: 0 0 10px #ff8d00, 0 0 20px #ff4e00, 0 0 30px #d43300; animation: burn 1.5s infinite alternate; margin: 0; }
+        @keyframes burn { 0% { transform: skew(0.5deg); text-shadow: 0 0 10px #ff8d00, 0 0 20px #ff4e00; } 100% { transform: skew(-0.5deg); text-shadow: 0 0 15px #ff8d00, 0 0 35px #ff4e00, 0 0 50px #ff0000; } }
+        header { background: rgba(30, 64, 175, 0.95); backdrop-filter: blur(5px); color: white; padding: 10px 20px; display: none; justify-content: space-between; align-items: center; box-shadow: 0 4px 15px rgba(0,0,0,0.5); position: sticky; top: 0; z-index: 100; }
+        .timer { background: #fee2e2; color: #dc2626; padding: 8px 20px; border-radius: 20px; font-weight: bold; border: 2px solid #ef4444; font-size: 1.1rem; flex-shrink: 0; }
+        #wish-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #000; z-index: 10000; display: none; flex-direction: column; justify-content: center; align-items: center; pointer-events: none; text-align: center; overflow: hidden; }
+        #fire-canvas { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
+        .wish-content { z-index: 10001; position: relative; width: 90%; max-width: 800px; }
+        .wish-title { font-size: 5rem; font-weight: 900; color: #fff; text-transform: uppercase; margin: 0; animation: wishSharp 5s ease-out forwards; text-shadow: 0 0 20px #ff4e00, 0 0 50px #ffae00; }
+        .wish-sub { font-size: 1.8rem; color: #fff; margin-top: 20px; opacity: 0; animation: fadeInSub 1s forwards 0.5s; font-weight: 600; }
+                .cheat-warning-box { background: #ef4444; color: #fff; padding: 15px 30px; border-radius: 15px; font-size: 1.3rem; font-weight: 900; border: 4px solid #facc15; box-shadow: 0 0 30px rgba(239, 68, 68, 0.8); margin: 40px auto 0 auto; display: none; z-index: 10002; text-transform: uppercase; animation: pulseWarning 1.2s infinite; max-width: 650px; line-height: 1.4; }
+        @keyframes wishSharp { 0% { transform: scale(0.6); opacity: 0; } 15% { transform: scale(1); opacity: 1; } 90% { transform: scale(1); opacity: 1; } 100% { transform: scale(1.2); opacity: 0; } }
+        @keyframes fadeInSub { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes pulseWarning { 0% { transform: scale(1); background: #ef4444; } 50% { transform: scale(1.03); background: #dc2626; } 100% { transform: scale(1); background: #ef4444; } }
+        .screen { display: none; padding: 20px; animation: fadeIn 0.4s ease; flex: 1; }
+        .screen.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .school-brand { text-align: center; padding: 40px 20px; background: linear-gradient(180deg, rgba(30, 64, 175, 1) 0%, rgba(15, 23, 42, 1) 100%); color: white; border-radius: 0 0 50px 50px; margin: 0 auto 30px auto; border-bottom: 4px solid #ff4e00; max-width: 800px; width: 95%; box-shadow: 0 10px 25px rgba(0,0,0,0.3); }
+        .card { background: var(--card); padding: 30px; border-radius: 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); margin-bottom: 25px; border: 1px solid #e2e8f0; }
+        .card-start { max-width: 550px; margin: -50px auto 30px auto; position: relative; z-index: 2; display: block; background: var(--card); padding: 30px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.2); border: 1px solid #e2e8f0; }
+        
+        .section-title { background: #f1f5f9; padding: 12px 18px; border-left: 6px solid #ff4e00; font-weight: bold; margin-bottom: 20px; color: var(--primary); font-size: 1.1rem; text-transform: uppercase; }
+        .grid-2-col { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+        .option { border: 2px solid #e2e8f0; border-radius: 12px; padding: 14px 20px; margin-bottom: 12px; cursor: pointer; transition: 0.3s; background: #fff; font-size: 1rem; line-height: 1.4; }
+        .option.selected { border-color: #ff4e00; background: #fff7ed; font-weight: bold; }
+        .option.correct { background: #d1fae5; border-color: var(--success); color: #065f46; font-weight: bold; }
+        .option.wrong { background: #fee2e2; border-color: var(--danger); color: #991b1b; }
+        
+        .tf-row { display: flex; justify-content: space-between; align-items: center; padding: 15px 0; border-bottom: 1px solid #f1f5f9; gap: 15px; line-height: 1.4; }
+        .tf-btn { border: 2px solid #cbd5e0; background: white; padding: 10px 18px; border-radius: 10px; cursor: pointer; font-weight: bold; min-width: 75px; transition: 0.2s; }
+        .tf-btn.active-t { background: var(--success); color: white; border-color: var(--success); }
+        .tf-btn.active-f { background: var(--danger); color: white; border-color: var(--danger); }
+        .btn { padding: 12px 24px; border-radius: 12px; border: none; font-weight: 800; cursor: pointer; transition: 0.3s; text-transform: uppercase; font-size: 0.95rem; }
+        .btn-fire { background: linear-gradient(45deg, #ff4e00, #ff8d00); color: white; box-shadow: 0 4px 15px rgba(255, 78, 0, 0.4); }
+        .btn-gray { background: #cbd5e0; color: #475569; }
+        .btn:disabled { opacity: 0.5; cursor: not-allowed; }
+                .btn-admin-float { position: fixed; bottom: 20px; right: 20px; z-index: 1000; background: #475569; color: white; border-radius: 50px; padding: 10px 20px; font-size: 0.8rem; box-shadow: 0 4px 10px rgba(0,0,0,0.3); opacity: 0.85; cursor: pointer; border: none; font-weight: bold; }
+        .btn-report-float { position: fixed; bottom: 20px; left: 20px; z-index: 1000; background: var(--danger); color: white; border-radius: 50px; padding: 10px 20px; font-size: 0.8rem; box-shadow: 0 4px 10px rgba(239,68,68,0.4); opacity: 0.9; cursor: pointer; border: 2px solid #fff; font-weight: bold; }
+        input[type="text"], input[type="password"], input[type="email"], input[type="number"], textarea, select { padding: 12px 15px; border: 2px solid #e2e8f0; border-radius: 10px; width: 100%; box-sizing: border-box; outline: none; transition: 0.3s; font-size: 1rem; font-family: inherit; }
+        input:focus, textarea:focus, select:focus { border-color: #ff4e00; background: #fffbeb; }
+        input[readonly] { background-color: #f1f5f9; cursor: not-allowed; color: #64748b; border-color: #cbd5e0;}
+        /* CSS MỚI CHO AUTOCOMPLETE */
+        .autocomplete { position: relative; display: block; }
+        .autocomplete-items { position: absolute; border: 1px solid #d4d4d4; border-bottom: none; border-top: none; z-index: 99; top: 100%; left: 0; right: 0; border-radius: 0 0 10px 10px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.1); max-height: 200px; overflow-y: auto; background: white;}
+        .autocomplete-items div { padding: 12px; cursor: pointer; background-color: #fff; border-bottom: 1px solid #e2e8f0; font-size: 0.95rem; }
+        .autocomplete-items div:hover { background-color: #e9e9e9; }
+        .autocomplete-active { background-color: var(--secondary) !important; color: #ffffff; }
+        /* CSS TAB ADMIN */
+        .admin-tabs { display: flex; margin-bottom: 20px; border-bottom: 2px solid #e2e8f0; }
+        .admin-tab { padding: 12px 20px; font-weight: bold; cursor: pointer; color: #64748b; border-bottom: 3px solid transparent; transition: 0.3s; font-size: 0.95rem; text-transform: uppercase;}
+        .admin-tab:hover { color: var(--primary); }
+        .admin-tab.active { color: var(--primary); border-bottom-color: var(--primary); }
+        .rank-badge { font-size: 1.5rem; font-weight: 900; margin-top: 15px; padding: 10px 25px; border-radius: 50px; display: inline-block; animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275); color: white; }
+        .admin-controls { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 20px; background: #f1f5f9; padding: 15px; border-radius: 15px; align-items: flex-end; }
+        .admin-table-container { overflow-x: auto; background: white; border-radius: 10px; border: 1px solid #e2e8f0; max-height: 500px; overflow-y: auto;}
+        .admin-table { width: 100%; border-collapse: collapse; min-width: 1000px; }
+        .admin-table th { background: var(--primary); color: white; padding: 12px; text-align: left; font-size: 0.85rem; position: sticky; top: 0; z-index: 10; }
+        .admin-table td { padding: 12px; border-bottom: 1px solid #f1f5f9; font-size: 0.9rem; }
+        .stat-box { flex: 1; min-width: 130px; background: white; padding: 15px; border-radius: 15px; text-align: center; border-bottom: 4px solid #cbd5e0; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
+        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); z-index: 20000; display: none; justify-content: center; align-items: center; padding: 15px; overflow-y: auto;}
+        .modal-box { background: white; padding: 30px; border-radius: 20px; width: 100%; max-width: 500px; text-align: center; position: relative; margin: auto; box-shadow: 0 15px 40px rgba(0,0,0,0.3); }
+        #cheat-modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.98); z-index: 30000; display: none; justify-content: center; align-items: center; text-align: center; padding: 20px;}
+        footer { padding: 30px 20px; text-align: center; color: #94a3b8; background: #0f172a; font-size: 0.85rem; border-top: 2px solid #1e293b; margin-top: auto; }
+        .badge-mode { padding: 4px 8px; border-radius: 4px; font-size: 0.7rem; font-weight: bold; color: white; text-transform: uppercase; }
+        .badge-test { background: var(--danger); }
+        .badge-practice { background: var(--secondary); }
+        .short-answer-wrapper { display: flex; gap: 10px; justify-content: center; margin: 25px 0; flex-wrap: wrap; }
+        input.char-slot { width: 45px !important; padding: 0 !important; height: 55px; border: 3px solid #cbd5e0; border-radius: 10px; text-align: center; font-size: 1.5rem; font-weight: 900; color: var(--primary); outline: none; transition: 0.2s; }
+        input.char-slot:focus { border-color: var(--accent); background: #fff7ed; transform: scale(1.05); }
+        .explanation { margin-top: 15px; padding: 15px; background: #f8fafc; border-radius: 10px; border: 1px solid #e2e8f0; font-size: 0.95rem; color: #334155; line-height: 1.6; }
+        .score-badge { float: right; padding: 4px 12px; border-radius: 20px; font-size: 0.75rem; font-weight: bold; }
+        .score-plus { background: #dcfce7; color: #166534; }
+        .score-zero { background: #fee2e2; color: #991b1b; }
+        @media (max-width: 768px) {
+            .container { min-height: 100%; height: auto; }
+            .screen { padding: 15px 10px; }
+            .school-brand { padding: 25px 15px; border-radius: 0 0 30px 30px; margin-bottom: 15px; width: 100%; border-bottom: 3px solid #ff4e00; }
+            .fire-text { font-size: 1.6rem !important; }
+            .card-start { margin-top: -15px; padding: 20px 15px; }
+            .grid-2-col { grid-template-columns: 1fr; gap: 10px; } 
+            .card { padding: 20px 15px; }
+            h3 { font-size: 1.1rem; line-height: 1.5; }
+            .option { padding: 12px 15px; font-size: 0.95rem; }
+            .tf-row { flex-direction: column; align-items: flex-start; gap: 10px; }
+            .tf-row > span { margin-bottom: 5px; display: block; }
+            .tf-row > div { width: 100%; display: flex; justify-content: space-between; }
+            .tf-btn { flex: 1; text-align: center; padding: 12px; } 
+            input.char-slot { width: 40px !important; padding: 0 !important; height: 50px; font-size: 1.3rem; }
+            .btn-admin-float, .btn-report-float { font-size: 0.7rem; padding: 8px 15px; bottom: 10px; z-index: 10000; }
+            .btn-report-float { left: 10px; }
+            .btn-admin-float { right: 10px; }
+            .timer { padding: 6px 15px; font-size: 1rem; }
+            #final-score { font-size: 4rem !important; }
+            .wish-title { font-size: 3rem; }
+            .wish-sub { font-size: 1.2rem; }
+            .cheat-warning-box { font-size: 1rem; padding: 15px; width: 90%; }
+            .modal-box { padding: 20px 15px; width: 95%; }
+            .admin-controls { flex-direction: column; align-items: stretch; }
+            .admin-controls > div, .admin-controls > button { width: 100%; margin-bottom: 5px; }
+            .admin-tabs { flex-direction: column; }
+            .admin-tab { text-align: center; border-left: 3px solid transparent; border-bottom: none; }
+            .admin-tab.active { border-bottom: none; border-left-color: var(--primary); background: #f1f5f9;}
+        }
+    </style>
+</head>
+<body oncontextmenu="return false" oncopy="return false" oncut="return false" onpaste="return false">
+<div id="custom-alert">⚠️ Vui lòng hoàn thành câu hỏi này!</div>
+<div id="wish-overlay">
+    <canvas id="fire-canvas"></canvas>
+    <div class="wish-content">
+        <h1 class="wish-title">🔥 NỖ LỰC HẾT MÌNH! 🔥</h1>
+        <p class="wish-sub">Chúc bạn hoàn thành tốt bài làm!</p>
+        <div id="wish-cheat-info" class="cheat-warning-box">HỆ THỐNG SẼ TỰ ĐỘNG NỘP BÀI<br>NẾU CHUYỂN TAB, CHIA ĐÔI MÀN HÌNH<br>HOẶC MỞ ỨNG DỤNG KHÁC</div>
+    </div>
+</div>
 
+<button id="btn-admin-open" class="btn-admin-float">QUẢN TRỊ 🔐</button>
+<button id="btn-report-open" class="btn-report-float">BÁO LỖI ⚠️</button>
+
+<div id="confirm-finish-modal" class="modal-overlay">
+    <div class="modal-box">
+        <h2 style="color: var(--primary); margin-top:0;">Xác nhận nộp bài?</h2>
+        <p style="color:#475569; line-height: 1.5;">Bạn có chắc chắn muốn kết thúc bài làm và xem kết quả ngay không?</p>
+        <div class="grid-2-col" style="margin-top:20px;">
+            <button id="btn-modal-cancel" class="btn btn-gray">LÀM TIẾP</button>
+            <button id="btn-modal-confirm" class="btn btn-fire">NỘP BÀI</button>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Báo Lỗi Học Sinh -->
+<div id="report-modal" class="modal-overlay">
+    <div class="modal-box" style="text-align: left;">
+        <h2 style="color: var(--danger); text-align: center; margin-top: 0; margin-bottom: 20px; font-size: 1.4rem;">GỬI BÁO LỖI</h2>
+        <div style="margin-bottom: 15px;">
+            <label style="font-size: 0.85rem; font-weight: bold; color: #64748b; display:block; margin-bottom:5px;">Vị trí câu lỗi / Lỗi gặp phải:</label>
+            <input type="text" id="report-question" placeholder="Ví dụ: Câu 5 phần Đ/S, Hình ảnh câu 2...">
+        </div>
+        <div style="margin-bottom: 15px;">
+            <label style="font-size: 0.85rem; font-weight: bold; color: #64748b; display:block; margin-bottom:5px;">Mô tả chi tiết:</label>
+            <textarea id="report-detail" rows="3" placeholder="Ghi rõ lỗi sai đáp án, lỗi hiển thị... (Có thể ấn Ctrl+V để dán ảnh lỗi vào đây)"></textarea>
+        </div>
+        <div style="margin-bottom: 15px;">
+            <label style="font-size: 0.85rem; font-weight: bold; color: #64748b; display:block; margin-bottom:5px;">Đính kèm hình ảnh (Chọn file hoặc ấn Ctrl+V):</label>
+            <input type="file" id="report-file" accept="image/*" style="padding: 10px; font-size: 0.85rem;">
+            <img id="report-img-preview" src="" style="max-width: 100%; max-height: 150px; margin-top: 10px; display: none; border-radius: 8px; border: 1px solid #ccc; object-fit: contain;">
+        </div>
+        <div class="grid-2-col" style="margin-top:25px;">
+            <button id="btn-report-cancel" class="btn btn-gray">HỦY</button>
+            <button id="btn-report-submit" class="btn btn-fire" style="background: var(--danger);">GỬI PHẢN HỒI</button>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Cảnh Báo Gian Lận -->
+<div id="cheat-modal">
+    <div style="background: white; padding: 40px 25px; border-radius: 20px; max-width: 500px; width: 90%; border: 8px solid var(--danger);">
+        <h1 style="color:var(--danger); font-size: 2.5rem; margin:0">CẢNH BÁO!</h1>
+        <p style="font-size: 1.1rem; margin: 20px 0; color: #1e293b; font-weight: bold; line-height: 1.5;">
+            Hệ thống phát hiện bạn đã rời khỏi trình duyệt, chia đôi màn hình hoặc mở cửa sổ nổi. Bài làm đã tự động thu lại vì lý do bảo mật.
+        </p>
+        <button id="btn-cheat-submit" class="btn btn-fire" style="width:100%;">XEM KẾT QUẢ</button>
+    </div>
+</div>
+<!-- Modal Hộp thư báo lỗi (Admin) -->
+<div id="admin-inbox-modal" class="modal-overlay">
+    <div class="card" style="width:100%; max-width:900px; text-align:left; max-height: 90vh; overflow-y: auto; margin: auto;">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 20px; border-bottom: 2px solid #e2e8f0; padding-bottom: 15px;">
+            <h2 style="color: var(--danger); margin:0; font-size: 1.2rem;">HỘP THƯ BÁO LỖI 📩</h2>
+            <button id="btn-inbox-close" class="btn btn-gray" style="padding: 8px 15px; font-size:0.8rem;">ĐÓNG ✖</button>
+        </div>
+        <div class="admin-table-container">
+            <table class="admin-table" style="min-width: 700px;">
+                <thead><tr><th>Thời gian</th><th>Người báo</th><th>Vị trí lỗi</th><th>Chi tiết</th><th>Đính kèm</th><th>Thao tác</th></tr></thead>
+                <tbody id="inbox-list-body"></tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<!-- Modal Xem Ảnh Phóng To -->
+<div id="image-viewer-modal" class="modal-overlay" style="z-index: 40000;" onclick="this.style.display='none'">
+    <img id="image-viewer-img" src="" style="max-width: 95%; max-height: 90vh; border-radius: 10px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); object-fit: contain;">
+    <p style="color: white; position: absolute; bottom: 20px; font-weight: bold; text-shadow: 0 2px 4px rgba(0,0,0,0.8); text-align: center; width: 100%;">Chạm bất kỳ đâu để đóng</p>
+</div>
+
+<!-- Các Modal Xác nhận -->
+<div id="admin-auth-modal" class="modal-overlay" style="z-index:20000;">
+    <div class="card" style="width:100%; max-width:400px; text-align:center; padding: 30px 20px; margin: auto;">
+        <h2 style="color: var(--primary); margin-top:0;">Xác minh Quản trị</h2>
+        <input type="password" id="admin-pw" placeholder="Nhập mật khẩu..." style="margin-bottom:20px; text-align:center;" oncopy="return false" oncut="return false" onpaste="return false">
+        <div class="grid-2-col">
+            <button class="btn btn-gray" id="btn-auth-cancel">HỦY</button>
+            <button class="btn btn-fire" id="btn-auth-confirm">XÁC NHẬN</button>
+        </div>
+    </div>
+</div>
+<div id="delete-auth-modal" class="modal-overlay" style="z-index:20001;">
+    <div class="card" style="width:100%; max-width:400px; text-align:center; border: 4px solid var(--danger); padding: 30px 20px; margin: auto;">
+        <h2 id="auth-action-title" style="color: var(--danger); margin-top:0;">Xác nhận Hành động</h2>
+        <p style="margin-bottom: 15px; color: #475569; font-size:0.9rem;">Vui lòng đăng nhập tài khoản Firebase:</p>
+        <input type="email" id="delete-email" placeholder="Email Admin..." style="margin-bottom:10px; text-align:center; border:2px solid #cbd5e0;">
+        <input type="password" id="delete-pw" placeholder="Mật khẩu Admin..." style="margin-bottom:20px; text-align:center; border:2px solid var(--danger);">
+        <div class="grid-2-col">
+            <button class="btn btn-gray" id="btn-delete-cancel">HỦY</button>
+            <button class="btn btn-fire" style="background: var(--danger);" id="btn-delete-confirm">XÁC NHẬN</button>
+        </div>
+    </div>
+</div>
+<div id="admin-review-modal" class="modal-overlay" style="z-index:20002; align-items:flex-start;">
+    <div class="card" style="width:100%; max-width:800px; text-align:left; margin-top: 20px; padding: 20px 15px; margin-left: auto; margin-right: auto;">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 20px; border-bottom: 2px solid #e2e8f0; padding-bottom: 15px;">
+            <h2 style="color: var(--primary); margin:0; font-size: 1.2rem;">CHI TIẾT: <span id="ar-name" style="color: #ff4e00"></span></h2>
+            <button id="btn-ar-close" class="btn btn-gray" style="padding: 8px 15px; font-size:0.8rem;">ĐÓNG ✖</button>
+        </div>
+        <div id="ar-content" style="margin-bottom: 20px;"></div>
+        <button id="btn-ar-retry" class="btn btn-fire" style="width:100%; font-size: 1.1rem; padding: 15px;">LÀM LẠI CÁC CÂU SAI ♻️</button>
+    </div>
+</div>
+
+<div id="app-wrapper" style="width: 100%; overflow-x: hidden;">
+    <div class="container">
+        <header id="main-header">
+            <div style="display: flex; flex-direction: column; overflow: hidden; flex: 1; padding-right: 10px;">
+                <div style="font-weight: 900; letter-spacing: 1px; color: #facc15; font-size: 1.1rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">HUE SMART TEST 7991</div>
+                <div id="header-user-info" style="font-size: 0.75rem; color: #e2e8f0; margin-top: 3px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"></div>
+            </div>
+            <div class="timer" id="timer" style="flex-shrink: 0;">--:--</div>
+        </header>
+
+        <section id="screen-start" class="screen active">
+            <div class="school-brand">
+                <h1 class="fire-text" style="font-size: 2.2rem;"> TUẦN LỄ HỌC TẬP SUỐT ĐỜI
+                <p id="banner-topic" style="color:white; opacity:0.9; margin-top:8px; font-weight: 600; letter-spacing: 0.5px;"> 
+            </div>
+
+            <div class="card-start">
+                <h3 style="text-align:center; margin-top: 0; margin-bottom: 20px; color: var(--primary);">THIẾT LẬP BÀI THI</h3>
+                
+                <div style="margin-bottom: 20px; background: #fffbeb; padding: 15px; border-radius: 10px; border: 2px solid #fcd34d;">
+                    <label style="font-size: 0.95rem; font-weight: bold; color: #92400e; display:block; margin-bottom:8px;"> </label>
+                    <select id="topic-select" style="font-weight: bold; color: var(--primary); border-color: #fcd34d;">
+     <option value="htsd_2026"> ĐẠO ĐỨC TRONG SỬ DỤNG AI </option>
+               </select>
+                </div>
+                <p id="start-error" style="color: var(--danger); text-align: center; font-weight: bold; margin-bottom: 15px; display: none;">⚠️ Vui lòng điền đầy đủ các thông tin!</p>
+                
+                <!-- BẮT ĐẦU CẬP NHẬT GIAO DIỆN NHẬP TÊN -->
+                <div style="margin-bottom: 15px; position: relative;">
+                    <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 5px;">
+                        <label style="font-size: 0.85rem; font-weight: bold; color: #64748b; margin-bottom:0;">Họ và tên:</label>
+                        <label style="font-size: 0.75rem; font-weight: bold; color: var(--primary); cursor: pointer; display: flex; align-items: center; background: #e0f2fe; padding: 4px 8px; border-radius: 4px;">
+                            <input type="checkbox" id="guest-mode-toggle" style="margin-right: 5px; width: auto;"> Thí sinh tự do (Tự nhập)
+                        </label>
+                    </div>
+                    <div class="autocomplete" style="width:100%;">
+                        <input type="text" id="username" placeholder="Nhập tên để tìm kiếm trong danh sách..." autocomplete="off">
+                    </div>
+                    <small id="username-hint" style="color: var(--secondary); font-size: 0.75rem; display: block; margin-top: 5px;">*Gõ vài chữ cái tên bạn để hiện danh sách chọn.</small>
+                </div>
+                <div style="margin-bottom: 15px;">
+                    <label style="font-size: 0.85rem; font-weight: bold; color: #64748b; display:block; margin-bottom:5px;">Trường:</label>
+                    <input type="text" id="user_school" placeholder="Tự động điền" readonly>
+                </div>
+                <div class="grid-2-col" style="margin-bottom: 25px;">
+                    <div>
+                        <label style="font-size: 0.85rem; font-weight: bold; color: #64748b; display:block; margin-bottom:5px;">Lớp:</label>
+                        <input type="text" id="user_class" placeholder="Tự động điền" readonly>
+                    </div>
+                    <div>
+                        <label style="font-size: 0.85rem; font-weight: bold; color: #64748b; display:block; margin-bottom:5px;">Số báo danh:</label>
+                        <input type="text" id="user_sbd" placeholder="Tự động điền" readonly>
+                    </div>
+                </div>
+                <!-- KẾT THÚC CẬP NHẬT GIAO DIỆN NHẬP TÊN -->
+
+                <div class="grid-2-col">
+                    <button id="btn-init-practice" class="btn btn-gray">LUYỆN TẬP</button>
+                    <button id="btn-init-test" class="btn btn-fire">KIỂM TRA</button>
+                </div>
+            </div>
+        </section>
+
+        <section id="screen-quiz" class="screen">
+            <div id="quiz-content"></div>
+            <div style="display:flex; justify-content: space-between; margin-top: 30px; gap: 10px;">
+                <button id="btn-prev" class="btn btn-gray">QUAY LẠI</button>
+                <button class="btn btn-fire" id="btn-next" style="flex:1">TIẾP THEO</button>
+                <button id="btn-finish" class="btn" style="background:var(--success); color:white; display:none; flex:1;">HOÀN THÀNH 🏁</button>
+            </div>
+        </section>
+
+        <section id="screen-result" class="screen">
+            <div class="card" style="background: linear-gradient(135deg, #1e40af, #1e1b4b); color: white; text-align: center; padding: 40px 20px;">
+                <h2 id="res-name" class="fire-text" style="font-size: 1.8rem; margin-bottom: 10px;">HỌC SINH</h2>
+                <div id="res-meta" style="opacity: 0.9;">Thông vị trí</div>
+                <div style="margin: 25px 0;">
+                    <div id="final-score" style="font-size: 6rem; font-weight: 900; color: #fff; text-shadow: 0 0 20px rgba(255,255,255,0.5);">0.0</div>
+                    <div id="my-rank-text" style="margin-top: 10px; font-weight: bold; color: #ffae00; font-size: 1.5rem;">HẠNG ...</div>
+                </div>
+                <div id="rank-container"><div id="rank-badge" class="rank-badge">XẾP LOẠI</div></div>
+            </div>
+            <div class="grid-2-col" style="margin-top: 20px;">
+                <button id="btn-view-review" class="btn btn-fire">XEM GIẢI THÍCH 📖</button>
+                <button class="btn btn-gray" onclick="location.reload()">LÀM ĐỀ KHÁC</button>
+            </div>
+            <div id="review-area" style="display:none; margin-top: 30px;">
+                <h2 id="review-heading" style="text-align:center; color: var(--primary); margin: 30px 0;">CHI TIẾT BÀI LÀM</h2>
+                <div id="review-content"></div>
+            </div>
+        </section>
+
+        <!-- Màn hình Admin ĐƯỢC CẬP NHẬT TAB -->
+        <section id="screen-admin" class="screen">
+            <div style="display:flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-wrap: wrap; gap: 10px;">
+                <h2 class="fire-text" style="margin:0; font-size: 1.5rem;">BẢNG QUẢN TRỊ CAO CẤP</h2>
+                <button id="btn-admin-close" class="btn btn-gray" style="padding: 8px 15px; font-size: 0.8rem;">ĐÓNG ✖</button>
+            </div>
+
+            <div class="admin-tabs">
+                <div class="admin-tab active" id="tab-results">📊 QUẢN LÍ KẾT QUẢ THI</div>
+                <div class="admin-tab" id="tab-students">👥 QUẢN LÍ HỌC SINH</div>
+            </div>
+
+            <!-- TAB 1: KẾT QUẢ THI -->
+            <div id="admin-results-section">
+                <div class="card" style="padding: 20px; margin-bottom: 20px; background: #fffbeb; border: 2px solid #fcd34d;">
+                    <h4 style="margin: 0 0 15px 0; color: #92400e; text-transform: uppercase;">⚙️ Cài đặt Thời gian & Gợi ý</h4>
+                    <div class="admin-controls" style="background: transparent; padding: 0; margin: 0;">
+                        <div style="flex: 1; min-width: 100px;">
+                            <label style="font-size: 0.75rem; font-weight: bold;">LUYỆN TẬP (PHÚT):</label>
+                            <input type="number" id="cfg-time-practice" value="45" style="padding: 10px; margin-top:5px;">
+                        </div>
+                        <div style="flex: 1; min-width: 100px;">
+                            <label style="font-size: 0.75rem; font-weight: bold;">KIỂM TRA (PHÚT):</label>
+                            <input type="number" id="cfg-time-test" value="45" style="padding: 10px; margin-top:5px;">
+                        </div>
+                        <div style="flex: 1; min-width: 100px;">
+                            <label style="font-size: 0.75rem; font-weight: bold;">SỐ GỢI Ý (LƯỢT):</label>
+                            <input type="number" id="cfg-max-hints" value="3" style="padding: 10px; margin-top:5px;">
+                        </div>
+                        <button id="btn-save-config" class="btn btn-fire" style="padding: 12px 20px; font-size: 0.8rem; width: 100%;">CẬP NHẬT CẤU HÌNH</button>
+                        <button id="btn-toggle-autoscale" class="btn btn-gray" style="padding: 12px 20px; font-size: 0.8rem; width: 100%; border: 2px solid #cbd5e0; background: white;"><span id="autoscale-status">🟢</span> BẬT/TẮT TỰ ĐỘNG THU PHÓNG (PC)</button>
+                    </div>
+                </div>
+
+                <div class="stats-summary" id="admin-stats" style="display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 20px;"></div>
+                
+                <div class="admin-controls">
+                    <div style="flex:1; min-width: 120px;">
+                        <label style="font-size: 0.75rem; font-weight: bold;">SẮP XẾP:</label>
+                        <select id="admin-sort" style="width:100%; padding:10px; margin-top:5px;">
+                            <option value="score_desc">Điểm cao nhất</option>
+                            <option value="date_new">Mới nhất</option>
+                            <option value="duration_fast">Làm nhanh nhất</option>
+                        </select>
+                    </div>
+                    <div style="flex:1; min-width: 120px;">
+                        <label style="font-size: 0.75rem; font-weight: bold;">TRƯỜNG:</label>
+                        <select id="admin-filter-school" style="width:100%; padding:10px; margin-top:5px;">
+                            <option value="all">Tất cả trường</option>
+                        </select>
+                    </div>
+                    <div style="flex:1; min-width: 120px;">
+                        <label style="font-size: 0.75rem; font-weight: bold;">LỚP:</label>
+                        <select id="admin-filter-class" style="width:100%; padding:10px; margin-top:5px;">
+                            <option value="all">Tất cả lớp</option>
+                        </select>
+                    </div>
+                    <div style="flex:1; min-width: 120px;">
+                        <label style="font-size: 0.75rem; font-weight: bold;">CHUYÊN ĐỀ:</label>
+                        <select id="admin-filter-topic" style="width:100%; padding:10px; margin-top:5px;">
+                            <option value="all">Tất cả chuyên đề</option>
+                        </select>
+                    </div>
+                    <div style="flex:1; min-width: 120px;">
+                        <label style="font-size: 0.75rem; font-weight: bold;">CHẾ ĐỘ:</label>
+                        <select id="admin-filter-mode" style="width:100%; padding:10px; margin-top:5px;">
+                            <option value="all">Tất cả</option>
+                            <option value="test">Kiểm tra</option>
+                            <option value="practice">Luyện tập</option>
+                        </select>
+                    </div>
+                    
+                    <div class="grid-2-col" style="width: 100%;">
+                        <button id="btn-admin-refresh" class="btn" style="background:var(--secondary); color:white; font-size:0.8rem; padding: 12px;">LÀM MỚI 🔄</button>
+                        <button id="btn-admin-inbox" class="btn" style="background:var(--danger); color:white; font-size:0.8rem; padding: 12px;">HỘP THƯ LỖI 📩</button>
+                        <button id="btn-export-excel" class="btn" style="background:var(--success); color:white; font-size:0.8rem; padding: 12px; grid-column: span 2;">XUẤT EXCEL 📗</button>
+                    </div>
+                </div>
+                <div class="admin-table-container">
+                    <table class="admin-table">
+                        <thead>
+                            <tr>
+                                <th>Hạng</th><th>SBD</th><th>Họ tên</th><th>Lớp</th><th>Trường</th><th>Chuyên đề</th><th>Chế độ</th><th>Điểm</th><th>TG Làm</th><th>Ngày</th><th>Thao tác</th>
+                            </tr>
+                        </thead>
+                        <tbody id="admin-list-body"></tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- TAB 2: QUẢN LÝ DANH SÁCH HỌC SINH -->
+            <div id="admin-students-section" style="display: none;">
+                <div class="card" style="padding: 20px; margin-bottom: 20px; background: #f0fdf4; border: 2px solid #86efac;">
+                    <h4 style="margin: 0 0 15px 0; color: #166534; text-transform: uppercase;">📥 Import Dữ Liệu Học Sinh</h4>
+                    <p style="font-size: 0.85rem; color: #15803d; margin-bottom: 15px;">*Chức năng này giúp tự động tạo danh sách học sinh để dùng cho thanh tìm kiếm. Vui lòng sử dụng file mẫu để đảm bảo đúng định dạng cột.</p>
+                    <div class="grid-2-col">
+                        <button id="btn-download-template" class="btn btn-gray" style="background: #e2e8f0; color: #1e293b;"><span style="font-size: 1.2rem; margin-right: 5px;">⬇️</span> TẢI FILE MẪU EXCEL</button>
+                        <button id="btn-trigger-import" class="btn btn-fire" style="background: var(--success);"><span style="font-size: 1.2rem; margin-right: 5px;">📤</span> IMPORT EXCEL</button>
+                        <button id="btn-delete-all-students" class="btn btn-fire" style="background: var(--danger); grid-column: span 2;"><span style="font-size: 1.2rem; margin-right: 5px;">🗑️</span> XÓA TOÀN BỘ DANH SÁCH HS</button>
+                        <input type="file" id="file-import-students" accept=".xlsx, .xls" style="display: none;">
+                    </div>
+                </div>
+
+                <div class="admin-controls">
+                    <div style="flex:1; min-width: 120px;">
+                        <label style="font-size: 0.75rem; font-weight: bold;">LỌC THEO TRƯỜNG:</label>
+                        <select id="stu-filter-school" style="width:100%; padding:10px; margin-top:5px;">
+                            <option value="all">Tất cả trường</option>
+                        </select>
+                    </div>
+                    <div style="flex:1; min-width: 120px;">
+                        <label style="font-size: 0.75rem; font-weight: bold;">LỌC THEO LỚP:</label>
+                        <select id="stu-filter-class" style="width:100%; padding:10px; margin-top:5px;">
+                            <option value="all">Tất cả lớp</option>
+                        </select>
+                    </div>
+                    <button id="btn-refresh-students" class="btn" style="background:var(--secondary); color:white; font-size:0.8rem; padding: 12px; height: max-content; align-self: flex-end;">LÀM MỚI 🔄</button>
+                </div>
+
+                <div class="admin-table-container">
+                    <table class="admin-table">
+                        <thead>
+                            <tr>
+                                <th style="width: 50px;">STT</th>
+                                <th>Họ Tên</th>
+                                <th>Lớp</th>
+                                <th>SBD</th>
+                                <th>Trường</th>
+                                <th style="width: 80px; text-align: center;">Thao tác</th>
+                            </tr>
+                        </thead>
+                        <tbody id="student-list-body">
+                            <tr><td colspan="6" style="text-align: center;">Đang tải danh sách...</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <footer>
+            <div style="font-weight: 800; color: #cbd5e0; margin-bottom: 5px;">HƯỞNG ỨNG TUẦN LỄ HỌC TẬP SUỐT ĐỜI 2026</div>
+            <div style="font-size: 0.85rem;">Bản quyền thuộc về Trường THCS Thanh Thuỷ, Thành phố Huế</div>
+        </footer>
+    </div>
+</div>
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-app.js";
+import { getAuth, signInAnonymously, onAuthStateChanged, setPersistence, browserSessionPersistence, signInWithEmailAndPassword, signOut } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-auth.js";
+import { getFirestore, collection, addDoc, getDocs, doc, deleteDoc, setDoc, getDoc } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
+
+const firebaseConfig = {
+    apiKey: "AIzaSyDg4Q6rsrvPhY31oCpL4DAAjTKlgjJN1c0",
+    authDomain: "khtn9-5c1f4.firebaseapp.com",
+    projectId: "khtn9-5c1f4",
+    storageBucket: "khtn9-5c1f4.firebasestorage.app",
+    messagingSenderId: "498407772914",
+    appId: "1:498407772914:web:8ec0ed711675a96a42366b",
+    measurementId: "G-GPZSP2DR92"
+};
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);
+const appId_fixed = 'kham-pha-vat-ly-9'; 
+const collectionName = 'quiz_results'; 
+const collectionReports = 'error_reports';
+const collectionStudents = 'students_list'; // BỔ SUNG COLLECTION HỌC SINH
+
+let currentUser = null, quizStartTime = 0, isQuizRunning = false, mode = '', currentIdx = 0, userAnswers = {}, timeLeft = 0, timerInt, currentExam = [];
+let arExamData = [], arUserAnswers = {}; 
+let globalStudentList = []; // LƯU TRỮ DANH SÁCH HỌC SINH TỪ DB
+
+let practiceTimeLimit = 2700;
+let testTimeLimit = 2700;
+let maxHintsAllowed = 3; 
+let hintsUsed = 0;       
+let unlockedHints = [];  
+
+let isAutoScaleEnabled = true; // Biến kiểm soát chế độ thu phóng màn hình PC
+
+let canCheckCheat = false; 
+let isProcessingCheat = false;
+let wishTimeoutId = null;
+let reportImageBase64 = "";
+let hasSaved = false;
+let pendingAuthAction = null; 
+let currentDeleteId = null;
+let importedStudentsCache = []; // Caching for excel import
+
+const audioPing = new Audio('https://www.soundjay.com/buttons/sounds/button-16.mp3');
+const audioFinish = new Audio('https://www.soundjay.com/misc/sounds/bell-ringing-05.mp3');
+
+// ==========================================
+// NGÂN HÀNG CÂU HỎI: ĐẠO ĐỨC TRONG SỬ DỤNG TRÍ TUỆ NHÂN TẠO (AI)
+// BẢN QUYỀN: THS. NGUYỄN VĂN CẦN - TRƯỜNG THCS THANH THỦY, TP. HUẾ
+// ==========================================
+const ALL_BANKS = {
+  "htsd_2026": {
+    mcq: [
+      {
+        id: "AI.01",
+        q: "Hành vi nào sau đây thể hiện việc sử dụng AI có đạo đức và văn hóa học đường?",
+        o: [
+          "Giấu kín việc dùng AI để làm văn.",
+          "Khai báo rõ việc có sử dụng AI.",
+          "Dùng AI mạo danh giáo viên dạy học.",
+          "Đưa thông tin bí mật trường lên AI."
+        ],
+        a: "Khai báo rõ việc có sử dụng AI.",
+        e: "Phương án B đúng vì tính minh bạch và trung thực học thuật đòi hỏi người học phải công khai, giải trình rõ ràng mức độ hỗ trợ của công nghệ AI trong sản phẩm học tập của mình."
+      },
+      {
+        id: "AI.02",
+        q: "Khi một ứng dụng AI yêu cầu nhập mật khẩu cá nhân để tiếp tục, học sinh nên xử lí thế nào?",
+        o: [
+          "Nhập ngay mật khẩu cá nhân của mình.",
+          "Từ chối và tuyệt đối không cung cấp.",
+          "Nhập mật khẩu tài khoản của bạn thân.",
+          "Đăng tải mật khẩu lên nhóm học tập."
+        ],
+        a: "Từ chối và tuyệt đối không cung cấp.",
+        e: "Phương án B đúng vì mật khẩu là dữ liệu xác thực tối mật; việc cung cấp mật khẩu cho ứng dụng AI hoặc bên thứ ba tiềm ẩn rủi ro bị chiếm đoạt tài khoản và rò rỉ dữ liệu cá nhân."
+      },
+      {
+        id: "AI.03",
+        q: "Thông tin nào sau đây thuộc nhóm dữ liệu cá nhân cần bảo vệ nghiêm ngặt?",
+        o: [
+          "Địa chỉ nhà riêng và hình ảnh gia đình.",
+          "Tên một bài thơ trong sách Ngữ văn.",
+          "Lời bài hát trong chương trình Âm nhạc.",
+          "Bảng cửu chương trong sách môn Toán."
+        ],
+        a: "Địa chỉ nhà riêng và hình ảnh gia đình.",
+        e: "Phương án A đúng vì địa chỉ nơi ở và hình ảnh gia đình là thông tin định danh cá nhân nhạy cảm, gắn liền với quyền riêng tư và an toàn đời sống thực."
+      },
+      {
+        id: "AI.04",
+        q: "Khi gặp một thông tin mới do chatbot AI đưa ra, thao tác an toàn nhất là gì?",
+        o: [
+          "Kiểm chứng lại với nguồn tin cậy.",
+          "Chia sẻ ngay lên các trang mạng xã hội.",
+          "Tin tưởng tuyệt đối kết quả của máy.",
+          "Bỏ qua không cần suy ngẫm hay kiểm tra."
+        ],
+        a: "Kiểm chứng lại với nguồn tin cậy.",
+        e: "Phương án A đúng vì các mô hình AI có khả năng tạo ra ảo giác (thông tin sai lệch nhưng nghe rất hợp lí); học sinh cần đối chiếu với sách giáo khoa và tài liệu chính thống."
+      },
+      {
+        id: "AI.05",
+        q: "Hành động nào sau đây là lạm dụng AI và vi phạm tính trung thực trong học tập?",
+        o: [
+          "Tra cứu nghĩa một từ vựng tiếng Anh.",
+          "Luyện nghe phát âm một câu giao tiếp.",
+          "Nhờ AI viết hộ bài thu hoạch nộp cô.",
+          "Tìm kiếm gợi ý ý tưởng làm bài tập."
+        ],
+        a: "Nhờ AI viết hộ bài thu hoạch nộp cô.",
+        e: "Phương án C đúng vì để AI làm thay toàn bộ bài tập và nộp bài dưới danh nghĩa của mình là hành vi đạo văn và gian lận học thuật."
+      },
+      {
+        id: "AI.06",
+        q: "Trong việc sử dụng hệ thống AI, chủ thể nào chịu trách nhiệm cuối cùng về kết quả?",
+        o: [
+          "Con người trực tiếp sử dụng AI.",
+          "Hệ điều hành đang chạy trên máy tính.",
+          "Thiết bị máy tính cá nhân người dùng.",
+          "Nhà cung cấp dịch vụ mạng Internet."
+        ],
+        a: "Con người trực tiếp sử dụng AI.",
+        e: "Phương án A đúng vì AI chỉ là công cụ tính toán và xử lí dữ liệu do con người sáng tạo; con người mới có tư cách pháp nhân và nghĩa vụ đạo đức chịu trách nhiệm cho hành vi của mình."
+      },
+      {
+        id: "AI.07",
+        q: "Khi chuẩn bị dữ liệu dạy cho AI, việc làm nào sau đây vi phạm đạo đức số?",
+        o: [
+          "Sử dụng kho ảnh mở miễn phí trên mạng.",
+          "Tự vẽ tranh minh họa bằng tay cá nhân.",
+          "Lén lấy ảnh riêng tư của người khác.",
+          "Thu âm giọng đọc bài của chính bản thân."
+        ],
+        a: "Lén lấy ảnh riêng tư của người khác.",
+        e: "Phương án C đúng vì việc thu thập hình ảnh cá nhân khi chưa có sự đồng thuận là hành vi xâm phạm quyền riêng tư và vi phạm bản quyền dữ liệu."
+      },
+      {
+        id: "AI.08",
+        q: "Hiện tượng AI đưa ra kết quả thiên lệch, bất công đối với xã hội bắt nguồn từ đâu?",
+        o: [
+          "Thiết bị máy tính bị nóng vi xử lý.",
+          "Do dữ liệu huấn luyện bị thiên kiến.",
+          "Màn hình máy tính có độ tương phản cao.",
+          "Tốc độ kết nối mạng Internet bị chập chờn."
+        ],
+        a: "Do dữ liệu huấn luyện bị thiên kiến.",
+        e: "Phương án B đúng vì mô hình máy học phản ánh chính xác các định kiến, sự thiếu hụt hoặc phiến diện tồn tại trong tập dữ liệu đầu vào dùng để huấn luyện."
+      },
+      {
+        id: "AI.09",
+        q: "Hành động nào sau đây góp phần xây dựng môi trường mạng an toàn khi dùng AI?",
+        o: [
+          "Báo cáo các nội dung độc hại phát hiện.",
+          "Cài thử nghiệm các mã độc vào ứng dụng AI.",
+          "Gửi tin nhắn rác hàng loạt qua chatbot.",
+          "Thu thập dữ liệu các bạn đưa lên AI."
+        ],
+        a: "Báo cáo các nội dung độc hại phát hiện.",
+        e: "Phương án A đúng vì hành động báo cáo nội dung xấu độc giúp nhà phát triển ngăn chặn nguy cơ mất an toàn và bảo vệ cộng đồng số."
+      },
+      {
+        id: "AI.10",
+        q: "Khi làm sản phẩm có dùng hình minh họa do AI tạo ra, hành vi nào tôn trọng bản quyền?",
+        o: [
+          "Ghi chú rõ nguồn tranh do AI vẽ.",
+          "Tự nhận tác phẩm do chính tay mình vẽ.",
+          "Dùng phần mềm xóa chữ ký nguồn ảnh.",
+          "Nói dối là tranh vẽ của họa sĩ nổi tiếng."
+        ],
+        a: "Ghi chú rõ nguồn tranh do AI vẽ.",
+        e: "Phương án A đúng vì ghi rõ xuất xứ và phương thức tạo lập hình ảnh thể hiện thái độ tôn trọng sự thật và tuân thủ chuẩn mực liêm chính học thuật."
+      },
+      {
+        id: "AI.11",
+        q: "Vì sao con người cần luôn nắm giữ quyền ra quyết định cuối cùng khi dùng AI?",
+        o: [
+          "Nhằm bảo đảm an toàn và tính nhân văn.",
+          "Giúp máy tính tiết kiệm được năng lượng.",
+          "Để phần mềm AI không bị quá tải bộ nhớ.",
+          "Vì pháp luật cấm AI xử lí dữ liệu lớn."
+        ],
+        a: "Nhằm bảo đảm an toàn và tính nhân văn.",
+        e: "Phương án A đúng vì AI thiếu lòng trắc ẩn, sự thấu cảm và trách nhiệm đạo đức; quyền kiểm soát của con người bảo đảm các phán quyết luôn nhân bản và an toàn."
+      },
+      {
+        id: "AI.12",
+        q: "Khi phát hiện một ứng dụng AI liên tục đưa thông tin sai sự thật, học sinh nên làm gì?",
+        o: [
+          "Ngừng dùng và báo ngay cho người lớn.",
+          "Gửi đường dẫn rủ bạn bè cùng sử dụng.",
+          "Tải phần mềm đó cài vào máy tính bạn.",
+          "Viết bài chia sẻ ca ngợi ứng dụng đó."
+        ],
+        a: "Ngừng dùng và báo ngay cho người lớn.",
+        e: "Phương án A đúng vì ngừng sử dụng và báo cáo cho thầy cô hoặc cha mẹ giúp ngăn chặn tác hại của tin giả và bảo đảm an toàn thông tin."
+      },
+      {
+        id: "AI.13",
+        q: "Công nghệ AI tạo ra hình ảnh hoặc video giả mạo người thật rất tinh vi gọi là gì?",
+        o: [
+          "Deepfake.",
+          "Phần mềm độc hại.",
+          "Dữ liệu lớn.",
+          "Trình duyệt web."
+        ],
+        a: "Deepfake.",
+        e: "Phương án A đúng vì Deepfake (kết hợp giữa Deep learning và Fake) là thuật ngữ chỉ kỹ thuật giả mạo khuôn mặt, giọng nói hoặc cử chỉ của con người một cách tinh vi."
+      },
+      {
+        id: "AI.14",
+        q: "Việc dùng AI làm giả giọng nói người khác gọi điện vay tiền là hành vi gì?",
+        o: [
+          "Một trò đùa vui không có hại.",
+          "Hành vi lừa đảo vi phạm pháp luật.",
+          "Hoạt động nghiên cứu công nghệ số.",
+          "Phương thức giao tiếp thông minh."
+        ],
+        a: "Hành vi lừa đảo vi phạm pháp luật.",
+        e: "Phương án B đúng vì giả mạo danh tính để chiếm đoạt tài sản là hành vi phạm tội lừa đảo, bị xử lí nghiêm minh theo quy định pháp luật."
+      },
+      {
+        id: "AI.15",
+        q: "Trách nhiệm phải giải thích rõ cách dùng AI và chịu trách nhiệm về bài làm gọi là gì?",
+        o: [
+          "Trách nhiệm pháp lý quốc tế.",
+          "Quyền miễn trừ của người dùng.",
+          "Trách nhiệm giải trình học thuật.",
+          "Quyền sở hữu thương mại điện tử."
+        ],
+        a: "Trách nhiệm giải trình học thuật.",
+        e: "Phương án C đúng vì trách nhiệm giải trình yêu cầu người học phải giải thích được quy trình làm bài, nguồn gốc kiến thức và chứng minh sự làm chủ sản phẩm của mình."
+      },
+      {
+        id: "AI.16",
+        q: "Lĩnh vực nào đòi hỏi sự thấu cảm sâu sắc nên AI không thể thay thế hoàn toàn con người?",
+        o: [
+          "Dạy học và bồi dưỡng nhân cách.",
+          "Quét mã vạch sản phẩm tiêu dùng.",
+          "Phát hiện lỗi chính tả văn bản tự động.",
+          "Thống kê số lượng mưa trong năm."
+        ],
+        a: "Dạy học và bồi dưỡng nhân cách.",
+        e: "Phương án A đúng vì giáo dục và uốn nắn nhân cách đòi hỏi sự yêu thương, đồng cảm và truyền cảm hứng - những phẩm chất tinh thần chỉ con người mới có."
+      },
+      {
+        id: "AI.17",
+        q: "Hậu quả nghiêm trọng nhất khi học sinh hoàn toàn ỷ lại vào các công cụ AI là gì?",
+        o: [
+          "Giảm dung lượng pin của điện thoại.",
+          "Bị suy giảm tư duy phản biện độc lập.",
+          "Tốc độ gõ phím máy tính bị chậm đi.",
+          "Thiết bị máy tính bị hao mòn vi mạch."
+        ],
+        a: "Bị suy giảm tư duy phản biện độc lập.",
+        e: "Phương án B đúng vì việc phụ thuộc hoàn toàn vào máy tính làm triệt tiêu khả năng tự tư duy, phân tích, phán đoán và giải quyết vấn đề của não bộ."
+      },
+      {
+        id: "AI.18",
+        q: "Khi thiết kế một chatbot học đường, điều nào cần tuyệt đối tránh về mặt đạo đức?",
+        o: [
+          "Sử dụng phông chữ tiếng Việt chuẩn hóa.",
+          "Cung cấp câu trả lời xúc phạm người khác.",
+          "Hướng dẫn nội quy của nhà trường cho bạn.",
+          "Thông báo lịch học cho các lớp hàng tuần."
+        ],
+        a: "Cung cấp câu trả lời xúc phạm người khác.",
+        e: "Phương án B đúng vì chatbot học đường phải chuẩn mực, an toàn, tôn trọng phẩm giá con người và tuyệt đối không phát ngôn miệt thị, độc hại."
+      },
+      {
+        id: "AI.19",
+        q: "Để bảo vệ quyền riêng tư cá nhân, học sinh cần làm gì khi truy cập vào hệ thống AI?",
+        o: [
+          "Tìm hiểu chính sách bảo vệ dữ liệu.",
+          "Cung cấp đầy đủ số điện thoại người thân.",
+          "Bật chia sẻ vị trí nhà riêng mọi lúc.",
+          "Tải toàn bộ ảnh giấy tờ cá nhân lên máy."
+        ],
+        a: "Tìm hiểu chính sách bảo vệ dữ liệu.",
+        e: "Phương án A đúng vì việc nắm vững chính sách quyền riêng tư giúp người dùng biết được dữ liệu nào bị thu thập và cách thức nền tảng xử lí thông tin của mình."
+      },
+      {
+        id: "AI.20",
+        q: "Nhận xét nào sau đây phản ánh đúng bản chất của công nghệ nhận diện cảm xúc bằng AI?",
+        o: [
+          "AI cảm nhận được cảm xúc thật của người.",
+          "AI chỉ mô phỏng qua nét mặt và giọng nói.",
+          "AI có tình cảm thương yêu như con người.",
+          "AI nhận biết cảm xúc chính xác tuyệt đối."
+        ],
+        a: "AI chỉ mô phỏng qua nét mặt và giọng nói.",
+        e: "Phương án B đúng vì máy móc chỉ phân tích các dấu hiệu cơ học (hình dạng khuôn mặt, phổ âm thanh) thông qua thuật toán xác suất chứ không thực sự có tri giác hay trải nghiệm cảm xúc."
+      },
+      {
+        id: "AI.21",
+        q: "Hiện tượng mô hình AI tạo ra thông tin nghe có vẻ đúng nhưng bịa đặt gọi là gì?",
+        o: [
+          "Ảo giác AI (Hallucination).",
+          "Chập mạch điện tử phần cứng.",
+          "Quá tải đường truyền mạng máy tính.",
+          "Mất điện đột ngột trong hệ thống."
+        ],
+        a: "Ảo giác AI (Hallucination).",
+        e: "Phương án A đúng vì ảo giác AI (Hallucination) là hiện tượng mô hình ngôn ngữ lớn tự tin sinh ra các dữ kiện, trích dẫn hoàn toàn không có thật trong thực tế."
+      },
+      {
+        id: "AI.22",
+        q: "Khi gặp một video có dấu hiệu deepfake bôi nhọ người khác trên mạng, học sinh nên làm gì?",
+        o: [
+          "Không chia sẻ và báo cáo nội dung xấu.",
+          "Tải video gửi cho nhiều nhóm học tập.",
+          "Bình luận thêm thông tin giật gân vào bài.",
+          "Lưu lại video để đe dọa người khác."
+        ],
+        a: "Không chia sẻ và báo cáo nội dung xấu.",
+        e: "Phương án A đúng vì không lan truyền tin độc hại và thực hiện báo cáo nội dung xấu là trách nhiệm văn hóa của mỗi công dân số."
+      },
+      {
+        id: "AI.23",
+        q: "Nguyên tắc \"Công bằng\" trong đạo đức AI quy định điều gì?",
+        o: [
+          "Tránh thiên vị và phân biệt đối xử.",
+          "Bán các công cụ AI với giá rẻ như nhau.",
+          "Bắt buộc mọi người dùng cùng loại máy.",
+          "Quy định mọi học sinh có cùng điểm số."
+        ],
+        a: "Tránh thiên vị và phân biệt đối xử.",
+        e: "Phương án A đúng vì nguyên tắc công bằng (Fairness) đòi hỏi các thuật toán AI không được mang định kiến hay phân biệt đối xử theo giới tính, tôn giáo, vùng miền."
+      },
+      {
+        id: "AI.24",
+        q: "Trong thời đại AI phát triển, phẩm chất nào của học sinh là cốt lõi để ngăn ngừa gian lận?",
+        o: [
+          "Tính nhút nhát và rụt rè.",
+          "Tính trung thực và tự giác.",
+          "Tính ganh đua và hiếu thắng.",
+          "Tính phó mặc cho công nghệ."
+        ],
+        a: "Tính trung thực và tự giác.",
+        e: "Phương án B đúng vì lòng tự trọng, tính trung thực trong khoa học và tinh thần tự giác là gốc rễ giúp người học không lạm dụng công nghệ để gian lận."
+      },
+      {
+        id: "AI.25",
+        q: "Vì sao cần kiểm thử mô hình AI bằng tập dữ liệu mới lạ chưa từng học?",
+        o: [
+          "Nhằm đánh giá độ tin cậy và khách quan.",
+          "Để máy tính tốn ít năng lượng tiêu thụ.",
+          "Nhằm giúp tắt mạng Internet của thiết bị.",
+          "Để che giấu lỗi lập trình của mô hình."
+        ],
+        a: "Nhằm đánh giá độ tin cậy và khách quan.",
+        e: "Phương án A đúng vì việc kiểm thử với dữ liệu ngoài tập huấn luyện giúp đánh giá chính xác năng lực tổng quát hóa, tính khách quan và hạn chế hiện tượng học vẹt (overfitting)."
+      },
+      {
+        id: "AI.26",
+        q: "Trách nhiệm đạo đức quan trọng nhất của người làm ra sản phẩm AI là gì?",
+        o: [
+          "Đảm bảo an toàn và không gây hại.",
+          "Thu thập dữ liệu người dùng thật nhiều.",
+          "Ép buộc người dùng nạp tiền sử dụng.",
+          "Xóa hết mã nguồn lập trình của phần mềm."
+        ],
+        a: "Đảm bảo an toàn và không gây hại.",
+        e: "Phương án A đúng vì tôn chỉ hàng đầu của thiết kế công nghệ là nguyên tắc không gây hại (Do No Harm), đảm bảo an toàn cho nhân loại và xã hội."
+      },
+      {
+        id: "AI.27",
+        q: "Việc dùng AI tạo ảnh chế giễu bạn cùng lớp vi phạm nguyên tắc cơ bản nào?",
+        o: [
+          "Tôn trọng phẩm giá và quyền con người.",
+          "Tiết kiệm dung lượng bộ nhớ máy tính.",
+          "Tối ưu hóa đường truyền mạng không dây.",
+          "Phân loại cấu trúc dữ liệu theo nhóm."
+        ],
+        a: "Tôn trọng phẩm giá và quyền con người.",
+        e: "Phương án A đúng vì chế giễu, bôi nhọ người khác qua mạng là hành vi xúc phạm danh dự, xâm phạm quyền được tôn trọng phẩm giá con người."
+      },
+      {
+        id: "AI.28",
+        q: "Rèn luyện năng lực phản biện khi tiếp nhận tin từ AI mang lại ích lợi đạo đức nào?",
+        o: [
+          "Tránh bị dẫn dắt bởi thông tin sai lệch.",
+          "Làm cho vi xử lý máy tính chạy mát hơn.",
+          "Giúp không cần học bài cũ trên trường lớp.",
+          "Trở thành chuyên gia công nghệ ngay lập tức."
+        ],
+        a: "Tránh bị dẫn dắt bởi thông tin sai lệch.",
+        e: "Phương án A đúng vì tư duy phản biện giúp học sinh nhận diện sự thao túng, tránh tiếp thu mù quáng và không tiếp tay lan truyền các thông tin sai sự thật."
+      },
+      {
+        id: "AI.29",
+        q: "Biện pháp căn bản nào giúp ngăn chặn sự thiên lệch định kiến xã hội trong AI?",
+        o: [
+          "Xây dựng tập dữ liệu đa dạng và chuẩn xác.",
+          "Chỉ thu thập dữ liệu của một nhóm nhỏ.",
+          "Giảm bớt số lượng mẫu dữ liệu nạp vào.",
+          "Giấu kín các thuật toán sử dụng trong máy."
+        ],
+        a: "Xây dựng tập dữ liệu đa dạng và chuẩn xác.",
+        e: "Phương án A đúng vì dữ liệu đầu vào bao quát, cân bằng và phản ánh đúng thực tế xã hội sẽ giúp mô hình đưa ra phán đoán công bằng và không thiên kiến."
+      },
+      {
+        id: "AI.30",
+        q: "Chủ thể giữ vai trò tối cao trong việc dẫn dắt và kiểm soát hệ sinh thái AI là ai?",
+        o: [
+          "Con người.",
+          "Hệ thống người máy tự động.",
+          "Các ứng dụng chatbot thông minh.",
+          "Mạng lưới máy chủ điện toán toàn cầu."
+        ],
+        a: "Con người.",
+        e: "Phương án A đúng vì con người là tác giả, là người thiết lập mục tiêu đạo đức và luôn là trung tâm giám sát hoạt động của mọi hệ thống công nghệ."
+      }
+    ],
+    tf: [
+      {
+        id: "AI.31",
+        ctx: "Xét các nhận định về nguồn gốc và bản chất của trí tuệ nhân tạo:",
+        sts: [
+          { l: "a)", t: "AI là sản phẩm khoa học do con người lập trình và điều khiển.", a: true },
+          { l: "b)", t: "AI có cảm xúc và đời sống tinh thần giống hệt như con người.", a: false },
+          { l: "c)", t: "Học sinh cần kiểm tra lại kết quả do AI cung cấp trước khi vận dụng.", a: true },
+          { l: "d)", t: "Mọi công cụ AI trên Internet đều đảm bảo an toàn tuyệt đối cho người dùng.", a: false }
+        ],
+        e: "Ý a đúng: AI là thành tựu khoa học máy tính do con người tạo ra; Ý b sai: AI không có cảm xúc hay ý thức; Ý c đúng: Cần đối chiếu để tránh ảo giác AI; Ý d sai: Nhiều công cụ có rủi ro về mã độc và rò rỉ dữ liệu."
+      },
+      {
+        id: "AI.32",
+        ctx: "Xét các khía cạnh bảo vệ thông tin riêng tư của học sinh khi sử dụng AI:",
+        sts: [
+          { l: "a)", t: "Học sinh có thể tùy ý cung cấp mã số định danh cá nhân cho các chatbot.", a: false },
+          { l: "b)", t: "Lộ dữ liệu cá nhân có thể dẫn đến nguy cơ bị lừa đảo trên mạng.", a: true },
+          { l: "c)", t: "Người dùng có quyền từ chối cung cấp dữ liệu riêng tư nhạy cảm.", a: true },
+          { l: "d)", t: "Nền tảng AI được quyền tự do mua bán hình ảnh của trẻ em mà không cần xin phép.", a: false }
+        ],
+        e: "Ý a sai: Không được để lộ mã định danh cá nhân; Ý b đúng: Dữ liệu bị lộ dễ bị kẻ xấu trục lợi lừa đảo; Ý c đúng: Quyền riêng tư cho phép từ chối cung cấp thông tin; Ý d sai: Mua bán dữ liệu trẻ em là vi phạm nghiêm trọng pháp luật."
+      },
+      {
+        id: "AI.33",
+        ctx: "Về tính trung thực và đạo đức học tập khi dùng công cụ AI:",
+        sts: [
+          { l: "a)", t: "Dùng AI dịch thuật ngữ tiếng nước ngoài để học tập là điều phù hợp.", a: true },
+          { l: "b)", t: "Nhờ AI làm hộ toàn bộ bài kiểm tra giúp học sinh tự lập hơn trong học tập.", a: false },
+          { l: "c)", t: "Khai báo trung thực việc có dùng AI thể hiện thái độ học tập đúng đắn.", a: true },
+          { l: "d)", t: "Toàn bộ câu trả lời của AI luôn là chân lý và không bao giờ mắc lỗi.", a: false }
+        ],
+        e: "Ý a đúng: AI là công cụ hỗ trợ tra cứu ngoại ngữ hiệu quả; Ý b sai: Nhờ làm hộ là ỷ lại, triệt tiêu tư duy độc lập; Ý c đúng: Minh bạch là chuẩn mực liêm chính học thuật; Ý d sai: AI có thể mắc lỗi do dữ liệu huấn luyện."
+      },
+      {
+        id: "AI.34",
+        ctx: "Về quyền tự chủ của con người khi tương tác với các hệ thống AI:",
+        sts: [
+          { l: "a)", t: "Con người phải luôn giữ quyền ra quyết định cuối cùng trong mọi việc hệ trọng.", a: true },
+          { l: "b)", t: "Có thể giao toàn bộ việc chấm điểm đạo đức học sinh cho phần mềm AI tự xử lí.", a: false },
+          { l: "c)", t: "Việc đối chiếu thông tin từ nhiều nguồn giúp ngăn ngừa các quyết định sai.", a: true },
+          { l: "d)", t: "Người vận hành hoàn toàn vô can khi hệ thống AI do mình dùng gây ra thiệt hại.", a: false }
+        ],
+        e: "Ý a đúng: Con người phải làm chủ quyết định sinh mệnh, pháp lý và đạo đức; Ý b sai: Đạo đức cần sự thấu hiểu toàn diện của giáo viên; Ý c đúng: Tránh phán đoán phiến diện; Ý d sai: Người sử dụng luôn phải chịu trách nhiệm pháp lý."
+      },
+      {
+        id: "AI.35",
+        ctx: "Về chất lượng dữ liệu huấn luyện và nguyên tắc công bằng của AI:",
+        sts: [
+          { l: "a)", t: "Dữ liệu huấn luyện phiến diện sẽ khiến AI đưa ra kết luận thiếu công bằng.", a: true },
+          { l: "b)", t: "Tập dữ liệu đa dạng giúp hạn chế nguy cơ phân biệt đối xử của thuật toán.", a: true },
+          { l: "c)", t: "Hệ thống AI tự động có đạo đức mà không cần con người định hướng.", a: false },
+          { l: "d)", t: "Tự ý lấy ảnh chụp của người khác làm dữ liệu dạy máy là vi phạm bản quyền.", a: true }
+        ],
+        e: "Ý a đúng: Dữ liệu lệch lạc dẫn đến kết quả sai lệch; Ý b đúng: Tăng tính đại diện cho mọi nhóm người; Ý c sai: AI không tự có đạo đức nếu không được cài đặt quy chuẩn; Ý d đúng: Vi phạm quyền hình ảnh cá nhân."
+      },
+      {
+        id: "AI.36",
+        ctx: "Về văn hóa ứng xử của học sinh trên không gian mạng có ứng dụng AI:",
+        sts: [
+          { l: "a)", t: "Kịp thời báo cáo cho giáo viên khi phát hiện chatbot đưa ra thông tin bạo lực.", a: true },
+          { l: "b)", t: "Khuyến khích bạn bè tải về các ứng dụng AI độc hại để trêu đùa nhau.", a: false },
+          { l: "c)", t: "Tuân thủ các quy tắc an toàn thông tin khi sử dụng thiết bị tại phòng máy.", a: true },
+          { l: "d)", t: "Việc sao chép văn bản từ AI nộp bài là đúng nếu thầy cô không phát hiện ra.", a: false }
+        ],
+        e: "Ý a đúng: Ngăn chặn môi trường độc hại; Ý b sai: Lan truyền ứng dụng độc hại là hành vi xấu; Ý c đúng: Bảo vệ an toàn mạng nhà trường; Ý d sai: Gian lận vẫn là hành vi sai trái dù có bị phát hiện hay không."
+      },
+      {
+        id: "AI.37",
+        ctx: "Về giới hạn của công nghệ và vai trò không thể thay thế của con người:",
+        sts: [
+          { l: "a)", t: "AI hỗ trợ bác sĩ chẩn đoán hình ảnh phim X-quang rất hiệu quả.", a: true },
+          { l: "b)", t: "AI có thể thay thế hoàn toàn sự đồng cảm và tình yêu thương của thầy cô giáo.", a: false },
+          { l: "c)", t: "Bác sĩ con người luôn là người chịu trách nhiệm về phác đồ điều trị bệnh.", a: true },
+          { l: "d)", t: "Học sinh nên xem AI là công cụ hỗ trợ chứ không để AI làm thay tư duy.", a: true }
+        ],
+        e: "Ý a đúng: AI xử lí ảnh y tế rất tốt; Ý b sai: Tình cảm và sự đồng cảm là đặc quyền của con người; Ý c đúng: Con người chịu trách nhiệm y đức; Ý d đúng: Dùng AI làm đòn bẩy phát triển tư duy."
+      },
+      {
+        id: "AI.38",
+        ctx: "Về nguy cơ thao túng người dùng và trách nhiệm khi sử dụng AI:",
+        sts: [
+          { l: "a)", t: "Thuật toán mạng xã hội có thể dùng AI gợi ý thông tin để dẫn dắt người xem.", a: true },
+          { l: "b)", t: "Người dùng có thể bị thao túng tâm lý nếu tiếp nhận thông tin thụ động từ AI.", a: true },
+          { l: "c)", t: "Người dùng AI tạo tin đồn thất thiệt không phải chịu trách nhiệm pháp lý.", a: false },
+          { l: "d)", t: "Học sinh cần quản lí thời gian dùng thiết bị số để bảo vệ sức khỏe tâm thần.", a: true }
+        ],
+        e: "Ý a đúng: Thuật toán tạo bong bóng thông tin để giữ chân người dùng; Ý b đúng: Thụ động dễ bị dắt mũi; Ý c sai: Tung tin giả bị phạt theo Luật An ninh mạng; Ý d đúng: Cần cân bằng cuộc sống thực và ảo."
+      },
+      {
+        id: "AI.39",
+        ctx: "Về nguy cơ giả mạo từ deepfake và ý thức phòng tránh của học sinh:",
+        sts: [
+          { l: "a)", t: "Dùng deepfake chế ảnh xúc phạm danh dự người khác là hành vi vi phạm pháp luật.", a: true },
+          { l: "b)", t: "Mạo danh giọng nói qua điện thoại để lừa đảo là hành vi tội phạm nguy hiểm.", a: true },
+          { l: "c)", t: "Kiểm tra cử động miệng và ánh mắt giúp nhận diện hình ảnh deepfake.", a: true },
+          { l: "d)", t: "Mọi hình ảnh lan truyền trên mạng đều là ảnh chụp thật 100% không thể làm giả.", a: false }
+        ],
+        e: "Ý a đúng: Vi phạm quyền bảo vệ danh dự con người; Ý b đúng: Thủ đoạn lừa đảo tinh vi; Ý c đúng: Deepfake thường có lỗi khớp viền cử động mặt và mắt; Ý d sai: Công nghệ hiện đại có thể giả mạo hình ảnh chân thực."
+      },
+      {
+        id: "AI.40",
+        ctx: "Về trách nhiệm giải trình của học sinh khi làm bài tập có sự hỗ trợ của AI:",
+        sts: [
+          { l: "a)", t: "Học sinh cần chỉ rõ phần nội dung nào do mình làm và phần nào do AI hỗ trợ.", a: true },
+          { l: "b)", t: "Nhận tranh do AI vẽ là tác phẩm nghệ thuật do chính tay mình sáng tạo.", a: false },
+          { l: "c)", t: "Khi AI đưa ra tài liệu dẫn chứng, học sinh phải tự mình đọc và kiểm chứng lại.", a: true },
+          { l: "d)", t: "Trách nhiệm giải trình chỉ dành cho chuyên gia, học sinh THCS không cần quan tâm.", a: false }
+        ],
+        e: "Ý a đúng: Đảm bảo tính trung thực trong học tập; Ý b sai: Mạo nhận quyền tác giả; Ý c đúng: Tránh đưa thông tin giả mạo vào bài nộp; Ý d sai: Học sinh cũng cần rèn luyện tính liêm chính từ sớm."
+      },
+      {
+        id: "AI.41",
+        ctx: "Về hiện tượng thông tin sai lệch từ các mô hình AI tạo sinh:",
+        sts: [
+          { l: "a)", t: "AI có thể tạo ra các trích dẫn sách hoàn toàn bịa đặt nhưng rất trôi chảy.", a: true },
+          { l: "b)", t: "Tất cả câu trả lời của mô hình ngôn ngữ lớn đều bảo đảm tính chính xác tuyệt đối.", a: false },
+          { l: "c)", t: "Rèn luyện tư duy phản biện giúp học sinh tránh được thông tin giả mạo từ AI.", a: true },
+          { l: "d)", t: "Học sinh tự chịu trách nhiệm khi phát tán thông tin sai lệch lấy từ AI.", a: true }
+        ],
+        e: "Ý a đúng: Hiện tượng ảo giác điển hình của LLM; Ý b sai: AI có thể đưa ra kết quả sai; Ý c đúng: Phản biện giúp gạn đục khơi trong; Ý d đúng: Người phát tán phải chịu trách nhiệm về thông tin do mình chia sẻ."
+      },
+      {
+        id: "AI.42",
+        ctx: "Về nguyên tắc công bằng và chống định kiến xã hội trong trí tuệ nhân tạo:",
+        sts: [
+          { l: "a)", t: "Thuật toán tuyển dụng ưu tiên nam giới hơn nữ giới là biểu hiện của thiên kiến.", a: true },
+          { l: "b)", t: "Xây dựng mô hình AI tôn trọng sự đa dạng là tiêu chuẩn đạo đức cốt lõi.", a: true },
+          { l: "c)", t: "Nếu chỉ nạp dữ liệu của một nhóm nhỏ, kết quả đầu ra của AI sẽ rất phiến diện.", a: true },
+          { l: "d)", t: "Thuật toán máy tính tự có lòng trắc ẩn để bảo vệ người yếu thế trong xã hội.", a: false }
+        ],
+        e: "Ý a đúng: Định kiến giới trong dữ liệu lịch sử; Ý b đúng: Tôn trọng bình đẳng xã hội; Ý c đúng: Thiếu tính đại diện; Ý d sai: Máy móc không có lòng trắc ẩn tự nhiên."
+      },
+      {
+        id: "AI.43",
+        ctx: "Về trách nhiệm công dân số của học sinh THCS trong thời đại công nghệ:",
+        sts: [
+          { l: "a)", t: "Tham gia cảnh báo cho bạn bè về các thủ đoạn lừa đảo tinh vi bằng công nghệ AI.", a: true },
+          { l: "b)", t: "Cài mã độc có ứng dụng AI vào hệ thống máy tính của trường để thử nghiệm phá hoại.", a: false },
+          { l: "c)", t: "Giữ gìn nét đẹp văn hóa và thuần phong mỹ tục khi giao tiếp qua ứng dụng AI.", a: true },
+          { l: "d)", t: "Do công nghệ AI phát triển nhanh nên con người không cần đặt ra luật lệ gì thêm.", a: false }
+        ],
+        e: "Ý a đúng: Lan tỏa ý thức bảo vệ cộng đồng số; Ý b sai: Phá hoại tài sản nhà trường là vi phạm pháp luật; Ý c đúng: Văn hóa ứng xử văn minh trên mạng; Ý d sai: Luật pháp và đạo đức cần hoàn thiện liên tục để quản lí AI."
+      },
+      {
+        id: "AI.44",
+        ctx: "Về chuẩn bị năng lực tự học của học sinh trong kỉ nguyên số:",
+        sts: [
+          { l: "a)", t: "Tinh thần tự học suốt đời giúp học sinh làm chủ kiến thức và công nghệ.", a: true },
+          { l: "b)", t: "Lòng nhân ái và tính trung thực là nét riêng biệt giúp phân biệt người với máy.", a: true },
+          { l: "c)", t: "Khi AI phát triển thì học sinh không cần học các môn văn hóa cơ bản nữa.", a: false },
+          { l: "d)", t: "Hợp tác tích cực giữa người với người và với AI giúp nâng cao chất lượng việc làm.", a: true }
+        ],
+        e: "Ý a đúng: Tự học suốt đời là chìa khóa thích ứng; Ý b đúng: Phẩm chất đạo đức của con người là vô giá; Ý c sai: Kiến thức nền tảng giúp đánh giá đúng/sai câu trả lời của AI; Ý d đúng: Kỹ năng phối hợp nâng cao năng suất."
+      },
+      {
+        id: "AI.45",
+        ctx: "Về việc kiểm soát các tác nhân AI và sự an toàn của cộng đồng:",
+        sts: [
+          { l: "a)", t: "Các tác nhân AI tự hành phải hoạt động dưới sự giám sát chặt chẽ của con người.", a: true },
+          { l: "b)", t: "Cho phép tác nhân AI tự do sử dụng công cụ gây nguy hiểm mà không cần ai quản trị.", a: false },
+          { l: "c)", t: "Con người là chủ thể dẫn dắt và định hướng mục tiêu hoạt động cho hệ thống AI.", a: true },
+          { l: "d)", t: "Người điều hành hệ thống AI phải chịu trách nhiệm khi hệ thống gây tổn hại xã hội.", a: true }
+        ],
+        e: "Ý a đúng: Duy trì sự giám sát của con người (Human-in-the-loop); Ý b sai: Tiềm ẩn nguy cơ mất kiểm soát an ninh nghiêm trọng; Ý c đúng: Con người làm chủ công nghệ; Ý d đúng: Trách nhiệm giải trình của bên vận hành."
+      }
+    ],
+    short: [
+      {
+        id: "AI.46",
+        q: "Cho 6 nhận định sau về nguồn gốc và giới hạn đạo đức của AI:\n(1) AI là sản phẩm khoa học do con người lập trình để phục vụ con người.\n(2) AI có cảm xúc yêu thương và lòng vị tha giống hệt như một con người.\n(3) Con người luôn là chủ thể chịu trách nhiệm cuối cùng khi sử dụng AI.\n(4) Học sinh cần kiểm tra lại kết quả trước khi tiếp nhận thông tin từ AI.\n(5) Tất cả câu trả lời của AI trên Internet đều chuẩn xác và không có lỗi.\n(6) Được phép dùng AI tạo văn bản trêu chọc bạn bè trong giờ giải lao.\nHọc sinh chọn các nhận định đúng và ghi dãy số theo thứ tự tăng dần.",
+        a: "134",
+        e: "Nhận định (1), (3), (4) là đúng vì AI là công cụ do người làm ra, con người chịu trách nhiệm và cần kiểm chứng thông tin. Nhận định (2) sai vì AI không có tình cảm; (5) sai vì AI có thể bị ảo giác; (6) sai vì xúc phạm bạn bè vi phạm đạo đức học đường."
+      },
+      {
+        id: "AI.47",
+        q: "Cho 6 nhận định sau về bảo mật dữ liệu cá nhân khi tương tác với AI:\n(1) Mật khẩu và địa chỉ nhà riêng là dữ liệu cá nhân cần giữ kín.\n(2) Gửi ảnh chụp cá nhân nhạy cảm lên chatbot có nguy cơ bị lộ thông tin.\n(3) Người dùng có quyền từ chối cung cấp dữ liệu riêng tư cho phần mềm.\n(4) Nhập số thẻ căn cước vào trang web AI lạ là việc làm rất an toàn.\n(5) Nên báo ngay cho cha mẹ hoặc thầy cô khi phát hiện nguy cơ mất dữ liệu.\n(6) Trang web AI miễn phí có quyền tùy tiện phát tán ảnh cá nhân người dùng.\nHọc sinh chọn các nhận định đúng và ghi dãy số theo thứ tự tăng dần.",
+        a: "1235",
+        e: "Nhận định (1), (2), (3), (5) là đúng vì tuân thủ nguyên tắc bảo vệ quyền riêng tư số và xử lí kịp thời nguy cơ mất dữ liệu. Nhận định (4) sai vì nguy cơ bị đánh cắp danh tính; (6) sai vì phát tán ảnh cá nhân là vi phạm pháp luật."
+      },
+      {
+        id: "AI.48",
+        q: "Cho 6 nhận định sau về tính trung thực học thuật khi học tập cùng AI:\n(1) Tra từ vựng tiếng Anh qua trợ lí AI là hình thức học tập đúng đắn.\n(2) Yêu cầu AI làm hộ toàn bộ bài viết thu hoạch để nộp thầy cô giáo.\n(3) Đối chiếu thông tin của AI với sách giáo khoa giúp hiểu bài sâu hơn.\n(4) Khai báo trung thực sự hỗ trợ của AI thể hiện tinh thần trách nhiệm.\n(5) Tin tưởng tuyệt đối câu trả lời của AI là cách học tập tốt nhất.\n(6) Tự nhận câu trả lời của máy tính là bài viết sáng tạo của riêng mình.\nHọc sinh chọn các nhận định đúng và ghi dãy số theo thứ tự tăng dần.",
+        a: "134",
+        e: "Nhận định (1), (3), (4) là đúng vì thể hiện việc sử dụng AI như công cụ hỗ trợ và liêm chính trong học tập. Nhận định (2), (6) là gian lận học thuật; (5) thiếu tư duy phản biện."
+      },
+      {
+        id: "AI.49",
+        q: "Cho 6 nhận định sau về quyền tự chủ của con người khi kiểm soát AI:\n(1) Con người luôn cần giữ quyền ra quyết định cuối cùng trong công việc.\n(2) Để máy móc tự động quyết định mức kỷ luật học sinh là điều nhân văn.\n(3) Thói quen kiểm chứng nguồn tin giúp tránh quyết định sai lầm do AI.\n(4) Khi kết quả AI gây hại xã hội, người vận hành hoàn toàn không liên can.\n(5) Con người cần ngăn chặn các dự án thiết kế công cụ AI có tính phá hoại.\n(6) Cung cấp vị trí học tập của lớp liên tục cho ứng dụng AI mà không hỏi ý kiến.\nHọc sinh chọn các nhận định đúng và ghi dãy số theo thứ tự tăng dần.",
+        a: "135",
+        e: "Nhận định (1), (3), (5) là đúng vì khẳng định vị thế chủ thể, tính cẩn trọng và trách nhiệm bảo vệ an toàn của con người. Nhận định (2) sai vì kỷ luật cần sự thấu cảm của nhà giáo; (4) trốn tránh trách nhiệm; (6) xâm phạm quyền riêng tư của tập thể."
+      },
+      {
+        id: "AI.50",
+        q: "Cho 6 nhận định sau về chất lượng dữ liệu huấn luyện và tính công bằng:\n(1) Dữ liệu huấn luyện phong phú giúp mô hình AI phân loại khách quan hơn.\n(2) Dữ liệu huấn luyện bị phiến diện là nguyên nhân gây ra sự thiên vị.\n(3) Máy tính tự động nhận biết lẽ phải và công lý giống như con người.\n(4) Lén thu thập hình ảnh của người khác để dạy máy là hành vi sai trái.\n(5) Dữ liệu đa dạng góp phần tạo ra công cụ AI bình đẳng cho xã hội.\n(6) Mọi dữ liệu trôi nổi trên mạng đều đạt chuẩn để huấn luyện mô hình.\nHọc sinh chọn các nhận định đúng và ghi dãy số theo thứ tự tăng dần.",
+        a: "1245",
+        e: "Nhận định (1), (2), (4), (5) là đúng vì làm rõ tầm quan trọng của dữ liệu sạch, đa dạng và tôn trọng bản quyền. Nhận định (3) sai vì máy móc chỉ tính toán số học; (6) sai vì dữ liệu mạng chứa nhiều rác và tin giả."
+      },
+      {
+        id: "AI.51",
+        q: "Cho 6 nhận định sau về văn hóa số và hành vi văn minh khi dùng AI:\n(1) Tôn trọng quyền tác giả khi tham khảo các ý tưởng từ hệ thống AI.\n(2) Kịp thời báo cáo cho nhà trường khi thấy AI tạo nội dung xấu.\n(3) Che giấu nguồn gốc bài viết do AI tạo ra để nộp dự thi viết văn.\n(4) Tuân thủ các quy tắc an toàn thông tin phòng máy của trường quy định.\n(5) Đưa toàn bộ danh bạ điện thoại gia đình lên các chatbot trên mạng.\n(6) Dùng AI chỉnh sửa tranh ảnh nhằm bêu xấu danh dự của các bạn trong lớp.\nHọc sinh chọn các nhận định đúng và ghi dãy số theo thứ tự tăng dần.",
+        a: "124",
+        e: "Nhận định (1), (2), (4) là đúng vì thể hiện văn hóa ứng xử liêm chính và bảo vệ an toàn trường học. Nhận định (3) là đạo văn; (5) làm lộ dữ liệu người thân; (6) là hành vi bắt nạt mạng vi phạm pháp luật."
+      },
+      {
+        id: "AI.52",
+        q: "Cho 6 nhận định sau về giới hạn của AI và vai trò của thầy cô giáo:\n(1) AI có thể hỗ trợ chấm điểm và phát hiện lỗi bài thi trắc nghiệm rất nhanh.\n(2) AI có thể thay thế hoàn toàn vai trò truyền cảm hứng đạo đức của người thầy.\n(3) Sự lắng nghe và thấu cảm tâm lý học sinh là điều máy móc không làm được.\n(4) Tình yêu thương giữa thầy và trò là giá trị cốt lõi không thể thay thế.\n(5) Cấm học sinh hoàn toàn việc tìm hiểu và tiếp cận kiến thức công nghệ AI.\n(6) Giáo viên luôn là người kiểm duyệt và chịu trách nhiệm về nội dung bài giảng.\nHọc sinh chọn các nhận định đúng và ghi dãy số theo thứ tự tăng dần.",
+        a: "1346",
+        e: "Nhận định (1), (3), (4), (6) là đúng vì khẳng định vai trò công nghệ là bổ trợ, còn thầy cô giáo là người dẫn dắt tâm hồn và nhân cách. Nhận định (2) sai vì máy tính thiếu lòng trắc ẩn; (5) là suy nghĩ cực đoan, lạc hậu."
+      },
+      {
+        id: "AI.53",
+        q: "Cho 6 nhận định sau về rủi ro khi lạm dụng các công cụ AI tạo sinh:\n(1) Ỷ lại vào chatbot để làm văn khiến năng lực tư duy phản biện giảm sút.\n(2) Lạm dụng AI giải hộ bài tập làm mòn kỹ năng tự xử lí tình huống khó.\n(3) Dùng AI càng nhiều thì trí thông minh tự nhiên của người càng tăng lên.\n(4) Học sinh cần suy nghĩ độc lập trước khi đọc các gợi ý từ phần mềm AI.\n(5) Sử dụng thông tin chưa kiểm chứng từ AI dễ dẫn đến tiếp nhận kiến thức sai.\n(6) Có công cụ AI hỗ trợ thì học sinh không cần đọc sách giáo khoa nữa.\nHọc sinh chọn các nhận định đúng và ghi dãy số theo thứ tự tăng dần.",
+        a: "1245",
+        e: "Nhận định (1), (2), (4), (5) là đúng vì chỉ rõ các rủi ro thui chột tư duy và cảnh báo nguy cơ tiếp nhận sai lệch. Nhận định (3) sai vì ỷ lại làm suy giảm trí tuệ; (6) sai vì sách giáo khoa cung cấp tri thức chuẩn mực bắt buộc."
+      },
+      {
+        id: "AI.54",
+        q: "Cho 6 nhận định sau về hiện tượng thao túng người dùng và trách nhiệm:\n(1) Thuật toán gợi ý có thể hướng người xem vào các nội dung thông tin xấu.\n(2) Người dùng AI tạo ảnh xúc phạm danh dự người khác phải chịu trách nhiệm.\n(3) Nhà cung cấp dịch vụ AI có trách nhiệm ngăn chặn việc phát tán tin rác.\n(4) Dữ liệu sở thích người dùng có thể bị lợi dụng để điều hướng hành vi mua.\n(5) Mọi hành vi sai phạm trên Internet qua phần mềm AI đều không bị xử lí.\n(6) Người dùng không có quyền quản lí hay xóa lịch sử tìm kiếm trên trang AI.\nHọc sinh chọn các nhận định đúng và ghi dãy số theo thứ tự tăng dần.",
+        a: "1234",
+        e: "Nhận định (1), (2), (3), (4) là đúng vì nhận diện được rủi ro bị thao túng tâm lí, quyền bảo vệ người tiêu dùng và trách nhiệm pháp lí. Nhận định (5) sai vì pháp luật xử lí mọi hành vi tội phạm mạng; (6) sai vì người dùng có quyền xóa dữ liệu cá nhân."
+      },
+      {
+        id: "AI.55",
+        q: "Cho 6 nhận định sau về công nghệ deepfake và tin tức giả mạo trên mạng:\n(1) Deepfake là kỹ thuật dùng AI để tạo video giả mạo người thật rất tinh vi.\n(2) Deepfake có thể bị kẻ xấu lợi dụng để lừa đảo chiếm đoạt tài sản.\n(3) Kiểm tra chéo với báo chí chính thống giúp phát hiện hình ảnh giả mạo.\n(4) Toàn bộ video clip chia sẻ trên mạng xã hội đều là sự thật khách quan.\n(5) Hành vi phát tán video giả bôi nhọ người khác là vi phạm pháp luật nghiêm trọng.\n(6) Học sinh được phép dùng công nghệ deepfake trêu chọc giáo viên trường mình.\nHọc sinh chọn các nhận định đúng và ghi dãy số theo thứ tự tăng dần.",
+        a: "1235",
+        e: "Nhận định (1), (2), (3), (5) là đúng vì mô tả đúng bản chất công nghệ, nguy cơ lừa đảo và trách nhiệm pháp lí. Nhận định (4) sai vì mạng xã hội tràn lan tin giả; (6) sai vì xúc phạm nhà giáo là hành vi phi đạo đức và vi phạm nội quy trường học."
+      },
+      {
+        id: "AI.56",
+        q: "Cho 6 nhận định sau về hiện tượng ảo giác AI và trách nhiệm giải trình:\n(1) Ảo giác AI là hiện tượng mô hình AI tạo ra thông tin không có thật.\n(2) Ảo giác AI phát sinh từ xác suất toán học chứ không phải lỗi cố ý của máy.\n(3) Trách nhiệm giải trình yêu cầu người dùng nêu rõ công cụ AI đã trợ giúp.\n(4) Nếu thông tin bài nộp bị sai, học sinh có thể đổ hết lỗi cho phần mềm AI.\n(5) Cần đối chiếu các trích dẫn tài liệu của AI với sách khoa học chính thống.\n(6) Công cụ AI hiện nay đã đạt mức tuyệt hảo và xóa bỏ hoàn toàn hiện tượng ảo giác.\nHọc sinh chọn các nhận định đúng và ghi dãy số theo thứ tự tăng dần.",
+        a: "1235",
+        e: "Nhận định (1), (2), (3), (5) là đúng vì làm rõ nguồn gốc ảo giác AI và tinh thần trách nhiệm của người sử dụng. Nhận định (4) sai vì con người phải chịu trách nhiệm về bài làm của mình; (6) sai vì ảo giác vẫn là thách thức chưa thể xóa bỏ hoàn toàn của AI hiện nay."
+      },
+      {
+        id: "AI.57",
+        q: "Cho 6 nhận định sau về cải thiện chất lượng dữ liệu và đạo đức người tạo AI:\n(1) Loại bỏ mẫu dữ liệu sai nhãn giúp mô hình AI phân loại chính xác hơn.\n(2) Thu thập dữ liệu tôn trọng quyền bình đẳng giúp hạn chế sự thiên kiến.\n(3) Lập trình viên được tự ý sao chép ảnh của trường để nạp cho máy học.\n(4) Thử nghiệm mô hình với các dữ liệu thực tế giúp nâng cao tính an toàn.\n(5) Người tạo ra AI có nghĩa vụ giải thích quy trình khi phần mềm có lỗi.\n(6) Nạp càng nhiều dữ liệu sai lệch vào máy thì thuật toán vận hành càng tốt.\nHọc sinh chọn các nhận định đúng và ghi dãy số theo thứ tự tăng dần.",
+        a: "1245",
+        e: "Nhận định (1), (2), (4), (5) là đúng vì thể hiện trách nhiệm chuyên môn và đạo đức của người lập trình AI. Nhận định (3) vi phạm quyền riêng tư và bản quyền; (6) sai vì nạp dữ liệu sai sẽ tạo ra mô hình phế phẩm (Garbage In, Garbage Out)."
+      },
+      {
+        id: "AI.58",
+        q: "Cho 6 nhận định sau về các nguyên tắc phát triển AI vì lợi ích xã hội:\n(1) Hệ thống AI phải được thiết kế vì mục đích nâng cao chất lượng cuộc sống.\n(2) Việc chế tạo các công cụ AI nhằm mục đích lừa đảo là hành vi bị cấm.\n(3) Tối ưu hóa mô hình AI để tiết kiệm năng lượng điện là tiêu chuẩn cần thiết.\n(4) Xã hội nên hủy bỏ quyền riêng tư để công nghệ AI phát triển nhanh nhất.\n(5) Các ứng dụng AI cần tôn trọng truyền thống văn hóa tốt đẹp của dân tộc.\n(6) Doanh nghiệp công nghệ có quyền sở hữu trọn đời bí mật đời tư khách hàng.\nHọc sinh chọn các nhận định đúng và ghi dãy số theo thứ tự tăng dần.",
+        a: "1235",
+        e: "Nhận định (1), (2), (3), (5) là đúng vì hướng tới sự phát triển công nghệ bền vững, nhân văn và bảo vệ môi trường. Nhận định (4), (6) vi phạm nghiêm trọng quyền con người và quyền riêng tư cá nhân."
+      },
+      {
+        id: "AI.59",
+        q: "Cho 6 nhận định sau về chuẩn mực đạo đức của học sinh trong không gian số:\n(1) Luôn giữ thái độ trung thực và trách nhiệm khi học tập qua môi trường số.\n(2) Không chia sẻ hay lan truyền các hình ảnh chỉnh sửa độc hại do AI tạo ra.\n(3) Luôn tôn trọng thành quả lao động sáng tạo khoa học của người khác.\n(4) Dùng AI phá mật khẩu máy tính của người khác để thể hiện sự thông minh.\n(5) Tích cực vận dụng AI để hỗ trợ học tập và giúp đỡ việc chung của trường.\n(6) Học sinh không cần quan tâm đến luật an ninh mạng vì chỉ dùng để giải trí.\nHọc sinh chọn các nhận định đúng và ghi dãy số theo thứ tự tăng dần.",
+        a: "1235",
+        e: "Nhận định (1), (2), (3), (5) là đúng vì là những biểu hiện cụ thể của một công dân số có trách nhiệm, liêm chính và văn minh. Nhận định (4) là tội phạm công nghệ; (6) sai vì mọi công dân đều phải tuân thủ pháp luật."
+      },
+      {
+        id: "AI.60",
+        q: "Cho 6 nhận định sau về vai trò định hướng của con người đối với công nghệ AI:\n(1) Con người luôn giữ vai trò chủ đạo trong việc định hướng tương lai của AI.\n(2) Tác nhân AI tự chủ phải hoạt động trong giới hạn an toàn người lập ra.\n(3) Trí tuệ nhân tạo sẽ tự mình thay thế toàn bộ quyền làm chủ của nhân loại.\n(4) Rèn luyện lòng nhân ái là nền tảng giúp con người sử dụng công nghệ an toàn.\n(5) Phát triển công nghệ AI cần song hành với việc hoàn thiện chuẩn mực đạo đức.\n(6) Con người nên phó mặc các quyết định đạo đức khó khăn cho thuật toán máy.\nHọc sinh chọn các nhận định đúng và ghi dãy số theo thứ tự tăng dần.",
+        a: "1245",
+        e: "Nhận định (1), (2), (4), (5) là đúng vì nhấn mạnh vai trò làm chủ tối thượng, nhân văn và sự cần thiết của hành lang đạo đức khi phát triển AI. Nhận định (3), (6) từ bỏ quyền tự chủ và hạ thấp trách nhiệm đạo đức của con người."
+      }
+    ]
+  }
+};
+
+function autoScaleApp() {
+    const container = document.querySelector('.container');
+    const wrapper = document.getElementById('app-wrapper');
+    const adminScreen = document.getElementById('screen-admin');
+    const reviewArea = document.getElementById('review-area');
+    if (!container || !wrapper) return;
+
+    const isReviewing = reviewArea && reviewArea.style.display === 'block';
+    
+    // NẾU TÍNH NĂNG THU PHÓNG BỊ TẮT TỪ ADMIN HOẶC ĐANG Ở MÀN HÌNH REVIEW/ADMIN/MOBILE
+    if (!isAutoScaleEnabled || (adminScreen && adminScreen.classList.contains('active')) || window.innerWidth <= 768 || isReviewing) {
+        container.style.transform = `none`; wrapper.style.height = 'auto'; wrapper.style.overflow = 'visible';
+        container.style.marginBottom = '50px'; return; 
+    }
+
+    container.style.transform = `none`; wrapper.style.height = 'auto'; wrapper.style.overflow = 'visible'; container.style.marginBottom = '0px';
+    void container.offsetHeight; 
+    const naturalHeight = container.offsetHeight + 20, windowHeight = window.innerHeight;
+
+    if (naturalHeight > windowHeight) {
+        const ratio = windowHeight / naturalHeight; container.style.transform = `scale(${ratio})`;
+        wrapper.style.height = `${windowHeight}px`; wrapper.style.overflow = 'hidden'; 
+    } else {
+        container.style.transform = `scale(1)`; wrapper.style.height = `${windowHeight}px`; wrapper.style.overflow = 'hidden'; 
+    }
+}
+window.addEventListener('resize', autoScaleApp); autoScaleApp();
+
+document.addEventListener('copy', (e) => { e.preventDefault(); return false; });
+
+const closeOverlay = (modal) => {
+    modal.style.display = 'none';
+    if (modal.id === 'delete-auth-modal') { pendingAuthAction = null; currentDeleteId = null; importedStudentsCache = []; document.getElementById('delete-pw').value = ''; document.getElementById('delete-email').value = ''; document.getElementById('file-import-students').value = ''; }
+    if (modal.id === 'admin-auth-modal') { document.getElementById('admin-pw').value = ''; }
+};
+
+document.addEventListener('keydown', (e) => {
+    if ((e.ctrlKey && (e.key === 'c' || e.key === 'v' || e.key === 'x' || e.key === 'u' || e.key === 's'))) {
+        e.preventDefault(); return false;
+    }
+    if (e.key === 'Escape') {
+        document.querySelectorAll('.modal-overlay').forEach(modal => {
+            if (modal.style.display === 'flex' || modal.style.display === 'block') {
+                closeOverlay(modal);
+            }
+        });
+    }
+    if (e.key === 'Enter') {
+        if (e.target.tagName.toLowerCase() === 'textarea') return;
+        const adminModal = document.getElementById('admin-auth-modal');
+        if (adminModal.style.display === 'flex' || adminModal.style.display === 'block') {
+            document.getElementById('btn-auth-confirm').click();
+            return; 
+        }
+        const deleteModal = document.getElementById('delete-auth-modal');
+        if (deleteModal.style.display === 'flex' || deleteModal.style.display === 'block') {
+            document.getElementById('btn-delete-confirm').click();
+            return;
+        }
+        const finishModal = document.getElementById('confirm-finish-modal');
+        if (finishModal.style.display === 'flex' || finishModal.style.display === 'block') {
+            document.getElementById('btn-modal-confirm').click();
+            return;
+        }
+        const reportModal = document.getElementById('report-modal');
+        if (reportModal.style.display === 'flex' || reportModal.style.display === 'block') {
+            document.getElementById('btn-report-submit').click();
+            return;
+        }
+    }
+}, true);
+
+document.querySelectorAll('.modal-overlay').forEach(modal => {
+    modal.addEventListener('mousedown', (e) => {
+        if (e.target === modal && modal.id !== 'image-viewer-modal') { 
+            closeOverlay(modal);
+        }
+    });
+});
+
+document.addEventListener('paste', function(e) {
+    if (document.getElementById('report-modal').style.display === 'flex' || document.getElementById('report-modal').style.display === 'block') {
+        const items = (e.clipboardData || e.originalEvent.clipboardData).items;
+        for (let index in items) {
+            const item = items[index];
+            if (item.kind === 'file' && item.type.indexOf('image/') !== -1) {
+                const blob = item.getAsFile();
+                processImageFile(blob);
+                showCustomAlert("✅ Đã dán ảnh thành công!");
+            }
+        }
+    }
+});
+
+document.getElementById('topic-select').addEventListener('change', (e) => {
+    const topicText = e.target.options[e.target.selectedIndex].text;
+    document.getElementById('banner-topic').innerText = `Chuyên đề: ${topicText}`;
+});
+
+// AUTOCOMPLETE LOGIC ========================================
+function autocomplete(inp, arr) {
+    let currentFocus;
+    inp.addEventListener("input", function(e) {
+        let a, b, val = this.value; // Đã xóa khai báo biến 'i' ở đây
+        closeAllLists();
+        if (!val) { return false;}
+        currentFocus = -1;
+        a = document.createElement("DIV");
+        a.setAttribute("id", this.id + "autocomplete-list");
+        a.setAttribute("class", "autocomplete-items");
+        this.parentNode.appendChild(a);
+        
+        let count = 0;
+        // Chuyển sang dùng let i = 0 ngay trong vòng lặp để tạo Block Scope
+        for (let i = 0; i < arr.length; i++) {
+            const student = arr[i]; // Gán đối tượng vào hằng số cục bộ để tránh lỗi Closure
+            let sName = student.name || "";
+            // Tìm kiếm không phân biệt hoa thường
+            if (sName.toLowerCase().includes(val.toLowerCase())) {
+                b = document.createElement("DIV");
+                // Highlight phần text trùng
+                let matchIdx = sName.toLowerCase().indexOf(val.toLowerCase());
+                b.innerHTML = sName.substring(0, matchIdx);
+                b.innerHTML += "<strong>" + sName.substring(matchIdx, matchIdx + val.length) + "</strong>";
+                b.innerHTML += sName.substring(matchIdx + val.length);
+                b.innerHTML += ` <span style="color:#64748b; font-size:0.8rem;">(Lớp ${student.class} - SBD ${student.sbd})</span>`;
+                
+                b.innerHTML += "<input type='hidden' value='" + sName.replace(/'/g, "&#39;") + "'>";
+                b.addEventListener("click", function(e) {
+                    inp.value = this.getElementsByTagName("input")[0].value;
+                    // TỰ ĐỘNG ĐIỀN CÁC TRƯỜNG VÀ KHÓA (Gọi từ hằng số student)
+                    document.getElementById("user_class").value = student.class || "";
+                    document.getElementById("user_sbd").value = student.sbd || "";
+                    document.getElementById("user_school").value = student.school || "";
+                    
+                    document.getElementById("user_class").setAttribute("readonly", true);
+                    document.getElementById("user_sbd").setAttribute("readonly", true);
+                    document.getElementById("user_school").setAttribute("readonly", true);
+                    
+                    closeAllLists();
+                });
+                a.appendChild(b);
+                count++;
+                if(count > 10) break; // Chỉ hiện 10 kết quả
+            }
+        }
+        if(count === 0) {
+            b = document.createElement("DIV");
+            b.innerHTML = `<span style="color:#ef4444; font-size:0.8rem;">Không tìm thấy trong danh sách. Hãy tick chọn "Thí sinh tự do" ở trên nếu bạn thuộc trường khác.</span>`;
+            a.appendChild(b);
+        }
+    });
+    
+    inp.addEventListener("keydown", function(e) {
+        let x = document.getElementById(this.id + "autocomplete-list");
+        if (x) x = x.getElementsByTagName("div");
+        if (e.keyCode == 40) { currentFocus++; addActive(x); }
+        else if (e.keyCode == 38) { currentFocus--; addActive(x); }
+        else if (e.keyCode == 13) { e.preventDefault(); if (currentFocus > -1) { if (x) x[currentFocus].click(); } }
+    });
+    
+    function addActive(x) {
+        if (!x) return false;
+        removeActive(x);
+        if (currentFocus >= x.length) currentFocus = 0;
+        if (currentFocus < 0) currentFocus = (x.length - 1);
+        x[currentFocus].classList.add("autocomplete-active");
+    }
+    function removeActive(x) {
+        for (let i = 0; i < x.length; i++) { x[i].classList.remove("autocomplete-active"); }
+    }
+    function closeAllLists(elmnt) {
+        let x = document.getElementsByClassName("autocomplete-items");
+        for (let i = 0; i < x.length; i++) {
+            if (elmnt != x[i] && elmnt != inp) { x[i].parentNode.removeChild(x[i]); }
+        }
+    }
+    document.addEventListener("click", function (e) { closeAllLists(e.target); });
+}
+
+// TOGGLE GUEST MODE
+document.getElementById('guest-mode-toggle').addEventListener('change', function(e) {
+    const isGuest = e.target.checked;
+    const classInp = document.getElementById("user_class");
+    const sbdInp = document.getElementById("user_sbd");
+    const schoolInp = document.getElementById("user_school");
+    const nameInp = document.getElementById("username");
+    
+    if (isGuest) {
+        classInp.removeAttribute("readonly"); classInp.value = ""; classInp.placeholder = "Ví dụ: 9A1";
+        sbdInp.removeAttribute("readonly"); sbdInp.value = ""; sbdInp.placeholder = "Ví dụ: 01";
+        schoolInp.removeAttribute("readonly"); schoolInp.value = ""; schoolInp.placeholder = "Nhập tên trường";
+        nameInp.value = ""; nameInp.placeholder = "Nhập họ và tên...";
+        document.getElementById('username-hint').style.display = 'none';
+        
+        // Remove autocomplete listeners temporarily by cloning
+        const oldInp = nameInp;
+        const newInp = oldInp.cloneNode(true);
+        oldInp.parentNode.replaceChild(newInp, oldInp);
+    } else {
+        classInp.setAttribute("readonly", true); classInp.value = ""; classInp.placeholder = "Tự động điền";
+        sbdInp.setAttribute("readonly", true); sbdInp.value = ""; sbdInp.placeholder = "Tự động điền";
+        schoolInp.setAttribute("readonly", true); schoolInp.value = ""; schoolInp.placeholder = "Tự động điền";
+        document.getElementById('username').value = ""; document.getElementById('username').placeholder = "Nhập tên để tìm kiếm trong danh sách...";
+        document.getElementById('username-hint').style.display = 'block';
+        autocomplete(document.getElementById("username"), globalStudentList);
+    }
+});
+
+// LOAD STUDENT LIST
+async function loadStudentList() {
+    try {
+        const snap = await getDocs(collection(db, 'artifacts', appId_fixed, 'public', 'data', collectionStudents));
+        globalStudentList = [];
+        snap.forEach(d => globalStudentList.push({id: d.id, ...d.data()}));
+        if(!document.getElementById('guest-mode-toggle').checked) {
+            autocomplete(document.getElementById("username"), globalStudentList);
+        }
+    } catch(e) { console.log("Lỗi tải danh sách HS:", e); }
+}
+
+const initAuth = async () => { try { await signInAnonymously(auth); } catch (e) {} }; initAuth();
+onAuthStateChanged(auth, async user => { 
+    currentUser = user; 
+    if(user) {
+        await loadTimeConfig(); 
+        await loadStudentList();
+    }
+});
+
+let fireRequest;
+function startFire() {
+    const canvas = document.getElementById('fire-canvas'); const ctx = canvas.getContext('2d');
+    canvas.width = window.innerWidth; canvas.height = window.innerHeight; let flames = [];
+    class Flame {
+        constructor() {
+            this.x = Math.random() * canvas.width; this.y = canvas.height + 100; this.size = Math.random() * 100 + 60;
+            this.vx = Math.random() * 2 - 1; this.vy = Math.random() * -4 - 3; this.life = 1.0; this.decay = Math.random() * 0.01 + 0.006;
+        }
+        update() { this.x += this.vx + Math.sin(this.life * 10) * 1.5; this.y += this.vy; this.life -= this.decay; this.size *= 0.992; }
+        draw() {
+            if (this.life <= 0) return;
+            ctx.save(); ctx.translate(this.x, this.y); ctx.beginPath(); ctx.moveTo(0, 0);
+            ctx.bezierCurveTo(-this.size/2.5, -this.size/2, -this.size/3, -this.size*0.8, 0, -this.size * 1.3);
+            ctx.bezierCurveTo(this.size/3, -this.size*0.8, this.size/2.5, -this.size/2, 0, 0);
+            let color = this.life > 0.8 ? `rgba(255, 255, 255, ${this.life})` : (this.life > 0.5 ? `rgba(255, 220, 0, ${this.life})` : (this.life > 0.2 ? `rgba(255, 80, 0, ${this.life})` : `rgba(200, 0, 0, ${this.life})`));
+            ctx.fillStyle = color; ctx.shadowBlur = this.size / 3; ctx.shadowColor = "#ff4e00"; ctx.fill(); ctx.restore();
+        }
+    }
+    function animate() {
+        if (document.getElementById('wish-overlay').style.display === 'none') return;
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        if (flames.length < 55) flames.push(new Flame());
+        for (let i = 0; i < flames.length; i++) { flames[i].update(); flames[i].draw(); if (flames[i].life <= 0) { flames.splice(i, 1); i--; } }
+        fireRequest = requestAnimationFrame(animate);
+    }
+    animate();
+}
+
+function showCustomAlert(msg = "⚠️ Vui lòng hoàn thành câu hỏi này!") {
+    const alertBox = document.getElementById('custom-alert'); alertBox.innerHTML = msg; alertBox.style.display = 'block';
+    setTimeout(() => { alertBox.style.display = 'none'; }, 3000);
+}
+
+function isCurrentQuestionComplete() {
+    const q = currentExam[currentIdx];
+    if (q.type === 'mcq') return !!userAnswers[q.id];
+    if (q.type === 'tf') { const a = userAnswers[q.id] || {}; return (a[0] !== undefined && a[1] !== undefined && a[2] !== undefined && a[3] !== undefined); }
+    if (q.type === 'short') { return (userAnswers[q.id] || "").trim().length > 0; }
+    return false;
+}
+
+function checkShortAns(u, a) {
+    let cleanU = (u||"").toString().replace(/\s+/g, '').replace(/,/g, '.');
+    let cleanA = (a||"").toString().replace(/\s+/g, '').replace(/,/g, '.');
+    if (cleanU === cleanA) return true;
+    if (!isNaN(cleanU) && !isNaN(cleanA) && cleanU !== '' && cleanA !== '') {
+        return Number(cleanU) === Number(cleanA);
+    }
+    return false;
+}
+
+async function loadTimeConfig() {
+    try {
+        const docRef = await getDoc(doc(db, 'artifacts', appId_fixed, 'public', 'data', 'config', 'timer_settings'));
+        if(docRef.exists()) {
+            const data = docRef.data();
+            practiceTimeLimit = (data.practice || 45) * 60; testTimeLimit = (data.test || 45) * 60; maxHintsAllowed = data.maxHints !== undefined ? data.maxHints : 3;
+            document.getElementById('cfg-time-practice').value = data.practice || 45; document.getElementById('cfg-time-test').value = data.test || 45; document.getElementById('cfg-max-hints').value = maxHintsAllowed;
+            
+            // Tải trạng thái Thu phóng từ Database
+            if(data.autoScale !== undefined) {
+                isAutoScaleEnabled = data.autoScale;
+                const statusEl = document.getElementById('autoscale-status');
+                if(statusEl) statusEl.innerText = isAutoScaleEnabled ? '🟢' : '🔴';
+                autoScaleApp();
+            }
+        }
+    } catch(e) {}
+}
+
+const initGame = (m) => {
+    const getVal = (id) => { const el = document.getElementById(id); return (el && el.value.trim()) ? el.value.trim() : ""; };
+    const name = getVal('username'); const sch = getVal('user_school'); const cls = getVal('user_class'); const sbd = getVal('user_sbd');
+    
+    // Yêu cầu nhập đủ thông tin
+    if (!name || !sch || !cls || !sbd) {
+        document.getElementById('start-error').style.display = 'block';
+        return;
+    }
+    document.getElementById('start-error').style.display = 'none';
+
+    const topicVal = document.getElementById('topic-select').value;
+    const topicText = document.getElementById('topic-select').options[document.getElementById('topic-select').selectedIndex].text;
+    window.finalUserData = { name, sch, cls, sbd, topic: topicText, topicCode: topicVal };
+    mode = m; isQuizRunning = true; canCheckCheat = false; isProcessingCheat = false; hasSaved = false;
+    document.getElementById('btn-report-open').style.display = 'none'; document.getElementById('btn-admin-open').style.display = 'none';
+    document.getElementById('header-user-info').innerText = `${name} | Lớp: ${cls} | ${topicText}`;
+    hintsUsed = 0; unlockedHints = []; currentExam = [];
+    let activeBank = { mcq: [], tf: [], short: [] };
+    if (topicVal === 'mix') {
+        Object.values(ALL_BANKS).forEach(bank => {
+            activeBank.mcq.push(...bank.mcq); activeBank.tf.push(...bank.tf); activeBank.short.push(...bank.short);
+        });
+    } else { activeBank = ALL_BANKS[topicVal]; }
+   const numMcq = Math.min(18, activeBank.mcq.length);
+    const numTf = Math.min(4, activeBank.tf.length);
+    const numShort = Math.min(6, activeBank.short.length);
+    let qNum = 1;
+    shuffle([...activeBank.mcq]).slice(0, numMcq).forEach(q => currentExam.push({...q, id: `q_${qNum}`, type: 'mcq', section: 'Phần I. Trắc nghiệm khách quan dạng Đa lựa chọn', displayNum: qNum++}));
+    shuffle([...activeBank.tf]).slice(0, numTf).forEach(q => currentExam.push({...q, id: `q_${qNum}`, type: 'tf', section: 'Phần II. Trắc nghiệm khách quan dạng Đúng/Sai', displayNum: qNum++}));
+    shuffle([...activeBank.short]).slice(0, numShort).forEach(q => currentExam.push({...q, id: `q_${qNum}`, type: 'short', section: 'Phần III. Trắc nghiệm khách quan dạng Trả lời ngắn', displayNum: qNum++}));
+    userAnswers = {}; currentIdx = 0; timeLeft = (mode === 'test') ? testTimeLimit : practiceTimeLimit;
+    const elTimer = document.getElementById('timer'); if(elTimer) { elTimer.innerText = `${Math.floor(timeLeft/60)}:${(timeLeft%60).toString().padStart(2,'0')}`; }
+    quizStartTime = Date.now();
+    document.getElementById('wish-overlay').style.display = 'flex'; document.getElementById('wish-cheat-info').style.display = (mode === 'test') ? 'block' : 'none';
+    startFire();
+    if(mode === 'test') { canCheckCheat = true; window.testInitialWidth = window.innerWidth; }
+    wishTimeoutId = setTimeout(() => {
+        if(!isQuizRunning) return; 
+        document.getElementById('wish-overlay').style.display = 'none'; cancelAnimationFrame(fireRequest);
+        document.getElementById('main-header').style.display = 'flex'; showScreen('screen-quiz'); renderQuestion(); startTimer();
+        if(mode === 'practice') canCheckCheat = true;
+    }, 5000);
+};
+
+function renderQuestion() {
+    const q = currentExam[currentIdx]; const container = document.getElementById('quiz-content'); const labels = ['A', 'B', 'C', 'D'];
+    let html = `<div class="section-title">${q.section}</div><div class="card" style="margin-top: -10px;">`;
+    if(mode === 'practice') {
+        let hintBtnText = unlockedHints.includes(q.id) ? "ĐÃ MỞ GỢI Ý 💡" : `XEM GỢI Ý 💡 (Còn ${maxHintsAllowed - hintsUsed})`;
+        let hintHtml = q.e;
+        const mask = `<span style="background:#cbd5e0; color:transparent; border-radius:4px; padding:0 8px; user-select:none; border: 1px solid #94a3b8;" title="Đáp án bị che trong chế độ Luyện tập">?</span>`;
+        if (q.type === 'mcq') {
+            hintHtml = hintHtml.replace(/(Phương án|Đáp án|Chọn)\s+([A-D])/gi, `$1 ${mask}`);
+        } else if (q.type === 'short') {
+            const safeA = q.a.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
+            hintHtml = hintHtml.replace(new RegExp(`\\b${safeA}\\b`, 'g'), mask);
+        } else if (q.type === 'tf') {
+            hintHtml = hintHtml.replace(/(Ý\s+[a-d](?:[\s,và]+[a-d])*)\s*(đúng|sai)/gi, `$1 ${mask}`);
+        }
+        html += `<button class="btn-hint" id="hint-trigger" style="padding: 8px 15px; border-radius: 8px; border: 2px solid var(--accent); background: #fffbeb; color: #b45309; font-weight: bold; cursor: pointer; margin-bottom: 15px;">${hintBtnText}</button><div id="hint-box" class="hint-box" style="display: none; margin-bottom: 15px; padding: 12px; background: #f8fafc; border-radius: 10px; border: 1px solid #e2e8f0; font-size: 0.9rem; color: #475569; line-height: 1.5;"><b>Hướng dẫn tư duy:</b><br>${hintHtml}</div>`;
+    }
+    if(q.type === 'mcq') {
+        html += `<h3>Câu ${q.displayNum}. ${q.q}</h3>`;
+        if(!q.shuffledOptions) q.shuffledOptions = shuffle([...q.o]);
+        q.shuffledOptions.forEach((o, idx) => {
+            const isSelected = userAnswers[q.id] === o;
+            html += `<div class="option ${isSelected?'selected':''}" data-ans="${o.replace(/"/g, '&quot;')}"><b>${labels[idx]}.</b> ${o}</div>`;
+        });
+    } else if(q.type === 'tf') {
+        html += `<h3>Câu ${q.displayNum}</h3><div style="background:#f1f5f9; padding:15px; border-radius:12px; margin-bottom:15px; font-style:italic;">${q.ctx}</div>`;
+        q.sts.forEach((st, si) => {
+            let val = (userAnswers[q.id]||{})[si];
+            html += `<div class="tf-row"><span><b>${st.l}</b> ${st.t}</span><div><button class="tf-btn ${val===true?'active-t':''}" data-si="${si}" data-val="true">Đúng</button><button class="tf-btn ${val===false?'active-f':''}" data-si="${si}" data-val="false">Sai</button></div></div>`;
+        });
+    } else {
+        html += `<h3>Câu ${q.displayNum}. ${q.q}</h3>`;
+        const currentVal = (userAnswers[q.id] || "").padEnd(4, " ");
+        html += `<div class="short-answer-wrapper"><input type="text" class="char-slot" maxlength="1" value="${currentVal[0] !== ' ' ? currentVal[0] : ''}" data-idx="0"><input type="text" class="char-slot" maxlength="1" value="${currentVal[1] !== ' ' ? currentVal[1] : ''}" data-idx="1"><input type="text" class="char-slot" maxlength="1" value="${currentVal[2] !== ' ' ? currentVal[2] : ''}" data-idx="2"><input type="text" class="char-slot" maxlength="1" value="${currentVal[3] !== ' ' ? currentVal[3] : ''}" data-idx="3"></div><p style="color:var(--danger); font-size:0.8rem; font-weight:bold; text-align:center;">Lưu ý: Nhập mỗi kÍ tự vào một ô, BẮT ĐẦU TỪ TRÁI SANG PHẢI</p>`;
+    }
+    container.innerHTML = html + `</div>`;
+    if(q.type === 'mcq') {
+        container.querySelectorAll('.option').forEach(el => el.onclick = () => { userAnswers[q.id] = el.getAttribute('data-ans'); audioPing.play().catch(()=>{}); renderQuestion(); });
+    } else if(q.type === 'tf') {
+        container.querySelectorAll('.tf-btn').forEach(el => el.onclick = () => {
+            const si = el.getAttribute('data-si'), val = el.getAttribute('data-val') === 'true';
+            if(!userAnswers[q.id]) userAnswers[q.id] = {}; userAnswers[q.id][si] = val; audioPing.play().catch(()=>{}); renderQuestion();
+        });
+    } else {
+        const slots = container.querySelectorAll('.char-slot');
+        slots.forEach((slot, idx) => {
+            slot.oninput = (e) => {
+                const val = e.target.value; if (val && idx < 3) slots[idx + 1].focus();
+                let combined = ""; slots.forEach(s => combined += (s.value || " ")); userAnswers[q.id] = combined.trim();
+            };
+            slot.onkeydown = (e) => { if (e.key === 'Backspace' && !e.target.value && idx > 0) slots[idx - 1].focus(); };
+        });
+    }
+    const hb = document.getElementById('hint-trigger');
+    if(hb) {
+        hb.onclick = async () => { 
+            const b = document.getElementById('hint-box'); const isH = b.style.display === 'none'; 
+            if (isH && !unlockedHints.includes(q.id)) {
+                if (hintsUsed >= maxHintsAllowed) { showCustomAlert("⚠️ Bạn đã hết lượt xem gợi ý!"); return; }
+                hintsUsed++; unlockedHints.push(q.id); hb.innerText = "ĐÃ MỞ GỢI Ý 💡";
+            }
+            b.style.display = isH ? 'block' : 'none'; if(isH && window.MathJax) await MathJax.typesetPromise([b]); autoScaleApp(); 
+        };
+    }
+    document.getElementById('btn-prev').style.visibility = currentIdx === 0 ? 'hidden' : 'visible';
+    document.getElementById('btn-next').style.display = currentIdx === currentExam.length - 1 ? 'none' : 'block';
+    document.getElementById('btn-finish').style.display = currentIdx === currentExam.length - 1 ? 'block' : 'none';
+    if(window.MathJax) MathJax.typesetPromise().then(autoScaleApp); else setTimeout(autoScaleApp, 50);
+}
+
+async function calculateResult() {
+    if (hasSaved) return; if(!isQuizRunning && !isProcessingCheat) return; hasSaved = true;
+    if(wishTimeoutId) clearTimeout(wishTimeoutId);
+    isQuizRunning = false; canCheckCheat = false; clearInterval(timerInt); audioFinish.play().catch(()=>{});
+    document.getElementById('btn-report-open').style.display = 'block'; document.getElementById('btn-admin-open').style.display = 'block';
+    const dur = Math.floor((Date.now() - quizStartTime) / 1000); let score = 0; 
+    const pMCQ = 0.25;    // Mỗi câu trắc nghiệm nhiều lựa chọn: 0,25 đ (18 x 0,25 = 4,5 điểm)
+    const pShort = 0.25;  // Mỗi câu trả lời ngắn: 0,25 đ (6 x 0,25 = 1,5 điểm)
+    const tfMap = {0: 0, 1: 0.1, 2: 0.25, 3: 0.5, 4: 1.0}; // Mỗi câu Đúng/Sai tối đa 1,0 đ (4 x 1,0 = 4,0 điểm)
+    currentExam.forEach(q => {
+        const norm = (s) => (s || "").toString().trim().replace(',','.');
+        if(q.type === 'mcq' && norm(userAnswers[q.id]||'') === norm(q.a)) score += pMCQ;
+        else if(q.type === 'tf') { let cp = 0, u = userAnswers[q.id] || {}; q.sts.forEach((st, si) => { if(u[si] === st.a) cp++; }); score += tfMap[cp] || 0; }
+        else if(q.type === 'short' && checkShortAns(userAnswers[q.id], q.a)) score += pShort;
+    });
+    const fs = Number(Math.min(10, score).toFixed(2));
+    document.getElementById('wish-overlay').style.display = 'none'; cancelAnimationFrame(fireRequest);
+    showScreen('screen-result'); document.getElementById('main-header').style.display = 'none';
+    document.getElementById('final-score').innerText = fs;
+    const u = window.finalUserData;
+    document.getElementById('res-name').innerText = (u.name || "input").toUpperCase();
+    document.getElementById('res-meta').innerText = `${u.topic} | ${u.sch || "input"} | Lớp ${u.cls || "input"} | SBD ${u.sbd || "input"}`;
+    let rb = document.getElementById('rank-badge'), txt = 'CHƯA ĐẠT', col = '#64748b';
+    if(fs >= 9.0) { txt='XUẤT SẮC'; col='#f59e0b'; } else if(fs >= 8.0) { txt='GIỎI'; col='#10b981'; } else if(fs >= 6.5) { txt='KHÁ'; col='#3b82f6'; } else if(fs >= 5.0) { txt='ĐẠT'; col='#8b5cf6'; }
+    rb.innerText = txt; rb.style.background = col;
+    if(fs >= 5.0) confetti({ particleCount: 150, spread: 70, origin: { y: 0.6 } });
+    if(currentUser) {
+        try { 
+            await addDoc(collection(db, 'artifacts', appId_fixed, 'public', 'data', collectionName), { 
+                name: u.name, school: u.sch, sbd: u.sbd, class: u.cls, topic: u.topic, score: fs, duration: dur, mode: mode, timestamp: new Date().toISOString(), examData: currentExam, userAnswers: userAnswers 
+            }); 
+        } catch(e) { hasSaved = false; }
+    }
+    fetchRankAndLeaderboard(fs, u.topic);
+}
+
+async function fetchRankAndLeaderboard(myScore, myTopic) {
+    try {
+        const snap = await getDocs(collection(db, 'artifacts', appId_fixed, 'public', 'data', collectionName));
+        let list = []; snap.forEach(d => list.push(d.data()));
+        list = list.filter(r => (r.mode === 'test' || !r.mode) && r.topic === myTopic); 
+        list.sort((a,b) => b.score - a.score || a.duration - b.duration);
+        const myRank = list.findIndex(r => r.name === window.finalUserData.name && r.score === myScore) + 1;
+        if(myRank > 0) document.getElementById('my-rank-text').innerText = `HẠNG ${myRank} / ${list.length}`; else document.getElementById('my-rank-text').innerText = `KẾT QUẢ LUYỆN TẬP`;
+    } catch (e) {}
+}
+
+async function renderAdmin() {
+    const listBody = document.getElementById('admin-list-body'), statsBox = document.getElementById('admin-stats');
+    listBody.innerHTML = "<tr><td colspan='11'>Đang tải dữ liệu...</td></tr>";
+    try {
+        const snap = await getDocs(collection(db, 'artifacts', appId_fixed, 'public', 'data', collectionName));
+        let rawData = []; snap.forEach(d => rawData.push({id: d.id, ...d.data()}));
+        const classes = [...new Set(rawData.map(i => i.class))].sort(); 
+        const schools = [...new Set(rawData.map(i => i.school))].filter(s => s).sort();
+        const topics = [...new Set(rawData.map(i => i.topic))].filter(t => t).sort(); 
+        const fClass = document.getElementById('admin-filter-class'); const oldC = fClass.value; fClass.innerHTML = '<option value="all">Tất cả lớp</option>' + classes.map(c => `<option value="${c}" ${c===oldC?'selected':''}>Lớp ${c}</option>`).join('');
+        const fSchool = document.getElementById('admin-filter-school'); const oldS = fSchool.value; fSchool.innerHTML = '<option value="all">Tất cả trường</option>' + schools.map(s => `<option value="${s}" ${s===oldS?'selected':''}>${s}</option>`).join('');
+        const fTopic = document.getElementById('admin-filter-topic'); const oldT = fTopic.value; fTopic.innerHTML = '<option value="all">Tất cả chuyên đề</option>' + topics.map(t => `<option value="${t}" ${t===oldT?'selected':''}>${t}</option>`).join(''); 
+        const mFilter = document.getElementById('admin-filter-mode').value, sVal = document.getElementById('admin-sort').value;
+        let data = rawData.filter(i => { 
+            return ((mFilter === 'all') || (i.mode === mFilter)) 
+                && ((fClass.value === 'all') || (i.class === fClass.value)) 
+                && ((fSchool.value === 'all') || (i.school === fSchool.value))
+                && ((fTopic.value === 'all') || (i.topic === fTopic.value)); 
+        });
+        data.sort((a,b) => { if(sVal === 'score_desc') return b.score - a.score || a.duration - b.duration; if(sVal === 'date_new') return new Date(b.timestamp) - new Date(a.timestamp); if(sVal === 'duration_fast') return a.duration - b.duration || b.score - a.score; return 0; });
+        let s = { xs: 0, g: 0, k: 0, d: 0, cd: 0 };
+        data.forEach(i => { if(i.score >= 9.0) s.xs++; else if(i.score >= 8.0) s.g++; else if(i.score >= 6.5) s.k++; else if(i.score >= 5.0) s.d++; else s.cd++; });
+        statsBox.innerHTML = `<div class="stat-box" style="border-bottom-color: #f59e0b"><b>${s.xs}</b><br><small>X.Sắc</small></div><div class="stat-box" style="border-bottom-color: #10b981"><b>${s.g}</b><br><small>Giỏi</small></div><div class="stat-box" style="border-bottom-color: #3b82f6"><b>${s.k}</b><br><small>Khá</small></div><div class="stat-box" style="border-bottom-color: #8b5cf6"><b>${s.d}</b><br><small>Đạt</small></div><div class="stat-box" style="border-bottom-color: #ef4444"><b>${s.cd}</b><br><small>C.Đạt</small></div>`;
+        listBody.innerHTML = data.map((i, idx) => `<tr><td>${idx+1}</td><td>${i.sbd}</td><td>${i.name}</td><td>${i.class}</td><td>${i.school||'-'}</td><td style="font-size:0.75rem; color:var(--primary); font-weight:bold;">${i.topic || 'Đề tổng hợp'}</td><td><span class="badge-mode ${i.mode === 'practice' ? 'badge-practice' : 'badge-test'}">${i.mode === 'practice' ? 'Luyện tập' : 'Kiểm tra'}</span></td><td><b>${Number((i.score||0).toFixed(2))}</b></td><td>${i.duration}s</td><td>${new Date(i.timestamp).toLocaleDateString()}</td><td style="display:flex; gap:5px;"><button style="background:var(--secondary); color:white; border:none; padding:4px 8px; border-radius:4px; cursor:pointer" class="btn-view" data-id="${i.id}">👁️</button><button style="background:red; color:white; border:none; padding:4px 8px; border-radius:4px; cursor:pointer" class="btn-del" data-id="${i.id}">X</button></td></tr>`).join('');
+        listBody.querySelectorAll('.btn-del').forEach(b => b.onclick = () => deleteEntry(b.dataset.id, 'result'));
+        listBody.querySelectorAll('.btn-view').forEach(b => b.onclick = () => viewAdminReview(b.dataset.id)); window.currentFilteredData = data; setTimeout(autoScaleApp, 50);
+    } catch(e) { listBody.innerHTML = "<tr><td colspan='11'>Lỗi kết nối Firebase.</td></tr>"; }
+}
+
+async function renderAdminStudents() {
+    const listBody = document.getElementById('student-list-body');
+    listBody.innerHTML = "<tr><td colspan='6' style='text-align: center;'>Đang tải danh sách...</td></tr>";
+    try {
+        await loadStudentList(); // Refresh from DB
+        
+        const classes = [...new Set(globalStudentList.map(i => i.class))].filter(c => c).sort(); 
+        const schools = [...new Set(globalStudentList.map(i => i.school))].filter(s => s).sort();
+        
+        const fClass = document.getElementById('stu-filter-class'); const oldC = fClass.value; 
+        fClass.innerHTML = '<option value="all">Tất cả lớp</option>' + classes.map(c => `<option value="${c}" ${c===oldC?'selected':''}>Lớp ${c}</option>`).join('');
+        const fSchool = document.getElementById('stu-filter-school'); const oldS = fSchool.value; 
+        fSchool.innerHTML = '<option value="all">Tất cả trường</option>' + schools.map(s => `<option value="${s}" ${s===oldS?'selected':''}>${s}</option>`).join('');
+        
+        let data = globalStudentList.filter(i => { 
+            return ((fClass.value === 'all') || (i.class === fClass.value)) 
+                && ((fSchool.value === 'all') || (i.school === fSchool.value));
+        });
+        
+        // HÀM TÁCH TÊN VÀ HỌ ĐỆM ĐỂ SẮP XẾP CHUẨN VIỆT NAM
+        const getVnNameParts = (fullName) => {
+            const parts = (fullName || '').trim().split(/\s+/);
+            if (parts.length === 0) return { first: '', rest: '' };
+            if (parts.length === 1) return { first: parts[0], rest: '' };
+            const first = parts.pop(); // Từ cuối cùng là Tên
+            const rest = parts.join(' '); // Phần còn lại là Họ và đệm
+            return { first, rest };
+        };
+
+        // Sắp xếp: Trường -> Lớp (số tự nhiên) -> Tên (Bảng chữ cái VN) -> Họ đệm
+        data.sort((a,b) => {
+            if (a.school !== b.school) return (a.school || '').localeCompare(b.school || '', 'vi', { numeric: true });
+            if (a.class !== b.class) return (a.class || '').localeCompare(b.class || '', 'vi', { numeric: true });
+            
+            const nameA = getVnNameParts(a.name);
+            const nameB = getVnNameParts(b.name);
+            
+            // So sánh Tên trước
+            const firstCompare = nameA.first.localeCompare(nameB.first, 'vi', { sensitivity: 'base' });
+            if (firstCompare !== 0) return firstCompare;
+            
+            // Nếu trùng Tên, so sánh Họ và đệm
+            return nameA.rest.localeCompare(nameB.rest, 'vi', { sensitivity: 'base' });
+        });
+
+        if(data.length === 0) {
+            listBody.innerHTML = "<tr><td colspan='6' style='text-align: center;'>Chưa có danh sách học sinh. Vui lòng Import từ Excel.</td></tr>";
+        } else {
+            listBody.innerHTML = data.map((i, idx) => `<tr><td style="text-align:center;">${idx+1}</td><td><b>${i.name}</b></td><td>${i.class}</td><td>${i.sbd}</td><td>${i.school}</td><td style="text-align:center;"><button style="background:var(--danger); color:white; border:none; padding:4px 8px; border-radius:4px; cursor:pointer" class="btn-del-stu" data-id="${i.id}">Xóa</button></td></tr>`).join('');
+            listBody.querySelectorAll('.btn-del-stu').forEach(b => b.onclick = () => deleteEntry(b.dataset.id, 'student'));
+        }
+        setTimeout(autoScaleApp, 50);
+    } catch(e) { listBody.innerHTML = "<tr><td colspan='6' style='text-align: center; color: red;'>Lỗi kết nối CSDL.</td></tr>"; }
+}
+
+// TAB MANAGEMENT IN ADMIN
+document.getElementById('tab-results').onclick = () => {
+    document.getElementById('tab-results').classList.add('active');
+    document.getElementById('tab-students').classList.remove('active');
+    document.getElementById('admin-results-section').style.display = 'block';
+    document.getElementById('admin-students-section').style.display = 'none';
+    renderAdmin();
+};
+document.getElementById('tab-students').onclick = () => {
+    document.getElementById('tab-students').classList.add('active');
+    document.getElementById('tab-results').classList.remove('active');
+    document.getElementById('admin-students-section').style.display = 'block';
+    document.getElementById('admin-results-section').style.display = 'none';
+    renderAdminStudents();
+};
+
+document.getElementById('stu-filter-school').onchange = () => renderAdminStudents();
+document.getElementById('stu-filter-class').onchange = () => renderAdminStudents();
+document.getElementById('btn-refresh-students').onclick = () => renderAdminStudents();
+
+function viewAdminReview(docId) {
+    const record = window.currentFilteredData.find(d => d.id === docId); if (!record || !record.examData) { alert("Không có dữ liệu chi tiết!"); return; }
+    document.getElementById('ar-name').innerText = `${record.name} - Điểm: ${record.score}`; arExamData = record.examData; arUserAnswers = record.userAnswers || {};
+    const content = document.getElementById('ar-content'); let h = '', labels = ['A', 'B', 'C', 'D'];
+    const norm = (s) => (s || "").toString().trim().replace(',','.'); 
+    const pMCQ = 0.25;
+    const pShort = 0.25; 
+    const tfMapReview = {0: 0, 1: 0.1, 2: 0.25, 3: 0.5, 4: 1.0};
+    arExamData.forEach(q => {
+        let qText = q.type === 'tf' ? `Câu ${q.displayNum} (Đúng/Sai)` : `Câu ${q.displayNum}. ${q.q}`; let itemScore = 0, scoreHTML = '';
+        if(q.type === 'mcq') { itemScore = norm(arUserAnswers[q.id]||'') === norm(q.a) ? pMCQ : 0; scoreHTML = `<span class="score-badge ${itemScore > 0 ? 'score-plus' : 'score-zero'}">${itemScore > 0 ? '+'+itemScore.toFixed(2) : '0'}đ</span>`; }
+        else if(q.type === 'short') { itemScore = checkShortAns(arUserAnswers[q.id], q.a) ? pShort : 0; scoreHTML = `<span class="score-badge ${itemScore > 0 ? 'score-plus' : 'score-zero'}">${itemScore > 0 ? '+'+itemScore.toFixed(2) : '0'}đ</span>`; }
+        else if(q.type === 'tf') { let cp = 0; q.sts.forEach((st, si) => { if((arUserAnswers[q.id]||{})[si] === st.a) cp++; }); itemScore = tfMapReview[cp] || 0; scoreHTML = `<span class="score-badge ${itemScore > 0 ? 'score-plus' : 'score-zero'}">Đúng ${cp}/4 ý (${itemScore > 0 ? '+'+itemScore.toFixed(2) : '0'}đ)</span>`; }
+        h += `<div style="border-left: 5px solid ${itemScore > 0 ? 'var(--success)' : 'var(--danger)'}; padding-left: 15px; margin-bottom: 25px;"><h4>${qText} ${scoreHTML}</h4>`;
+        if(q.type === 'mcq') {
+            (q.shuffledOptions || q.o).forEach((o, idx) => { const isC = norm(o) === norm(q.a), isU = arUserAnswers[q.id] === o; h += `<div style="padding: 8px; margin: 5px 0; border-radius: 5px; background: ${isC ? '#d1fae5' : (isU ? '#fee2e2' : '#f8fafc')}; border: 1px solid ${isC ? 'var(--success)' : (isU ? 'var(--danger)' : '#e2e8f0')}"><b>${labels[idx]}.</b> ${o} ${isC?'✓':(isU?'✗':'')}</div>`; });
+        } else if(q.type === 'tf') {
+            q.sts.forEach((st, si) => { let uV = (arUserAnswers[q.id]||{})[si], isC = (uV === st.a); h += `<div style="padding: 5px; border-bottom:1px solid #e2e8f0;">${st.l} ${st.t} <br><span style="font-size:0.8rem;">Bạn: <b style="color:${isC?'#10b981':'#ef4444'}">${uV===true?'Đúng':(uV===false?'Sai':'Trống')}</b> | Đáp án: <b>${st.a?'Đúng':'Sai'}</b></span></div>`; });
+        } else {
+            const isC = checkShortAns(arUserAnswers[q.id], q.a); h += `<div style="padding: 8px; background: #f8fafc; border-radius: 5px;">Bạn nhập: <b style="color:${isC?'#10b981':'#ef4444'}">${arUserAnswers[q.id]||'Trống'}</b> <br> Đáp án: <b style="color:#10b981">${q.a}</b></div>`;
+        }
+        h += `</div>`;
+    });
+    content.innerHTML = h; document.getElementById('admin-review-modal').style.display = 'flex'; if(window.MathJax) MathJax.typesetPromise([content]);
+}
+document.getElementById('btn-ar-close').onclick = () => document.getElementById('admin-review-modal').style.display = 'none';
+
+document.getElementById('btn-ar-retry').onclick = () => {
+    let wrongQuestions = []; let newQCount = 1; const norm = (s) => (s || "").toString().trim().replace(',','.');
+    arExamData.forEach(q => {
+        let isWrong = false;
+        if (q.type === 'mcq' && norm(arUserAnswers[q.id]) !== norm(q.a)) isWrong = true;
+        else if (q.type === 'short' && !checkShortAns(arUserAnswers[q.id], q.a)) isWrong = true;
+        else if (q.type === 'tf') { let cp = 0; q.sts.forEach((st, si) => { if((arUserAnswers[q.id]||{})[si] === st.a) cp++; }); if (cp < 4) isWrong = true; }
+        if (isWrong) { let clonedQ = JSON.parse(JSON.stringify(q)); clonedQ.displayNum = newQCount++; wrongQuestions.push(clonedQ); }
+    });
+    if (wrongQuestions.length === 0) { alert("Tuyệt vời! Học sinh này đã làm đúng toàn bộ 100%."); return; }
+    document.getElementById('admin-review-modal').style.display = 'none'; document.getElementById('screen-admin').classList.remove('active');
+    document.getElementById('btn-report-open').style.display = 'none'; document.getElementById('btn-admin-open').style.display = 'none';
+    currentExam = wrongQuestions; userAnswers = {}; currentIdx = 0; mode = 'practice'; isQuizRunning = true; timeLeft = practiceTimeLimit; hasSaved = false; 
+    const elTimer = document.getElementById('timer'); if(elTimer) { elTimer.innerText = `${Math.floor(timeLeft/60)}:${(timeLeft%60).toString().padStart(2,'0')}`; }
+    quizStartTime = Date.now(); document.getElementById('main-header').style.display = 'flex'; showScreen('screen-quiz'); renderQuestion(); startTimer();
+};
+
+// EXCEL IMPORT & EXPORT ========================================
+document.getElementById('btn-download-template').onclick = () => {
+    const templateData = [{ "STT": 1, "Họ và Tên": "Nguyễn Văn A", "Lớp": "9/1", "SBD": "01", "Trường": "THCS Thanh Thuỷ" }, { "STT": 2, "Họ và Tên": "Trần Thị B", "Lớp": "9/2", "SBD": "02", "Trường": "THCS Thanh Thuỷ" }];
+    const ws = XLSX.utils.json_to_sheet(templateData);
+    ws['!cols'] = [{wch: 5}, {wch: 30}, {wch: 10}, {wch: 10}, {wch: 30}];
+    const wb = XLSX.utils.book_new(); XLSX.utils.book_append_sheet(wb, ws, "DanhSachHocSinh");
+    XLSX.writeFile(wb, "Mau_DanhSachHocSinh.xlsx");
+};
+
+document.getElementById('btn-trigger-import').onclick = () => {
+    document.getElementById('file-import-students').click();
+};
+
+document.getElementById('btn-delete-all-students').onclick = () => { 
+    pendingAuthAction = 'delete_all_students'; 
+    if (auth.currentUser && !auth.currentUser.isAnonymous) { executePendingAdminAction(); return; }
+    document.getElementById('auth-action-title').innerText = "Xác nhận Xóa TOÀN BỘ HS"; 
+    document.getElementById('delete-pw').value = ''; document.getElementById('delete-email').value = '';
+    document.getElementById('delete-auth-modal').style.display = 'flex'; 
+};
+
+document.getElementById('file-import-students').onchange = (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = function(e) {
+        try {
+            const data = new Uint8Array(e.target.result);
+            const workbook = XLSX.read(data, {type: 'array'});
+            const firstSheetName = workbook.SheetNames[0];
+            const worksheet = workbook.Sheets[firstSheetName];
+            const json = XLSX.utils.sheet_to_json(worksheet);
+            
+            importedStudentsCache = [];
+            let duplicateCount = 0;
+            
+            json.forEach(row => {
+                let name = (row["Họ và Tên"] || row["Họ tên"] || row["Name"] || "").toString().trim();
+                let cls = (row["Lớp"] || row["Class"] || "").toString().trim();
+                let sbd = (row["SBD"] || row["Số báo danh"] || "").toString().trim();
+                let sch = (row["Trường"] || row["School"] || "THCS Thanh Thuỷ").toString().trim();
+                if(name) {
+                    // Lọc trùng lặp dựa trên Tên, Lớp và Trường
+                    let isDupDB = globalStudentList.some(s => s.name === name && s.class === cls && s.school === sch);
+                    let isDupCache = importedStudentsCache.some(s => s.name === name && s.class === cls && s.school === sch);
+                    
+                    if(!isDupDB && !isDupCache) {
+                        importedStudentsCache.push({ name: name, class: cls, sbd: sbd, school: sch, timestamp: new Date().toISOString() });
+                    } else {
+                        duplicateCount++;
+                    }
+                }
+            });
+            
+            if (importedStudentsCache.length > 0) {
+                pendingAuthAction = 'import_students'; 
+                if (auth.currentUser && !auth.currentUser.isAnonymous) { executePendingAdminAction(); return; }
+                let msg = "Xác nhận Import " + importedStudentsCache.length + " HS";
+                if(duplicateCount > 0) msg += " (Bỏ qua " + duplicateCount + " trùng)";
+                document.getElementById('auth-action-title').innerText = msg; 
+                document.getElementById('delete-pw').value = ''; document.getElementById('delete-email').value = '';
+                document.getElementById('delete-auth-modal').style.display = 'flex'; 
+            } else {
+                if(duplicateCount > 0) {
+                    showCustomAlert(`Đã bỏ qua ${duplicateCount} học sinh do trùng lặp! Không có dữ liệu mới.`);
+                } else {
+                    showCustomAlert("File không có dữ liệu hợp lệ!");
+                }
+            }
+        } catch(error) {
+            showCustomAlert("Lỗi đọc file Excel. Vui lòng dùng file mẫu!");
+        }
+        document.getElementById('file-import-students').value = ''; // reset
+    };
+    reader.readAsArrayBuffer(file);
+};
+
+// ADMIN ACTIONS PIPELINE ========================================
+
+function deleteEntry(id, type) { 
+    pendingAuthAction = type === 'student' ? 'delete_student' : 'delete_result'; 
+    currentDeleteId = id; 
+    if (auth.currentUser && !auth.currentUser.isAnonymous) { executePendingAdminAction(); return; }
+    document.getElementById('auth-action-title').innerText = "Xác nhận Xoá"; 
+    document.getElementById('delete-pw').value = ''; document.getElementById('delete-email').value = '';
+    document.getElementById('delete-auth-modal').style.display = 'flex'; 
+}
+
+async function executePendingAdminAction() {
+    if (pendingAuthAction === 'delete_result' && currentDeleteId) { 
+        await deleteDoc(doc(db, 'artifacts', appId_fixed, 'public', 'data', collectionName, currentDeleteId)); 
+        renderAdmin(); currentDeleteId = null; 
+    } 
+    else if (pendingAuthAction === 'delete_student' && currentDeleteId) { 
+        await deleteDoc(doc(db, 'artifacts', appId_fixed, 'public', 'data', collectionStudents, currentDeleteId)); 
+        renderAdminStudents(); currentDeleteId = null; 
+    } 
+    else if (pendingAuthAction === 'delete_all_students') {
+        showCustomAlert("Đang xóa toàn bộ học sinh, vui lòng đợi...");
+        try {
+            const snap = await getDocs(collection(db, 'artifacts', appId_fixed, 'public', 'data', collectionStudents));
+            const deletePromises = [];
+            snap.forEach(docSnap => {
+                deletePromises.push(deleteDoc(doc(db, 'artifacts', appId_fixed, 'public', 'data', collectionStudents, docSnap.id)));
+            });
+            await Promise.all(deletePromises);
+            showCustomAlert("✅ Đã làm sạch toàn bộ danh sách học sinh!");
+            renderAdminStudents();
+        } catch(e) { showCustomAlert("Lỗi khi xóa dữ liệu!"); }
+    }
+    else if (pendingAuthAction === 'import_students' && importedStudentsCache.length > 0) {
+        showCustomAlert("Đang tiến hành nhập dữ liệu, vui lòng đợi...");
+        try {
+            // Upload sequentially or promise.all batches
+            for(let i=0; i<importedStudentsCache.length; i++) {
+                await addDoc(collection(db, 'artifacts', appId_fixed, 'public', 'data', collectionStudents), importedStudentsCache[i]);
+            }
+            showCustomAlert(`✅ Đã import thành công ${importedStudentsCache.length} học sinh!`);
+            importedStudentsCache = [];
+            renderAdminStudents();
+        } catch(e) { showCustomAlert("Lỗi khi tải dữ liệu lên Server!"); }
+    }
+    else if (pendingAuthAction === 'toggle_autoscale') {
+        const newState = !isAutoScaleEnabled;
+        try {
+            // Dùng { merge: true } để không ghi đè mất các setting khác
+            await setDoc(doc(db, 'artifacts', appId_fixed, 'public', 'data', 'config', 'timer_settings'), { autoScale: newState, lastUpdated: new Date().toISOString() }, { merge: true }); 
+            isAutoScaleEnabled = newState;
+            document.getElementById('autoscale-status').innerText = isAutoScaleEnabled ? '🟢' : '🔴';
+            showCustomAlert(`Đã ${isAutoScaleEnabled ? 'BẬT' : 'TẮT'} tính năng thu phóng (PC) thành công!`);
+            autoScaleApp();
+        } catch(e) { showCustomAlert("Lỗi khi lưu cấu hình!"); }
+    }
+    else if (pendingAuthAction === 'config') {
+        const pTime = parseInt(document.getElementById('cfg-time-practice').value), tTime = parseInt(document.getElementById('cfg-time-test').value), mHints = parseInt(document.getElementById('cfg-max-hints').value);
+        if(isNaN(pTime) || isNaN(tTime) || isNaN(mHints) || pTime <= 0 || tTime <= 0 || mHints < 0) { showCustomAlert("⚠️ Vui lòng nhập số hợp lệ!"); return; }
+        try { await setDoc(doc(db, 'artifacts', appId_fixed, 'public', 'data', 'config', 'timer_settings'), { practice: pTime, test: tTime, maxHints: mHints, autoScale: isAutoScaleEnabled, lastUpdated: new Date().toISOString() }, { merge: true }); practiceTimeLimit = pTime * 60; testTimeLimit = tTime * 60; maxHintsAllowed = mHints; showCustomAlert("Đã cập nhật cấu hình thành công!"); } catch(e) { showCustomAlert("Lỗi khi lưu cấu hình!"); }
+    } else if (pendingAuthAction === 'inbox') { renderAdminInbox(); }
+    pendingAuthAction = null;
+}
+
+document.getElementById('btn-toggle-autoscale').onclick = () => { 
+    pendingAuthAction = 'toggle_autoscale'; 
+    if (auth.currentUser && !auth.currentUser.isAnonymous) { executePendingAdminAction(); return; }
+    document.getElementById('auth-action-title').innerText = "Xác nhận Đổi Thu Phóng"; 
+    document.getElementById('delete-pw').value = ''; document.getElementById('delete-email').value = '';
+    document.getElementById('delete-auth-modal').style.display = 'flex'; 
+};
+
+document.getElementById('btn-save-config').onclick = () => { 
+    pendingAuthAction = 'config'; 
+    if (auth.currentUser && !auth.currentUser.isAnonymous) { executePendingAdminAction(); return; }
+    document.getElementById('auth-action-title').innerText = "Lưu Cấu Hình"; 
+    document.getElementById('delete-pw').value = ''; document.getElementById('delete-email').value = '';
+    document.getElementById('delete-auth-modal').style.display = 'flex'; 
+};
+
+document.getElementById('btn-admin-inbox').onclick = () => { 
+    pendingAuthAction = 'inbox'; 
+    if (auth.currentUser && !auth.currentUser.isAnonymous) { executePendingAdminAction(); return; }
+    document.getElementById('auth-action-title').innerText = "Mở Hộp Thư 📩"; 
+    document.getElementById('delete-pw').value = ''; document.getElementById('delete-email').value = '';
+    document.getElementById('delete-auth-modal').style.display = 'flex'; 
+};
+
+document.getElementById('btn-delete-cancel').onclick = () => { document.getElementById('delete-auth-modal').style.display = 'none'; currentDeleteId = null; pendingAuthAction = null; importedStudentsCache = [];};
+
+document.getElementById('btn-delete-confirm').onclick = async () => { 
+    const email = document.getElementById('delete-email').value.trim();
+    const pw = document.getElementById('delete-pw').value;
+    if (!email || !pw) { showCustomAlert("Vui lòng nhập Email và Mật khẩu!"); return; }
+    
+    document.getElementById('btn-delete-confirm').innerText = "...";
+    try {
+        await setPersistence(auth, browserSessionPersistence);
+        await signInWithEmailAndPassword(auth, email, pw);
+        document.getElementById('delete-auth-modal').style.display = 'none'; 
+        executePendingAdminAction();
+    } catch (error) {
+        showCustomAlert("⚠️ XÁC THỰC THẤT BẠI! Hãy kiểm tra tài khoản Firebase.");
+    }
+    document.getElementById('btn-delete-confirm').innerText = "XÁC NHẬN";
+};
+
+document.getElementById('btn-admin-open').onclick = () => document.getElementById('admin-auth-modal').style.display = 'flex';
+document.getElementById('btn-auth-cancel').onclick = () => document.getElementById('admin-auth-modal').style.display = 'none';
+document.getElementById('btn-auth-confirm').onclick = () => { if(document.getElementById('admin-pw').value === "112233@@") { document.getElementById('admin-auth-modal').style.display='none'; showScreen('screen-admin'); renderAdmin(); } else showCustomAlert("Sai mật khẩu!"); };
+
+document.getElementById('btn-init-practice').onclick = () => initGame('practice'); document.getElementById('btn-init-test').onclick = () => initGame('test');
+document.getElementById('btn-prev').onclick = () => { if(currentIdx > 0) { currentIdx--; renderQuestion(); window.scrollTo(0,0); } };
+document.getElementById('btn-next').onclick = () => { if(!isCurrentQuestionComplete()) { showCustomAlert(); return; } if(currentIdx < currentExam.length - 1) { currentIdx++; renderQuestion(); window.scrollTo(0,0); } };
+document.getElementById('btn-finish').onclick = () => { if(!isCurrentQuestionComplete()) { showCustomAlert(); return; } document.getElementById('confirm-finish-modal').style.display = 'flex'; };
+document.getElementById('btn-modal-cancel').onclick = () => document.getElementById('confirm-finish-modal').style.display = 'none';
+document.getElementById('btn-modal-confirm').onclick = () => { document.getElementById('confirm-finish-modal').style.display = 'none'; calculateResult(); };
+
+document.getElementById('btn-admin-close').onclick = async () => { 
+    if (auth.currentUser && !auth.currentUser.isAnonymous) {
+        await signOut(auth);
+        await signInAnonymously(auth);
+    }
+    document.getElementById('main-header').style.display = 'none'; 
+    showScreen('screen-start'); 
+    loadStudentList(); // Reload cho học sinh sau khi thoát
+};
+
+document.getElementById('btn-admin-refresh').onclick = () => renderAdmin(); 
+document.getElementById('admin-sort').onchange = () => renderAdmin();
+document.getElementById('admin-filter-mode').onchange = () => renderAdmin(); 
+document.getElementById('admin-filter-class').onchange = () => renderAdmin(); 
+document.getElementById('admin-filter-school').onchange = () => renderAdmin();
+document.getElementById('admin-filter-topic').onchange = () => renderAdmin(); 
+document.getElementById('btn-cheat-submit').onclick = () => { document.getElementById('cheat-modal').style.display = 'none'; };
+document.getElementById('btn-report-open').onclick = () => { document.getElementById('report-modal').style.display = 'flex'; };
+document.getElementById('btn-report-cancel').onclick = () => { document.getElementById('report-modal').style.display = 'none'; };
+
+function processImageFile(file) {
+    if (!file) return; 
+    const reader = new FileReader();
+    reader.onload = function(event) {
+        const img = new Image();
+        img.onload = function() {
+            const canvas = document.createElement('canvas'); const MAX_WIDTH = 800; const MAX_HEIGHT = 800; let width = img.width; let height = img.height;
+            if (width > height) { if (width > MAX_WIDTH) { height *= MAX_WIDTH / width; width = MAX_WIDTH; } } else { if (height > MAX_HEIGHT) { width *= MAX_HEIGHT / height; height = MAX_HEIGHT; } }
+            canvas.width = width; canvas.height = height; const ctx = canvas.getContext('2d'); ctx.drawImage(img, 0, 0, width, height);
+            reportImageBase64 = canvas.toDataURL('image/jpeg', 0.7); 
+            document.getElementById('report-img-preview').src = reportImageBase64; 
+            document.getElementById('report-img-preview').style.display = 'block';
+        }
+        img.src = event.target.result;
+    }
+    reader.readAsDataURL(file);
+}
+
+document.getElementById('report-file').addEventListener('change', function(e) { processImageFile(e.target.files[0]); });
+
+document.getElementById('btn-report-submit').onclick = async () => {
+    const qPos = document.getElementById('report-question').value.trim(); const detail = document.getElementById('report-detail').value.trim();
+    if (!qPos && !detail) { showCustomAlert("Vui lòng nhập ít nhất vị trí lỗi hoặc mô tả!"); return; }
+    const btn = document.getElementById('btn-report-submit'); btn.innerText = "ĐANG GỬI..."; btn.disabled = true;
+    try {
+        await addDoc(collection(db, 'artifacts', appId_fixed, 'public', 'data', collectionReports), { name: window.finalUserData?.name || "Học sinh Ẩn danh", question: qPos, detail: detail, image: reportImageBase64, timestamp: new Date().toISOString() });
+        document.getElementById('report-modal').style.display = 'none'; showCustomAlert("Cảm ơn bạn đã gửi báo lỗi!");
+        document.getElementById('report-question').value = ''; document.getElementById('report-detail').value = ''; document.getElementById('report-file').value = ''; document.getElementById('report-img-preview').style.display = 'none'; reportImageBase64 = "";
+    } catch(e) { showCustomAlert("Có lỗi xảy ra, vui lòng thử lại sau!"); }
+    btn.innerText = "GỬI PHẢN HỒI"; btn.disabled = false;
+};
+
+async function renderAdminInbox() {
+    document.getElementById('admin-inbox-modal').style.display = 'flex'; const listBody = document.getElementById('inbox-list-body'); listBody.innerHTML = "<tr><td colspan='6'>Đang tải hộp thư...</td></tr>";
+    try {
+        const snap = await getDocs(collection(db, 'artifacts', appId_fixed, 'public', 'data', collectionReports));
+        let reports = []; snap.forEach(d => reports.push({id: d.id, ...d.data()})); reports.sort((a,b) => new Date(b.timestamp) - new Date(a.timestamp));
+        if (reports.length === 0) { listBody.innerHTML = "<tr><td colspan='6' style='text-align:center;'>Hộp thư trống. Chưa có báo cáo nào!</td></tr>"; return; }
+        listBody.innerHTML = reports.map(r => `<tr><td><small>${new Date(r.timestamp).toLocaleString('vi-VN')}</small></td><td><b>${r.name}</b></td><td>${r.question || '-'}</td><td>${r.detail || '-'}</td><td>${r.image ? `<button class="btn btn-gray btn-view-img" data-img="${r.image}" style="padding:4px 8px; font-size:0.75rem;">Xem ảnh 🖼️</button>` : '-'}</td><td><button class="btn-del-report" data-id="${r.id}" style="background:var(--danger); color:white; border:none; padding:6px 10px; border-radius:4px; cursor:pointer; font-size: 0.8rem;">Xóa</button></td></tr>`).join('');
+        listBody.querySelectorAll('.btn-del-report').forEach(b => { b.onclick = async () => { if (confirm("Xóa báo cáo lỗi này?")) { b.innerText = "..."; b.disabled = true; await deleteDoc(doc(db, 'artifacts', appId_fixed, 'public', 'data', collectionReports, b.dataset.id)); renderAdminInbox(); } } });
+        listBody.querySelectorAll('.btn-view-img').forEach(b => { b.onclick = () => { document.getElementById('image-viewer-img').src = b.dataset.img; document.getElementById('image-viewer-modal').style.display = 'flex'; } });
+    } catch(e) {}
+}
+document.getElementById('btn-inbox-close').onclick = () => document.getElementById('admin-inbox-modal').style.display = 'none';
+
+document.getElementById('btn-view-review').onclick = () => {
+    const area = document.getElementById('review-area'), content = document.getElementById('review-content'), labels = ['A', 'B', 'C', 'D']; area.style.display = 'block'; let h = '';
+    const norm = (s) => (s || "").toString().trim().replace(',','.');
+    const pMCQ = 0.25;
+    const pShort = 0.25;
+    const tfMapReview = {0: 0, 1: 0.1, 2: 0.25, 3: 0.5, 4: 1.0};
+    currentExam.forEach(q => {
+        let qText = q.type === 'tf' ? `Câu ${q.displayNum} (Đúng/Sai)` : `Câu ${q.displayNum}. ${q.q}`; let itemScore = 0, scoreHTML = '';
+        if(q.type === 'mcq') { itemScore = norm(userAnswers[q.id]||'') === norm(q.a) ? pMCQ : 0; scoreHTML = `<span class="score-badge ${itemScore > 0 ? 'score-plus' : 'score-zero'}">${itemScore > 0 ? '+'+itemScore.toFixed(2) : '0'}đ</span>`; } 
+        else if(q.type === 'short') { itemScore = checkShortAns(userAnswers[q.id], q.a) ? pShort : 0; scoreHTML = `<span class="score-badge ${itemScore > 0 ? 'score-plus' : 'score-zero'}">${itemScore > 0 ? '+'+itemScore.toFixed(2) : '0'}đ</span>`; } 
+        else if(q.type === 'tf') { let cp = 0; q.sts.forEach((st, si) => { if((userAnswers[q.id]||{})[si] === st.a) cp++; }); itemScore = tfMapReview[cp] || 0; scoreHTML = `<span class="score-badge ${itemScore > 0 ? 'score-plus' : 'score-zero'}">Đúng ${cp}/4 ý (${itemScore > 0 ? '+'+itemScore.toFixed(2) : '0'}đ)</span>`; }
+        h += `<div class="card" style="border-left: 8px solid var(--primary)"><h3>${qText} ${scoreHTML}</h3>`;
+        if(q.type === 'mcq') {
+            (q.shuffledOptions || q.o).forEach((o, idx) => { const isC = norm(o) === norm(q.a), isU = userAnswers[q.id] === o; h += `<div class="option ${isC?'correct':(isU?'wrong':'')}"><b>${labels[idx]}.</b> ${o} ${isC?'✓':(isU?'✗':'')}</div>`; });
+            if(norm(userAnswers[q.id]||'') !== norm(q.a)) h += `<div class="review-choice-box review-wrong" style="padding:10px; border-radius:8px; margin-top:10px; background:#fee2e2; border:1px solid #ef4444;">Bạn chọn: <b>${userAnswers[q.id]||'Chưa chọn'}</b>. Đáp án: <b style="color:#10b981">${q.a}</b></div>`;
+        } else if(q.type === 'tf') {
+            h += `<div style="background:#f1f5f9; padding:15px; border-radius:12px; margin-bottom:15px; font-style:italic;">${q.ctx}</div>`;
+            q.sts.forEach((st, si) => { let uV = (userAnswers[q.id]||{})[si], isC = (uV === st.a); h += `<div class="tf-row" style="display:flex; justify-content:space-between; align-items:center; padding:10px 0; border-bottom:1px solid #f1f5f9;"><span>${st.l} ${st.t}</span><div style="font-size:0.8rem; text-align:right; width: max-content;"><span style="color:${isC?'#10b981':'#ef4444'}">Bạn: <b>${uV===true?'Đúng':(uV===false?'Sai':'?')}</b></span><br><span>Đáp án: <b>${st.a?'Đúng':'Sai'}</b> ${isC?'✓':'✗'}</span></div></div>`; });
+        } else {
+            const isC = checkShortAns(userAnswers[q.id], q.a); h += `<p>Bạn nhập: <b style="color:${isC?'#10b981':'#ef4444'}">${userAnswers[q.id]||'Trống'}</b></p><p>Đáp án đúng: <b style="color:#10b981">${q.a}</b> ${isC?'✓':'✗'}</p>`;
+        }
+        h += `<div class="explanation"><b>Giải thích:</b><br>${q.e}</div></div>`;
+    });
+    content.innerHTML = h; const target = document.getElementById('review-heading'); if (target) { setTimeout(async () => { const y = target.getBoundingClientRect().top + window.pageYOffset - 20; window.scrollTo({ top: y, behavior: 'smooth' }); if(window.MathJax) await MathJax.typesetPromise([content]); autoScaleApp(); }, 150); }
+};
+
+document.getElementById('btn-export-excel').onclick = () => {
+    const dataToExport = window.currentFilteredData || []; if (dataToExport.length === 0) { showCustomAlert("Không có dữ liệu để xuất!"); return; }
+    const excelRows = dataToExport.map((item, index) => ({ "STT": index + 1, "Họ và Tên": item.name || "", "Số báo danh": item.sbd || "", "Lớp": item.class || "", "Trường": item.school || "", "Chuyên đề": item.topic || "N/A", "Chế độ làm": item.mode === 'practice' ? "Luyện tập" : "Kiểm tra", "Điểm số": Number((item.score || 0).toFixed(2)), "Thời gian làm (giây)": item.duration || 0, "Ngày nộp bài": new Date(item.timestamp).toLocaleString('vi-VN') }));
+    const ws = XLSX.utils.json_to_sheet(excelRows); ws['!cols'] = [{wch: 5}, {wch: 25}, {wch: 12}, {wch: 10}, {wch: 25}, {wch: 35}, {wch: 15}, {wch: 10}, {wch: 18}, {wch: 25}];
+    const wb = XLSX.utils.book_new(); XLSX.utils.book_append_sheet(wb, ws, "Báo cáo học tập"); XLSX.writeFile(wb, `KetQua_TongHop_${new Date().getTime()}.xlsx`);
+};
+
+function showScreen(id) { document.querySelectorAll('.screen').forEach(s => s.classList.remove('active')); document.getElementById(id).classList.add('active'); setTimeout(autoScaleApp, 50); }
+function shuffle(a) { for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; }
+function startTimer() { clearInterval(timerInt); timerInt = setInterval(() => { timeLeft--; const el = document.getElementById('timer'); if(el) el.innerText = `${Math.floor(timeLeft/60)}:${(timeLeft%60).toString().padStart(2,'0')}`; if(timeLeft <= 0) calculateResult(); }, 1000); }
+
+const triggerCheat = () => { if (canCheckCheat && isQuizRunning && mode === 'test' && !isProcessingCheat) { isProcessingCheat = true; isQuizRunning = false; calculateResult(); document.getElementById('cheat-modal').style.display = 'flex'; } };
+document.addEventListener('visibilitychange', () => { if(canCheckCheat && isQuizRunning && mode === 'test' && document.visibilityState === 'hidden') { triggerCheat(); } });
+window.addEventListener('blur', () => { setTimeout(() => { if (canCheckCheat && isQuizRunning && mode === 'test' && !document.hasFocus()) { triggerCheat(); } }, 200); });
+window.addEventListener('resize', () => { if (canCheckCheat && isQuizRunning && mode === 'test') { if (Math.abs(window.innerWidth - (window.testInitialWidth || window.innerWidth)) > 150) { triggerCheat(); } } });
+
+window.onload = () => { 
+    document.getElementById('main-header').style.display = 'none'; 
+    // Nếu học sinh đã có lưu tên từ phiên trước, tự động nạp (nếu muốn, hiện đã dùng danh sách CSDL để chuẩn hóa)
+};
+</script>
+</body>
+</html>
