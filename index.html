@@ -533,658 +533,632 @@ let importedStudentsCache = []; // Caching for excel import
 const audioPing = new Audio('https://www.soundjay.com/buttons/sounds/button-16.mp3');
 const audioFinish = new Audio('https://www.soundjay.com/misc/sounds/bell-ringing-05.mp3');
 
+// CƠ SỞ DỮ LIỆU ĐƯỢC CHUẨN HÓA CHO HUE SMARTTEST 7991
 // ==========================================
-// CƠ SỞ DỮ LIỆU ĐƯỢC CHẮT LỌC & TỐI ƯU HÓA (GIỮ NGUYÊN)
-// ==========================================
-const all_BANKs = {
-  "htsd_2026": [
-    id: "HDTN.01",
-    q: "Hành động nào sau đây thể hiện thái độ tôn trọng sự khác biệt của bạn bè trong lớp học?",
-    a: [
-      "Phán xét phong cách ăn mặc của bạn.",
-      "Cười nhạo sở thích âm nhạc của bạn.",
-      "Lắng nghe và tôn trọng sở thích của bạn.",
-      "Cô lập bạn có tính cách rụt rè."
+const ALL_BANKS = {
+  "htsd_2026": {
+    mcq: [
+      {
+        id: "HDTN.01",
+        q: "Hành động nào sau đây thể hiện thái độ tôn trọng sự khác biệt của bạn bè trong lớp học?",
+        o: [
+          "Phán xét phong cách ăn mặc của bạn.",
+          "Cười nhạo sở thích âm nhạc của bạn.",
+          "Lắng nghe và tôn trọng sở thích của bạn.",
+          "Cô lập bạn có tính cách rụt rè."
+        ],
+        a: "Lắng nghe và tôn trọng sở thích của bạn.",
+        e: "Đáp án C đúng vì mỗi cá nhân đều có sở thích riêng biệt, việc biết lắng nghe và tôn trọng bạn bè là biểu hiện văn minh và hòa nhã."
+      },
+      {
+        id: "HDTN.02",
+        q: "Khi một bạn trong lớp có ý kiến trái ngược với số đông, cách ứng xử văn minh nhất là gì?",
+        o: [
+          "Ngắt lời và bác bỏ ý kiến của bạn.",
+          "Lắng nghe và trao đổi một cách lịch sự.",
+          "Rủ các bạn khác tẩy chay ý kiến đó.",
+          "Chế giễu suy nghĩ khác biệt của bạn."
+        ],
+        a: "Lắng nghe và trao đổi một cách lịch sự.",
+        e: "Đáp án B đúng vì sự đa dạng ý kiến là động lực cho tư duy đa chiều; lắng nghe và thảo luận ôn hòa giúp tìm ra giải pháp tối ưu."
+      },
+      {
+        id: "HDTN.03",
+        q: "Hành vi nào sau đây thể hiện thái độ ứng xử đúng mực và tôn trọng thầy cô giáo?",
+        o: [
+          "Lơ là không chú ý khi thầy cô giảng bài.",
+          "Chăm chú lắng nghe lời giảng và góp ý.",
+          "Bình phẩm phong cách giảng dạy của thầy cô.",
+          "Tự ý làm việc riêng trong giờ học."
+        ],
+        a: "Chăm chú lắng nghe lời giảng và góp ý.",
+        e: "Đáp án B đúng vì việc chăm chú lắng nghe, ghi chép và tiếp thu chỉ dẫn là thái độ lễ độ, tôn sư trọng đạo."
+      },
+      {
+        id: "HDTN.04",
+        q: "Khi thấy một bạn trong trường bị trêu chọc và bắt nạt, hành động đúng đắn nhất là gì?",
+        o: [
+          "Đứng ngoài reo hò cổ vũ theo nhóm.",
+          "Dùng điện thoại quay video đăng mạng.",
+          "Báo ngay cho thầy cô hoặc người lớn.",
+          "Lặng lẽ bỏ đi vì không liên quan mình."
+        ],
+        a: "Báo ngay cho thầy cô hoặc người lớn.",
+        e: "Đáp án C đúng vì báo cáo kịp thời cho thầy cô hoặc người lớn giúp ngăn chặn bạo lực học đường và bảo vệ bạn bị hại."
+      },
+      {
+        id: "HDTN.05",
+        q: "Biểu hiện nào sau đây thuộc về hành vi giao tiếp tích cực nơi công cộng?",
+        o: [
+          "Chen lấn xô đẩy khi xếp hàng mua vé.",
+          "Cười nói to làm ảnh hưởng người xung quanh.",
+          "Giữ trật tự và nhường ghế cho người già.",
+          "Bật loa ngoài điện thoại thật lớn."
+        ],
+        a: "Giữ trật tự và nhường ghế cho người già.",
+        e: "Đáp án C đúng vì giữ trật tự và nhường ghế cho người cao tuổi là chuẩn mực đạo đức, ứng xử văn minh nơi công cộng."
+      },
+      {
+        id: "HDTN.06",
+        q: "Khi bạn gặp khó khăn trong học tập, hành động nào thể hiện tinh thần sẻ chia?",
+        o: [
+          "Chê bai bạn học yếu kém hơn mình.",
+          "Giúp đỡ bạn cùng tiến bộ trong học tập.",
+          "Giấu tài liệu để bạn không làm được.",
+          "Mỉa mai khi bạn bị điểm số chưa tốt."
+        ],
+        a: "Giúp đỡ bạn cùng tiến bộ trong học tập.",
+        e: "Đáp án B đúng vì tương trợ, giảng bài cho bạn thể hiện tinh thần sẻ chia và giúp đỡ nhau cùng tiến bộ."
+      },
+      {
+        id: "HDTN.07",
+        q: "Việc làm nào sau đây trực tiếp góp phần xây dựng truyền thống tốt đẹp của nhà trường?",
+        o: [
+          "Vẽ bậy lên bàn học và tường lớp.",
+          "Tích cực thi đua học tốt và rèn luyện.",
+          "Đi học muộn và trốn các buổi lao động.",
+          "Tự ý bỏ rác ra sân trường bừa bãi."
+        ],
+        a: "Tích cực thi đua học tốt và rèn luyện.",
+        e: "Đáp án B đúng vì thi đua học tốt, rèn luyện chăm chỉ trực tiếp bồi đắp và phát huy truyền thống vẻ vang của nhà trường."
+      },
+      {
+        id: "HDTN.08",
+        q: "Trong buổi thảo luận nhóm, cách thể hiện sự khiêm tốn và hòa đồng là gì?",
+        o: [
+          "Tự cho ý kiến của mình là đúng nhất.",
+          "Biết kiềm chế cảm xúc và lắng nghe bạn.",
+          "Bắt buộc các bạn phải nghe theo mình.",
+          "Tỏ thái độ kiêu ngạo khi đạt thành tích."
+        ],
+        a: "Biết kiềm chế cảm xúc và lắng nghe bạn.",
+        e: "Đáp án B đúng vì làm việc nhóm đòi hỏi sự cầu thị, biết lắng nghe đa chiều và làm chủ cảm xúc của bản thân."
+      },
+      {
+        id: "HDTN.09",
+        q: "Khi thầy cô chỉ ra điểm hạn chế trong bài làm của em, em nên ứng xử thế nào?",
+        o: [
+          "Bực bội và tranh cãi gay gắt với cô.",
+          "Tiếp thu nghiêm túc và sửa chữa khuyết điểm.",
+          "Bỏ mặc không quan tâm lời cô nhận xét.",
+          "Đổ lỗi cho các bạn khác trong nhóm."
+        ],
+        a: "Tiếp thu nghiêm túc và sửa chữa khuyết điểm.",
+        e: "Đáp án B đúng vì thái độ cầu thị, tiếp thu nhận xét của thầy cô giúp bản thân nhận thức sai sót và tiến bộ vững chắc."
+      },
+      {
+        id: "HDTN.10",
+        q: "Hành vi nào sau đây bị xem là bắt nạt học đường trên không gian mạng?",
+        o: [
+          "Chúc mừng sinh nhật bạn trên nhóm lớp.",
+          "Đăng ảnh bôi nhọ và xúc phạm danh dự bạn.",
+          "Chia sẻ tài liệu học tập bổ ích cho bạn.",
+          "Hỏi thăm tình hình sức khỏe của bạn bè."
+        ],
+        a: "Đăng ảnh bôi nhọ và xúc phạm danh dự bạn.",
+        e: "Đáp án B đúng vì phát tán hình ảnh hoặc bình luận ác ý nhằm bôi nhọ người khác là hành vi bạo lực học đường trên không gian mạng."
+      },
+      {
+        id: "HDTN.11",
+        q: "Để duy trì mối quan hệ hòa nhã với bạn bè, học sinh cần rèn luyện điều gì?",
+        o: [
+          "Thói quen luôn so sánh mình với bạn.",
+          "Lòng bao dung và chấp nhận sự khác biệt.",
+          "Thái độ hơn thua trong mọi cuộc thi đua.",
+          "Tính cách ích kỷ chỉ nghĩ đến bản thân."
+        ],
+        a: "Lòng bao dung và chấp nhận sự khác biệt.",
+        e: "Đáp án B đúng vì lòng bao dung và sự tôn trọng bản sắc của từng người là nền tảng của tình bạn trong sáng, bền chặt."
+      },
+      {
+        id: "HDTN.12",
+        q: "Khi một bạn học sinh mới chuyển từ địa phương khác đến trường, em nên ứng xử ra sao?",
+        o: [
+          "Chủ động chào hỏi và giúp bạn làm quen.",
+          "Nhại lại giọng nói vùng miền của bạn.",
+          "Bàn tán sau lưng về trang phục của bạn.",
+          "Tránh xa và không cho bạn tham gia nhóm."
+        ],
+        a: "Chủ động chào hỏi và giúp bạn làm quen.",
+        e: "Đáp án A đúng vì sự nhiệt tình, chào đón cởi mở giúp bạn mới xua tan bỡ ngỡ và nhanh chóng hòa nhập cùng tập thể lớp."
+      },
+      {
+        id: "HDTN.13",
+        q: "Việc làm nào sau đây thể hiện ý thức giữ gìn vệ sinh và cảnh quan trường THCS Thanh Thủy?",
+        o: [
+          "Vứt vỏ hộp sữa vào các bồn hoa.",
+          "Tích cực tham gia trồng và chăm sóc cây xanh.",
+          "Bẻ cành cây non để chơi đùa ở sân.",
+          "Khắc tên cá nhân lên thân cây xanh."
+        ],
+        a: "Tích cực tham gia trồng và chăm sóc cây xanh.",
+        e: "Đáp án B đúng vì trồng và chăm sóc cây xanh trực tiếp giữ gìn môi trường trường học xanh, sạch, đẹp."
+      },
+      {
+        id: "HDTN.14",
+        q: "Khi bạn cùng bàn có sở thích vẽ truyện tranh khác với sở thích của em, em nên làm gì?",
+        o: [
+          "Xé tranh của bạn khi bạn không để ý.",
+          "Tôn trọng niềm đam mê lành mạnh của bạn.",
+          "Chê bai sở thích đó là vô bổ lãng phí.",
+          "Bắt bạn phải đổi sang chơi trò giống mình."
+        ],
+        a: "Tôn trọng niềm đam mê lành mạnh của bạn.",
+        e: "Đáp án B đúng vì mỗi người có đam mê lành mạnh riêng; tôn trọng sở thích của bạn là biểu hiện của sự văn minh."
+      },
+      {
+        id: "HDTN.15",
+        q: "Biểu hiện nào sau đây chứng tỏ một học sinh có lời nói văn minh, lịch sự?",
+        o: [
+          "Sử dụng từ ngữ thô tục khi trò chuyện.",
+          "Biết nói lời cảm ơn và xin lỗi đúng lúc.",
+          "Nói trống không khi trả lời thầy cô giáo.",
+          "Cố tình đặt biệt danh xấu cho bạn bè."
+        ],
+        a: "Biết nói lời cảm ơn và xin lỗi đúng lúc.",
+        e: "Đáp án B đúng vì biết nói lời cảm ơn khi được giúp đỡ và xin lỗi khi có lỗi lầm là chuẩn mực giao tiếp văn hóa tối thiểu."
+      },
+      {
+        id: "HDTN.16",
+        q: "Khi tham gia buổi lao động công ích dọn vệ sinh trường, học sinh cần thể hiện thái độ gì?",
+        o: [
+          "Làm việc qua loa cho nhanh hết giờ.",
+          "Tự giác, nhiệt tình và hợp tác tốt.",
+          "Trốn tránh và đùn đẩy việc cho bạn.",
+          "Ngồi nghịch điện thoại bỏ mặc việc chung."
+        ],
+        a: "Tự giác, nhiệt tình và hợp tác tốt.",
+        e: "Đáp án B đúng vì tinh thần tự giác, nhiệt tình và hợp tác giúp hoàn thành nhiệm vụ chung và nâng cao ý thức cộng đồng."
+      },
+      {
+        id: "HDTN.17",
+        q: "Nhận xét nào sau đây phản ánh đúng về giá trị của sự khác biệt cá nhân?",
+        o: [
+          "Sự khác biệt chỉ mang lại những rắc rối.",
+          "Mỗi người là một cá nhân độc đáo, đáng quý.",
+          "Mọi người đều phải có suy nghĩ giống hệt nhau.",
+          "Khác biệt tính cách là điều cần xóa bỏ."
+        ],
+        a: "Mỗi người là một cá nhân độc đáo, đáng quý.",
+        e: "Đáp án B đúng vì mỗi người đều sở hữu cá tính, tiềm năng độc đáo làm phong phú và đa dạng thêm cho cộng đồng."
+      },
+      {
+        id: "HDTN.18",
+        q: "Khi hai bạn trong lớp xảy ra xích mích hiểu lầm, cách can thiệp đúng đắn là gì?",
+        o: [
+          "Cổ vũ hai bạn dùng bạo lực giải quyết.",
+          "Khuyên nhủ hai bạn bình tĩnh giảng hòa.",
+          "Đăng tải thông tin mâu thuẫn lên mạng xã hội.",
+          "Thiên vị và kích động một bên đánh bạn."
+        ],
+        a: "Khuyên nhủ hai bạn bình tĩnh giảng hòa.",
+        e: "Đáp án B đúng vì can thiệp hòa giải ôn hòa giúp làm dịu căng thẳng và tháo gỡ hiểu lầm giữa các bạn."
+      },
+      {
+        id: "HDTN.19",
+        q: "Hành động nào sau đây thể hiện sự tôn trọng không gian học tập chung của lớp?",
+        o: [
+          "Hát hò và cười đùa lớn trong giờ tự học.",
+          "Giữ trật tự để cả lớp cùng tập trung bài.",
+          "Chạy nhảy và xô đẩy bàn ghế rầm rộ.",
+          "Đập bàn phát ra âm thanh khó chịu."
+        ],
+        a: "Giữ trật tự để cả lớp cùng tập trung bài.",
+        e: "Đáp án B đúng vì giữ gìn trật tự mang lại không gian học tập yên tĩnh, giúp mọi học sinh phát huy tối đa sự tập trung."
+      },
+      {
+        id: "HDTN.20",
+        q: "Việc học sinh chủ động chào hỏi bác bảo vệ và cô lao công thể hiện điều gì?",
+        o: [
+          "Sự sợ hãi đối với người lớn tuổi.",
+          "Lòng tôn trọng mọi người lao động trong trường.",
+          "Thói quen muốn gây sự chú ý với trường.",
+          "Hành động chỉ làm khi bị thầy cô nhắc."
+        ],
+        a: "Lòng tôn trọng mọi người lao động trong trường.",
+        e: "Đáp án B đúng vì mọi ngành nghề chân chính đều đáng quý; chào hỏi lễ phép thể hiện sự tôn trọng và biết ơn sâu sắc đối với người lao động."
+      },
+      {
+        id: "HDTN.21",
+        q: "Khi bạn phát biểu xây dựng bài chưa chính xác, em nên làm gì?",
+        o: [
+          "Cười lớn để bạn cảm thấy ngượng ngùng.",
+          "Chăm chú nghe và góp ý nhẹ nhàng sau đó.",
+          "Trêu chọc bạn suốt cả buổi học tiếp theo.",
+          "Cắt ngang lời phát biểu của bạn ngay."
+        ],
+        a: "Chăm chú nghe và góp ý nhẹ nhàng sau đó.",
+        e: "Đáp án B đúng vì sự lắng nghe và đóng góp ý kiến nhẹ nhàng giúp bạn giữ vững tự tin để học hỏi cái mới."
+      },
+      {
+        id: "HDTN.22",
+        q: "Hoạt động nào sau đây giúp gắn kết tình cảm bạn bè và thầy cô trong nhà trường?",
+        o: [
+          "Tham gia các hội thi văn nghệ, thể thao chung.",
+          "Thành lập nhóm kín để nói xấu người khác.",
+          "Trốn các hoạt động ngoại khóa tập thể.",
+          "So bì điểm số giữa các tổ trong lớp."
+        ],
+        a: "Tham gia các hội thi văn nghệ, thể thao chung.",
+        e: "Đáp án A đúng vì hội thi văn nghệ, thể thao tạo môi trường giao lưu lành mạnh, gắn kết tình đoàn kết bạn bè và thầy trò."
+      },
+      {
+        id: "HDTN.23",
+        q: "Khi muốn mượn dụng cụ học tập của bạn, lời nói nào sau đây là văn minh nhất?",
+        o: [
+          "\"Đưa bút đây cho tôi dùng ngay đi!\"",
+          "\"Cậu có thể cho mình mượn chiếc bút được không?\"",
+          "\"Bút này của cậu giờ là của mình nhé!\"",
+          "Tự ý lấy dùng không cần hỏi ý kiến bạn."
+        ],
+        a: "\"Cậu có thể cho mình mượn chiếc bút được không?\"",
+        e: "Đáp án B đúng vì lời hỏi mượn lịch thiệp, tôn trọng quyền sở hữu của bạn là phép tắc giao tiếp chuẩn mực."
+      },
+      {
+        id: "HDTN.24",
+        q: "Hành vi nào sau đây thể hiện sự tôn trọng phòng truyền thống nhà trường?",
+        o: [
+          "Đi nhẹ, nói khẽ và không sờ hiện vật.",
+          "Chạy nhảy rượt đuổi nhau trong phòng.",
+          "Mang đồ ăn nước uống vào làm rơi vãi.",
+          "Tự ý thay đổi vị trí các đồ lưu niệm."
+        ],
+        a: "Đi nhẹ, nói khẽ và không sờ hiện vật.",
+        e: "Đáp án A đúng vì phòng truyền thống lưu giữ những dấu ấn thiêng liêng, cần giữ thái độ trang nghiêm và bảo vệ hiện vật cẩn thận."
+      },
+      {
+        id: "HDTN.25",
+        q: "Nhận định nào sau đây đúng về quyền bình đẳng của học sinh trong nhà trường?",
+        o: [
+          "Học sinh có hoàn cảnh khá giả được ưu tiên hơn.",
+          "Mọi học sinh đều có quyền được tôn trọng và học tập.",
+          "Học sinh học giỏi có quyền coi thường bạn khác.",
+          "Học sinh yếu thế hơn thì phải chấp nhận bị trêu."
+        ],
+        a: "Mọi học sinh đều có quyền được tôn trọng và học tập.",
+        e: "Đáp án B đúng vì trong môi trường giáo dục, mọi học sinh không phân biệt điều kiện, hoàn cảnh đều có quyền bình đẳng trong học tập và được tôn trọng."
+      },
+      {
+        id: "HDTN.26",
+        q: "Khi một bạn khuyết tật gặp khó khăn khi di chuyển lên lớp, hành động đẹp nhất là gì?",
+        o: [
+          "Đứng nhìn và chỉ trỏ bàn tán cùng bạn.",
+          "Nhanh chóng đến hỗ trợ giúp đỡ bạn di chuyển.",
+          "Phớt lờ và bỏ đi chơi chỗ khác ngay.",
+          "Cười cợt dáng đi tập tễnh của bạn."
+        ],
+        a: "Nhanh chóng đến hỗ trợ giúp đỡ bạn di chuyển.",
+        e: "Đáp án B đúng vì kịp thời tương trợ người gặp khó khăn phản ánh tinh thần nhân ái và trách nhiệm tương thân tương ái."
+      },
+      {
+        id: "HDTN.27",
+        q: "Thái độ sống hài hòa với bạn bè và thầy cô mang lại lợi ích gì cho học sinh?",
+        o: [
+          "Tạo môi trường học tập vui vẻ, an toàn.",
+          "Khiến bản thân cảm thấy bị áp lực hơn.",
+          "Làm giảm đi tinh thần đoàn kết của lớp.",
+          "Khiến thầy cô không còn nghiêm khắc nữa."
+        ],
+        a: "Tạo môi trường học tập vui vẻ, an toàn.",
+        e: "Đáp án A đúng vì mối quan hệ hài hòa mang lại tâm lí thoải mái, hạnh phúc, tạo động lực to lớn để học tập và rèn luyện tốt nhất."
+      },
+      {
+        id: "HDTN.28",
+        q: "Khi vô tình va chạm làm rơi sách vở của bạn, cách xử lí đúng mực là gì?",
+        o: [
+          "Bỏ chạy ngay để không phải nhặt sách.",
+          "Cúi xuống nhặt giúp và nói lời xin lỗi.",
+          "Mắng bạn vì đi đứng không chú ý cẩn thận.",
+          "Đứng im chờ bạn tự nhặt sách lên."
+        ],
+        a: "Cúi xuống nhặt giúp và nói lời xin lỗi.",
+        e: "Đáp án B đúng vì nhận trách nhiệm với hành vi vô ý của mình và chủ động khắc phục bằng lời xin lỗi là nét đẹp ứng xử."
+      },
+      {
+        id: "HDTN.29",
+        q: "Điều nào sau đây là nguyên tắc quan trọng để phòng chống bắt nạt học đường?",
+        o: [
+          "Luôn im lặng chịu đựng mọi sự ức hiếp.",
+          "Tôn trọng sự khác biệt và biết yêu thương.",
+          "Dùng bạo lực đáp trả lại những kẻ bắt nạt.",
+          "Kết bè phái đông người để đi đe dọa lại."
+        ],
+        a: "Tôn trọng sự khác biệt và biết yêu thương.",
+        e: "Đáp án B đúng vì lan tỏa lòng nhân ái và tôn trọng bản sắc riêng của mỗi người là giải pháp cốt lõi để loại trừ bạo lực học đường."
+      },
+      {
+        id: "HDTN.30",
+        q: "Hành động nào sau đây góp phần bồi đắp lòng tự hào về mái trường thân yêu?",
+        o: [
+          "Luôn chê bai cơ sở vật chất của nhà trường.",
+          "Nỗ lực học tập để mang vinh quang về trường.",
+          "So sánh tiêu cực trường mình với trường khác.",
+          "Vi phạm nội quy để tỏ ra cá tính nổi bật."
+        ],
+        a: "Nỗ lực học tập để mang vinh quang về trường.",
+        e: "Đáp án B đúng vì nỗ lực phấn đấu đạt thành tích tốt trong học tập và phong trào thi đua là cách thiết thực nhất để làm rạng danh nhà trường."
+      }
     ],
-    c: 2,
-    ex: "Đáp án C đúng vì mỗi cá nhân đều có sở thích riêng biệt, việc biết lắng nghe và tôn trọng bạn bè là biểu hiện văn minh và hòa nhã. Các phương án A, B, D thể hiện sự kì thị, phán xét và thiếu tôn trọng người khác."
-  },
-  {
-    id: "HDTN.02",
-    q: "Khi một bạn trong lớp có ý kiến trái ngược với số đông, cách ứng xử văn minh nhất là gì?",
-    a: [
-      "Ngắt lời và bác bỏ ý kiến của bạn.",
-      "Lắng nghe và trao đổi một cách lịch sự.",
-      "Rủ các bạn khác tẩy chay ý kiến đó.",
-      "Chế giễu suy nghĩ khác biệt của bạn."
+    tf: [
+      {
+        id: "HDTN.31",
+        ctx: "Về việc tôn trọng sự khác biệt của bạn bè trong nhà trường:",
+        sts: [
+          { l: "a)", t: "Chấp nhận sự khác nhau về tính cách và sở thích của mỗi bạn.", a: true },
+          { l: "b)", t: "Cười nhạo những bạn có hoàn cảnh khó khăn hoặc ngoại hình khác biệt.", a: false },
+          { l: "c)", t: "Lắng nghe và tôn trọng ý kiến đóng góp của các bạn trong nhóm.", a: true },
+          { l: "d)", t: "Mọi người bắt buộc phải có cùng phong cách ăn mặc giống hệt nhau.", a: false }
+        ],
+        e: "Ý a đúng: Tôn trọng cá tính; Ý b sai: Cười nhạo là vi phạm đạo đức; Ý c đúng: Lắng nghe giúp nhóm phát triển; Ý d sai: Không thể áp đặt phong cách cá nhân."
+      },
+      {
+        id: "HDTN.32",
+        ctx: "Về thái độ ứng xử đúng mực đối với thầy cô giáo:",
+        sts: [
+          { l: "a)", t: "Chú ý lắng nghe lời giảng và ghi chép bài đầy đủ trong giờ học.", a: true },
+          { l: "b)", t: "Tự ý ngắt lời thầy cô khi thầy cô đang giải thích bài tập.", a: false },
+          { l: "c)", t: "Lễ phép chào hỏi thầy cô giáo khi gặp ở sân trường hay ngoài đường.", a: true },
+          { l: "d)", t: "Tôn trọng phong cách giảng dạy và làm việc riêng của mỗi thầy cô.", a: true }
+        ],
+        e: "Ý a đúng: Tôn trọng giờ học; Ý b sai: Cắt ngang lời thầy cô là thiếu lễ phép; Ý c đúng: Chào hỏi thể hiện sự tôn kính; Ý d đúng: Tôn trọng phong cách sư phạm của thầy cô."
+      },
+      {
+        id: "HDTN.33",
+        ctx: "Về hành vi phòng chống bắt nạt học đường trong nhà trường:",
+        sts: [
+          { l: "a)", t: "Lập nhóm kín trên mạng xã hội để chế giễu và cô lập bạn cùng lớp.", a: false },
+          { l: "b)", t: "Kịp thời thông báo cho giáo viên chủ nhiệm khi thấy bạn bị ức hiếp.", a: true },
+          { l: "c)", t: "Khuyên nhủ và bảo vệ những bạn rụt rè không để bạn bị bắt nạt.", a: true },
+          { l: "d)", t: "Im lặng bỏ qua khi thấy hành vi bạo lực vì sợ bản thân bị liên lụy.", a: false }
+        ],
+        e: "Ý a sai: Lập nhóm nói xấu là bạo lực mạng; Ý b đúng: Báo cáo người có trách nhiệm; Ý c đúng: Che chở bạn yếu thế; Ý d sai: Im lặng là gián tiếp tiếp tay cho cái xấu."
+      },
+      {
+        id: "HDTN.34",
+        ctx: "Về văn hóa giao tiếp và ứng xử nơi công cộng của học sinh:",
+        sts: [
+          { l: "a)", t: "Biết nói lời cảm ơn khi nhận được sự giúp đỡ từ người khác.", a: true },
+          { l: "b)", t: "Chen lấn xô đẩy khi xếp hàng ra vào lớp hoặc mua đồ căn tin.", a: false },
+          { l: "c)", t: "Biết nói lời xin lỗi chân thành khi vô tình làm phiền người khác.", a: true },
+          { l: "d)", t: "Nói chuyện to tiếng và văng tục trong khuôn viên thư viện trường.", a: false }
+        ],
+        e: "Ý a đúng: Biết ơn là văn hóa ứng xử; Ý b sai: Chen lấn là thiếu văn minh; Ý c đúng: Dũng cảm nhận lỗi; Ý d sai: Vi phạm nội quy giữ im lặng ở thư viện."
+      },
+      {
+        id: "HDTN.35",
+        ctx: "Về hoạt động xây dựng và giữ gìn truyền thống nhà trường:",
+        sts: [
+          { l: "a)", t: "Tích cực tham gia các phong trào thi đua dạy tốt học tốt của trường.", a: true },
+          { l: "b)", t: "Bẻ cành hoa và viết vẽ bậy lên các bức tường của phòng học.", a: false },
+          { l: "c)", t: "Giữ gìn vệ sinh chung giúp trường lớp luôn xanh, sạch, đẹp.", a: true },
+          { l: "d)", t: "Sưu tầm tranh ảnh và hiện vật để trưng bày phòng truyền thống.", a: true }
+        ],
+        e: "Ý a đúng: Thi đua học tốt làm vẻ vang trường; Ý b sai: Hủy hoại cảnh quan; Ý c đúng: Giữ vệ sinh trường lớp; Ý d đúng: Lưu giữ truyền thống lịch sử nhà trường."
+      },
+      {
+        id: "HDTN.36",
+        ctx: "Về việc làm việc nhóm và tôn trọng quan điểm cá nhân:",
+        sts: [
+          { l: "a)", t: "Lắng nghe ý kiến của các thành viên trước khi đưa ra kết luận chung.", a: true },
+          { l: "b)", t: "Cho rằng ý kiến cá nhân mình luôn đúng và phớt lờ ý kiến của bạn.", a: false },
+          { l: "c)", t: "Sẵn sàng chia sẻ tài liệu và giúp đỡ bạn cùng nhóm hoàn thành việc.", a: true },
+          { l: "d)", t: "Bắt buộc các thành viên khác phải tuyệt đối nghe theo quyết định mình.", a: false }
+        ],
+        e: "Ý a đúng: Đảm bảo tính dân chủ; Ý b sai: Tự phụ, độc đoán; Ý c đúng: Tinh thần sẻ chia đồng đội; Ý d sai: Áp đặt người khác."
+      },
+      {
+        id: "HDTN.37",
+        ctx: "Về thái độ ứng xử đối với nhân viên và người lao động trong trường:",
+        sts: [
+          { l: "a)", t: "Lễ phép cúi đầu chào bác bảo vệ mỗi khi đến trường và tan học.", a: true },
+          { l: "b)", t: "Vứt rác bừa bãi vì cho rằng việc dọn dẹp là của cô lao công.", a: false },
+          { l: "c)", t: "Thể hiện lòng biết ơn đối với những người phục vụ bữa ăn bán trú.", a: true },
+          { l: "d)", t: "Tôn trọng công sức lao động của tất cả các cán bộ nhân viên nhà trường.", a: true }
+        ],
+        e: "Ý a đúng: Lễ phép với người lớn; Ý b sai: Vứt rác bừa bãi là thiếu ý thức; Ý c đúng: Trân trọng người phục vụ; Ý d đúng: Mọi lao động chân chính đều đáng tôn kính."
+      },
+      {
+        id: "HDTN.38",
+        ctx: "Về cách xử lí khi xảy ra mâu thuẫn bất đồng ý kiến với bạn:",
+        sts: [
+          { l: "a)", t: "Giữ bình tĩnh, kiểm soát cảm xúc và không dùng lời thô bạo.", a: true },
+          { l: "b)", t: "Sử dụng vũ lực để giải quyết và phân định thắng thua ngay lập tức.", a: false },
+          { l: "c)", t: "Chủ động ngồi lại trao đổi thẳng thắn để hiểu rõ nguyên nhân.", a: true },
+          { l: "d)", t: "Rủ bạn bè ngoài trường vào đe dọa để thị uy với bạn có bất đồng.", a: false }
+        ],
+        e: "Ý a đúng: Kiểm soát cảm xúc là kỹ năng thiết yếu; Ý b sai: Không dùng vũ lực; Ý c đúng: Đối thoại giải quyết mâu thuẫn; Ý d sai: Đe dọa là vi phạm nghiêm trọng."
+      },
+      {
+        id: "HDTN.39",
+        ctx: "Về việc tham gia các buổi lao động công ích tại nhà trường:",
+        sts: [
+          { l: "a)", t: "Tự giác hoàn thành phần việc được phân công đúng thời hạn.", a: true },
+          { l: "b)", t: "Đùn đẩy phần việc nặng nhọc cho các bạn nữ hoặc bạn rụt rè.", a: false },
+          { l: "c)", t: "Phối hợp nhịp nhàng với bạn bè để hoàn thành công việc nhanh chóng.", a: true },
+          { l: "d)", t: "Đi muộn về sớm và ngồi chơi điện thoại trong lúc các bạn làm việc.", a: false }
+        ],
+        e: "Ý a đúng: Tự giác hoàn thành nhiệm vụ; Ý b sai: Đùn đẩy là thói quen xấu; Ý c đúng: Tinh thần hợp tác; Ý d sai: Vô trách nhiệm với tập thể."
+      },
+      {
+        id: "HDTN.40",
+        ctx: "Về việc tôn trọng sự đa dạng văn hóa và vùng miền của học sinh:",
+        sts: [
+          { l: "a)", t: "Chấp nhận và tôn trọng nét đặc trưng giọng nói của các vùng miền.", a: true },
+          { l: "b)", t: "Nhại giọng địa phương để gây cười và trêu chọc bạn học sinh mới.", a: false },
+          { l: "c)", t: "Tìm hiểu và trân trọng nét đẹp văn hóa truyền thống của từng dân tộc.", a: true },
+          { l: "d)", t: "Tẩy chay các bạn có phong tục tập quán khác với phong tục của mình.", a: false }
+        ],
+        e: "Ý a đúng: Giọng nói là bản sắc vùng miền; Ý b sai: Nhại giọng là chế giễu; Ý c đúng: Tôn trọng văn hóa dân tộc; Ý d sai: Tẩy chay là hành vi sai trái."
+      },
+      {
+        id: "HDTN.41",
+        ctx: "Về tinh thần chia sẻ và giúp đỡ bạn bè cùng tiến bộ:",
+        sts: [
+          { l: "a)", t: "Tận tình hướng dẫn bạn phương pháp giải các bài toán khó hiểu.", a: true },
+          { l: "b)", t: "Giấu kín tài liệu ôn tập hữu ích vì sợ bạn có điểm số cao hơn mình.", a: false },
+          { l: "c)", t: "Động viên bạn khi bạn gặp chuyện buồn hoặc điểm số chưa như ý.", a: true },
+          { l: "d)", t: "Chê bai và cười cợt khi bạn trả lời sai câu hỏi của thầy cô giáo.", a: false }
+        ],
+        e: "Ý a đúng: Sẵn sàng giúp đỡ bạn; Ý b sai: Hẹp hòi, đố kị; Ý c đúng: Động viên, an ủi bạn bè; Ý d sai: Làm tổn thương lòng tự trọng của bạn."
+      },
+      {
+        id: "HDTN.42",
+        ctx: "Về việc xây dựng môi trường học đường không bạo lực:",
+        sts: [
+          { l: "a)", t: "Tích cực tham gia các buổi tuyên truyền phòng chống bắt nạt học đường.", a: true },
+          { l: "b)", t: "Thờ ơ xem như không biết khi bạn bị cô lập và tẩy chay trong lớp.", a: false },
+          { l: "c)", t: "Thân thiện chào đón và gắn kết tất cả các bạn học sinh trong lớp.", a: true },
+          { l: "d)", t: "Đặt biệt danh xấu nhằm trêu chọc khuyết điểm cơ thể của người khác.", a: false }
+        ],
+        e: "Ý a đúng: Tuyên truyền phòng chống bạo lực; Ý b sai: Thờ ơ là vô cảm; Ý c đúng: Gắn kết tập thể; Ý d sai: Miệt thị ngoại hình là hành vi bắt nạt."
+      },
+      {
+        id: "HDTN.43",
+        ctx: "Về trách nhiệm bảo vệ tài sản và cơ sở vật chất nhà trường:",
+        sts: [
+          { l: "a)", t: "Tắt quạt và đèn điện trước khi ra khỏi phòng học để tiết kiệm.", a: true },
+          { l: "b)", t: "Dùng compa hoặc dao nhọn khắc hình lên mặt bàn học trong lớp.", a: false },
+          { l: "c)", t: "Có ý thức giữ gìn và bảo quản máy móc trong phòng học tin học.", a: true },
+          { l: "d)", t: "Đóng mở cửa sổ nhẹ nhàng và cẩn thận để tránh làm hư hỏng kính.", a: true }
+        ],
+        e: "Ý a đúng: Tiết kiệm điện năng; Ý b sai: Phá hoại của công; Ý c đúng: Giữ gìn thiết bị học tập; Ý d đúng: Bảo quản cửa phòng học."
+      },
+      {
+        id: "HDTN.44",
+        ctx: "Về kỹ năng giao tiếp lịch sự trong môi trường học tập:",
+        sts: [
+          { l: "a)", t: "Biết lắng nghe chăm chú khi người khác đang trình bày ý kiến.", a: true },
+          { l: "b)", t: "Tự do cắt ngang lời nói của bạn mà không cần xin phép trước.", a: false },
+          { l: "c)", t: "Sử dụng ánh mắt thiện cảm và nụ cười thân thiện khi giao tiếp.", a: true },
+          { l: "d)", t: "Vừa nói chuyện với thầy cô vừa đeo tai nghe và bấm điện thoại.", a: false }
+        ],
+        e: "Ý a đúng: Lắng nghe thể hiện sự tôn trọng; Ý b sai: Cắt ngang lời là bất lịch sự; Ý c đúng: Thái độ cởi mở; Ý d sai: Thiếu lễ độ với thầy cô."
+      },
+      {
+        id: "HDTN.45",
+        ctx: "Về ý thức tự hào và phát huy truyền thống trường THCS Thanh Thủy:",
+        sts: [
+          { l: "a)", t: "Nỗ lực phấn đấu đạt thành tích tốt trong học tập và rèn luyện.", a: true },
+          { l: "b)", t: "Coi nhẹ các hoạt động phong trào và truyền thống của nhà trường.", a: false },
+          { l: "c)", t: "Kính trọng và biết ơn công lao dạy dỗ của các thế hệ thầy cô giáo.", a: true },
+          { l: "d)", t: "Giữ gìn hình ảnh đẹp của học sinh nhà trường ở mọi lúc mọi nơi.", a: true }
+        ],
+        e: "Ý a đúng: Phấn đấu học tốt; Ý b sai: Thiếu ý thức tập thể; Ý c đúng: Đạo lí tôn sư trọng đạo; Ý d đúng: Giữ gìn phẩm chất học sinh trường Thanh Thủy."
+      }
     ],
-    c: 1,
-    ex: "Đáp án B đúng vì sự đa dạng ý kiến là động lực cho tư duy đa chiều; lắng nghe và thảo luận ôn hòa giúp tìm ra giải pháp tối ưu. Phương án A, C, D là hành vi áp đặt, thiếu văn hóa giao tiếp nhóm."
-  },
-  {
-    id: "HDTN.03",
-    q: "Hành vi nào sau đây thể hiện thái độ ứng xử đúng mực và tôn trọng thầy cô giáo?",
-    a: [
-      "Lơ là không chú ý khi thầy cô giảng bài.",
-      "Chăm chú lắng nghe lời giảng và góp ý.",
-      "Bình phẩm phong cách giảng dạy của thầy cô.",
-      "Tự ý làm việc riêng trong giờ học."
-    ],
-    c: 1,
-    ex: "Đáp án B đúng vì việc chăm chú lắng nghe, ghi chép và tiếp thu chỉ dẫn là thái độ lễ độ, tôn sư trọng đạo. Các phương án A, C, D vi phạm kỉ luật và nề nếp tiết học."
-  },
-  {
-    id: "HDTN.04",
-    q: "Khi thấy một bạn trong trường bị trêu chọc và bắt nạt, hành động đúng đắn nhất là gì?",
-    a: [
-      "Đứng ngoài reo hò cổ vũ theo nhóm.",
-      "Dùng điện thoại quay video đăng mạng.",
-      "Báo ngay cho thầy cô hoặc người lớn.",
-      "Lặng lẽ bỏ đi vì không liên quan mình."
-    ],
-    c: 2,
-    ex: "Đáp án C đúng vì báo cáo kịp thời cho thầy cô hoặc người có trách nhiệm giúp ngăn chặn bạo lực học đường và bảo vệ bạn bị hại. A, B tiếp tay cho bạo lực; D thể hiện thái độ thờ ơ vô cảm."
-  },
-  {
-    id: "HDTN.05",
-    q: "Biểu hiện nào sau đây thuộc về hành vi giao tiếp tích cực nơi công cộng?",
-    a: [
-      "Chen lấn xô đẩy khi xếp hàng mua vé.",
-      "Cười nói to làm ảnh hưởng người xung quanh.",
-      "Giữ trật tự và nhường ghế cho người già.",
-      "Bật loa ngoài điện thoại thật lớn."
-    ],
-    c: 2,
-    ex: "Đáp án C đúng vì giữ trật tự và giúp đỡ người cao tuổi là chuẩn mực đạo đức, ứng xử văn minh nơi công cộng. Phương án A, B, D gây phiền toái và làm mất trật tự xã hội."
-  },
-  {
-    id: "HDTN.06",
-    q: "Khi bạn gặp khó khăn trong học tập, hành động nào thể hiện tinh thần sẻ chia?",
-    a: [
-      "Chê bai bạn học yếu kém hơn mình.",
-      "Giúp đỡ bạn cùng tiến bộ trong học tập.",
-      "Giấu tài liệu để bạn không làm được.",
-      "Mỉa mai khi bạn bị điểm số chưa tốt."
-    ],
-    c: 1,
-    ex: "Đáp án B đúng vì hỗ trợ, giảng bài cho bạn thể hiện tinh thần tương thân tương ái cùng tiến bộ. A, C, D mang tính ích kỉ, coi thường người khác."
-  },
-  {
-    id: "HDTN.07",
-    q: "Việc làm nào sau đây trực tiếp góp phần xây dựng truyền thống tốt đẹp của nhà trường?",
-    a: [
-      "Vẽ bậy lên bàn học và tường lớp.",
-      "Tích cực thi đua học tốt và rèn luyện.",
-      "Đi học muộn và trốn các buổi lao động.",
-      "Tự ý bỏ rác ra sân trường bừa bãi."
-    ],
-    c: 1,
-    ex: "Đáp án B đúng vì thành tích học tập tốt và ý thức rèn luyện đạo đức là nền tảng làm rạng danh nhà trường. A, C, D phá hoại của công và vi phạm nội quy."
-  },
-  {
-    id: "HDTN.08",
-    q: "Trong buổi thảo luận nhóm, cách thể hiện sự khiêm tốn và hòa đồng là gì?",
-    a: [
-      "Tự cho ý kiến của mình là đúng nhất.",
-      "Biết kiềm chế cảm xúc và lắng nghe bạn.",
-      "Bắt buộc các bạn phải nghe theo mình.",
-      "Tỏ thái độ kiêu ngạo khi đạt thành tích."
-    ],
-    c: 1,
-    ex: "Đáp án B đúng vì làm việc nhóm đòi hỏi sự cầu thị, biết lắng nghe đa chiều và kiềm chế nóng giận. A, C, D thể hiện tính tự phụ, độc đoán."
-  },
-  {
-    id: "HDTN.09",
-    q: "Khi thầy cô chỉ ra điểm hạn chế trong bài làm của em, em nên ứng xử thế nào?",
-    a: [
-      "Bực bội và tranh cãi gay gắt với cô.",
-      "Tiếp thu nghiêm túc và sửa chữa khuyết điểm.",
-      "Bỏ mặc không quan tâm lời cô nhận xét.",
-      "Đổ lỗi cho các bạn khác trong nhóm."
-    ],
-    c: 1,
-    ex: "Đáp án B đúng vì thái độ cầu thị, tiếp thu nhận xét của giáo viên sẽ giúp người học khắc phục sai sót và tiến bộ vững chắc. A, C, D thể hiện sự bảo thủ, thiếu tôn trọng."
-  },
-  {
-    id: "HDTN.10",
-    q: "Hành vi nào sau đây bị xem là bắt nạt học đường trên không gian mạng?",
-    a: [
-      "Chúc mừng sinh nhật bạn trên nhóm lớp.",
-      "Đăng ảnh bôi nhọ và xúc phạm danh dự bạn.",
-      "Chia sẻ tài liệu học tập bổ ích cho bạn.",
-      "Hỏi thăm tình hình sức khỏe của bạn bè."
-    ],
-    c: 1,
-    ex: "Đáp án B đúng vì phát tán hình ảnh hoặc bình luận ác ý nhằm hạ nhục người khác là hành vi bạo lực mạng vi phạm pháp luật và quy chuẩn học đường. A, C, D là tương tác tích cực."
-  },
-  {
-    id: "HDTN.11",
-    q: "Để duy trì mối quan hệ hòa nhã với bạn bè, học sinh cần rèn luyện điều gì?",
-    a: [
-      "Thói quen luôn so sánh mình với bạn.",
-      "Lòng bao dung và chấp nhận sự khác biệt.",
-      "Thái độ hơn thua trong mọi cuộc thi đua.",
-      "Tính cách ích kỷ chỉ nghĩ đến bản thân."
-    ],
-    c: 1,
-    ex: "Đáp án B đúng vì bao dung và tôn trọng bản sắc của từng người là gốc rễ của tình bạn bền vững. A, C, D gây chia rẽ, đố kị."
-  },
-  {
-    id: "HDTN.12",
-    q: "Khi một bạn học sinh mới chuyển từ địa phương khác đến trường, em nên ứng xử ra sao?",
-    a: [
-      "Chủ động chào hỏi và giúp bạn làm quen.",
-      "Nhại lại giọng nói vùng miền của bạn.",
-      "Bàn tán sau lưng về trang phục của bạn.",
-      "Tránh xa và không cho bạn tham gia nhóm."
-    ],
-    c: 0,
-    ex: "Đáp án A đúng vì sự nhiệt tình, chào đón cởi mở giúp bạn mới xua tan bỡ ngỡ và nhanh chóng hòa nhập với lớp học. B, C, D là hành vi kì thị, thiếu thân thiện."
-  },
-  {
-    id: "HDTN.13",
-    q: "Việc làm nào sau đây thể hiện ý thức giữ gìn vệ sinh và cảnh quan trường THCS Thanh Thủy?",
-    a: [
-      "Vứt vỏ hộp sữa vào các bồn hoa.",
-      "Tích cực tham gia trồng và chăm sóc cây xanh.",
-      "Bẻ cành cây non để chơi đùa ở sân.",
-      "Khắc tên cá nhân lên thân cây xanh."
-    ],
-    c: 1,
-    ex: "Đáp án B đúng vì chăm sóc cây xanh giúp khuôn viên trường học luôn xanh - sạch - đẹp. A, C, D hủy hoại cảnh quan môi trường sư phạm."
-  },
-  {
-    id: "HDTN.14",
-    q: "Khi bạn cùng bàn có sở thích vẽ truyện tranh khác với sở thích của em, em nên làm gì?",
-    a: [
-      "Xé tranh của bạn khi bạn không để ý.",
-      "Tôn trọng niềm đam mê lành mạnh của bạn.",
-      "Chê bai sở thích đó là vô bổ lãng phí.",
-      "Bắt bạn phải đổi sang chơi trò giống mình."
-    ],
-    c: 1,
-    ex: "Đáp án B đúng vì mỗi người có năng khiếu, niềm đam mê riêng; tôn trọng sở thích lành mạnh của bạn là nét đẹp nhân cách. A, C, D xâm phạm quyền riêng tư và tài sản của bạn."
-  },
-  {
-    id: "HDTN.15",
-    q: "Biểu hiện nào sau đây chứng tỏ một học sinh có lời nói văn minh, lịch sự?",
-    a: [
-      "Sử dụng từ ngữ thô tục khi trò chuyện.",
-      "Biết nói lời cảm ơn và xin lỗi đúng lúc.",
-      "Nói trống không khi trả lời thầy cô giáo.",
-      "Cố tình đặt biệt danh xấu cho bạn bè."
-    ],
-    c: 1,
-    ex: "Đáp án B đúng vì thói quen cảm ơn khi nhận sự giúp đỡ và xin lỗi khi mắc lỗi thể hiện sự khiêm tốn, văn minh. A, C, D là biểu hiện của lời ăn tiếng nói thiếu văn hóa."
-  },
-  {
-    id: "HDTN.16",
-    q: "Khi tham gia buổi lao động công ích dọn vệ sinh trường, học sinh cần thể hiện thái độ gì?",
-    a: [
-      "Làm việc qua loa cho nhanh hết giờ.",
-      "Tự giác, nhiệt tình và hợp tác tốt.",
-      "Trốn tránh và đùn đẩy việc cho bạn.",
-      "Ngồi nghịch điện thoại bỏ mặc việc chung."
-    ],
-    c: 1,
-    ex: "Đáp án B đúng vì lao động tự giác và hợp tác tập thể nâng cao trách nhiệm cộng đồng và giữ gìn môi trường chung. A, C, D là thói ỷ lại, vô trách nhiệm."
-  },
-  {
-    id: "HDTN.17",
-    q: "Nhận xét nào sau đây phản ánh đúng về giá trị của sự khác biệt cá nhân?",
-    a: [
-      "Sự khác biệt chỉ mang lại những rắc rối.",
-      "Mỗi người là một cá nhân độc đáo, đáng quý.",
-      "Mọi người đều phải có suy nghĩ giống hệt nhau.",
-      "Khác biệt tính cách là điều cần xóa bỏ."
-    ],
-    c: 1,
-    ex: "Đáp án B đúng vì mỗi người sở hữu năng lực, cá tính và giá trị riêng biệt góp phần làm phong phú cộng đồng. A, C, D mang cái nhìn phiến diện, áp đặt."
-  },
-  {
-    id: "HDTN.18",
-    q: "Khi hai bạn trong lớp xảy ra xích mích hiểu lầm, cách can thiệp đúng đắn là gì?",
-    a: [
-      "Cổ vũ hai bạn dùng bạo lực giải quyết.",
-      "Khuyên nhủ hai bạn bình tĩnh giảng hòa.",
-      "Đăng tải thông tin mâu thuẫn lên mạng xã hội.",
-      "Thiên vị và kích động một bên đánh bạn."
-    ],
-    c: 1,
-    ex: "Đáp án B đúng vì sự can thiệp ôn hòa, khuyên nhủ giúp hạ nhiệt căng thẳng và tìm cách thấu hiểu nhau. A, C, D làm leo thang mâu thuẫn và vi phạm đạo đức học sinh."
-  },
-  {
-    id: "HDTN.19",
-    q: "Hành động nào sau đây thể hiện sự tôn trọng không gian học tập chung của lớp?",
-    a: [
-      "Hát hò và cười đùa lớn trong giờ tự học.",
-      "Giữ trật tự để cả lớp cùng tập trung bài.",
-      "Chạy nhảy và xô đẩy bàn ghế rầm rộ.",
-      "Đập bàn phát ra âm thanh khó chịu."
-    ],
-    c: 1,
-    ex: "Đáp án B đúng vì sự yên tĩnh giúp học sinh tập trung tối đa tư duy trong giờ học. A, C, D phá vỡ không gian học tập, gây ức chế cho người xung quanh."
-  },
-  {
-    id: "HDTN.20",
-    q: "Việc học sinh chủ động chào hỏi bác bảo vệ và cô lao công thể hiện điều gì?",
-    a: [
-      "Sự sợ hãi đối với người lớn tuổi.",
-      "Lòng tôn trọng mọi người lao động trong trường.",
-      "Thói quen muốn gây sự chú ý với trường.",
-      "Hành động chỉ làm khi bị thầy cô nhắc."
-    ],
-    c: 1,
-    ex: "Đáp án B đúng vì nghề nghiệp nào chân chính cũng đáng trân trọng; chào hỏi nhân viên phục vụ là biểu hiện lòng biết ơn và sự bình đẳng. A, C, D đánh giá sai lệch phẩm chất này."
-  },
-  {
-    id: "HDTN.21",
-    q: "Khi bạn phát biểu xây dựng bài chưa chính xác, em nên làm gì?",
-    a: [
-      "Cười lớn để bạn cảm thấy ngượng ngùng.",
-      "Chăm chú nghe và góp ý nhẹ nhàng sau đó.",
-      "Trêu chọc bạn suốt cả buổi học tiếp theo.",
-      "Cắt ngang lời phát biểu của bạn ngay."
-    ],
-    c: 1,
-    ex: "Đáp án B đúng vì sự lắng nghe và đóng góp tế nhị giúp bạn giữ vững tự tin để học hỏi cái mới. A, C, D khiến bạn sợ sai, giảm động lực học tập."
-  },
-  {
-    id: "HDTN.22",
-    q: "Hoạt động nào sau đây giúp gắn kết tình cảm bạn bè và thầy cô trong nhà trường?",
-    a: [
-      "Tham gia các hội thi văn nghệ, thể thao chung.",
-      "Thành lập nhóm kín để nói xấu người khác.",
-      "Trốn các hoạt động ngoại khóa tập thể.",
-      "So bì điểm số giữa các tổ trong lớp."
-    ],
-    c: 0,
-    ex: "Đáp án A đúng vì các phong trào văn nghệ, thể dục thể thao tạo sự giao lưu, chia sẻ niềm vui và xây dựng tinh thần đồng đội. B, C, D chia rẽ tập thể."
-  },
-  {
-    id: "HDTN.23",
-    q: "Khi muốn mượn dụng cụ học tập của bạn, lời nói nào sau đây là văn minh nhất?",
-    a: [
-      "\"Đưa bút đây cho tôi dùng ngay đi!\"",
-      "\"Cậu có thể cho mình mượn chiếc bút được không?\"",
-      "\"Bút này của cậu giờ là của mình nhé!\"",
-      "Tự ý lấy dùng không cần hỏi ý kiến bạn."
-    ],
-    c: 1,
-    ex: "Đáp án B đúng vì lời hỏi mượn lịch sự, tôn trọng quyền sở hữu của bạn là phép tắc giao tiếp tối thiểu. A thể hiện thói hách dịch; C, D là hành vi tùy tiện."
-  },
-  {
-    id: "HDTN.24",
-    q: "Hành vi nào sau đây thể hiện sự tôn trọng phòng truyền thống nhà trường?",
-    a: [
-      "Đi nhẹ, nói khẽ và không sờ hiện vật.",
-      "Chạy nhảy rượt đuổi nhau trong phòng.",
-      "Mang đồ ăn nước uống vào làm rơi vãi.",
-      "Tự ý thay đổi vị trí các đồ lưu niệm."
-    ],
-    c: 0,
-    ex: "Đáp án A đúng vì phòng truyền thống là nơi lưu giữ giá trị lịch sử thiêng liêng, cần giữ gìn sự trang nghiêm và bảo quản hiện vật. B, C, D làm hư hỏng kỉ vật."
-  },
-  {
-    id: "HDTN.25",
-    q: "Nhận định nào sau đây đúng về quyền bình đẳng của học sinh trong nhà trường?",
-    a: [
-      "Học sinh có hoàn cảnh khá giả được ưu tiên hơn.",
-      "Mọi học sinh đều có quyền được tôn trọng và học tập.",
-      "Học sinh học giỏi có quyền coi thường bạn khác.",
-      "Học sinh yếu thế hơn thì phải chấp nhận bị trêu."
-    ],
-    c: 1,
-    ex: "Đáp án B đúng theo quy định giáo dục và công ước quốc tế: Mọi học sinh không phân biệt điều kiện, hoàn cảnh đều bình đẳng trong giáo dục. A, C, D là định kiến sai trái."
-  },
-  {
-    id: "HDTN.26",
-    q: "Khi một bạn khuyết tật gặp khó khăn khi di chuyển lên lớp, hành động đẹp nhất là gì?",
-    a: [
-      "Đứng nhìn và chỉ trỏ bàn tán cùng bạn.",
-      "Nhanh chóng đến hỗ trợ giúp đỡ bạn di chuyển.",
-      "Phớt lờ và bỏ đi chơi chỗ khác ngay.",
-      "Cười cợt dáng đi tập tễnh của bạn."
-    ],
-    c: 1,
-    ex: "Đáp án B đúng vì tương trợ người yếu thế phản ánh lòng nhân ái và trách nhiệm xã hội. A, C, D thiếu đạo đức, gây tổn thương tâm lí bạn."
-  },
-  {
-    id: "HDTN.27",
-    q: "Thái độ sống hài hòa với bạn bè và thầy cô mang lại lợi ích gì cho học sinh?",
-    a: [
-      "Tạo môi trường học tập vui vẻ, an toàn.",
-      "Khiến bản thân cảm thấy bị áp lực hơn.",
-      "Làm giảm đi tinh thần đoàn kết của lớp.",
-      "Khiến thầy cô không còn nghiêm khắc nữa."
-    ],
-    c: 0,
-    ex: "Đáp án A đúng vì sự hòa nhã mang đến tâm lí thoải mái, hạnh phúc, tạo động lực để học tập và rèn luyện tốt nhất. B, C, D trái với giá trị tích cực này."
-  },
-  {
-    id: "HDTN.28",
-    q: "Khi vô tình va chạm làm rơi sách vở của bạn, cách xử lí đúng mực là gì?",
-    a: [
-      "Bỏ chạy ngay để không phải nhặt sách.",
-      "Cúi xuống nhặt giúp và nói lời xin lỗi.",
-      "Mắng bạn vì đi đứng không chú ý cẩn thận.",
-      "Đứng im chờ bạn tự nhặt sách lên."
-    ],
-    c: 1,
-    ex: "Đáp án B đúng vì nhận trách nhiệm với hành động vô ý và chủ động khắc phục bằng lời xin lỗi là chuẩn mực văn minh. A, C, D là trốn tránh, đổ lỗi."
-  },
-  {
-    id: "HDTN.29",
-    q: "Điều nào sau đây là nguyên tắc quan trọng để phòng chống bắt nạt học đường?",
-    a: [
-      "Luôn im lặng chịu đựng mọi sự ức hiếp.",
-      "Tôn trọng sự khác biệt và biết yêu thương.",
-      "Dùng bạo lực đáp trả lại những kẻ bắt nạt.",
-      "Kết bè phái đông người để đi đe dọa lại."
-    ],
-    c: 1,
-    ex: "Đáp án B đúng vì tình yêu thương và sự thấu hiểu sự khác biệt là giải pháp gốc rễ xóa bỏ bạo lực. A khiến bắt nạt leo thang; C, D đẩy sự việc vào bạo lực phản ứng."
-  },
-  {
-    id: "HDTN.30",
-    q: "Hành động nào sau đây góp phần bồi đắp lòng tự hào về mái trường thân yêu?",
-    a: [
-      "Luôn chê bai cơ sở vật chất của nhà trường.",
-      "Nỗ lực học tập để mang vinh quang về trường.",
-      "So sánh tiêu cực trường mình với trường khác.",
-      "Vi phạm nội quy để tỏ ra cá tính nổi bật."
-    ],
-    c: 1,
-    ex: "Đáp án B đúng vì phấn đấu đạt kết quả cao trong học tập, thể thao, nghiên cứu khoa học làm rạng danh nhà trường là hành động thiết thực nhất. A, C, D phá hoại uy tín của trường."
+    short: [
+      {
+        id: "HDTN.46",
+        q: "Cho 6 nhận định sau về thái độ tôn trọng sự khác biệt giữa các học sinh:\n(1) Chấp nhận và tôn trọng sở thích âm nhạc lành mạnh của từng bạn.\n(2) Chê bai bạn vì bạn có hoàn cảnh gia đình khó khăn hơn mình.\n(3) Tôn trọng ý kiến phát biểu xây dựng bài dù ý kiến đó khác mình.\n(4) Cười nhạo bạn khi bạn có phong cách ăn mặc giản dị nơi trường lớp.\n(5) Giữ thái độ hòa đồng và không phân biệt đối xử với bất kì ai.\n(6) Bắt buộc người khác phải thay đổi thói quen cho giống hệt với mình.\nHọc sinh chọn các nhận định đúng và ghi dãy số theo thứ tự tăng dần.",
+        a: "135",
+        e: "Nhận định (1), (3), (5) là đúng vì thể hiện thái độ tôn trọng sự đa dạng, không phán xét và hòa nhã với mọi người. Các nhận định (2), (4), (6) là sai vì thể hiện thái độ kì thị, áp đặt và xem thường hoàn cảnh của người khác."
+      },
+      {
+        id: "HDTN.47",
+        q: "Cho 6 nhận định sau về giao tiếp văn minh, lịch sự với thầy cô giáo:\n(1) Lễ phép chào hỏi thầy cô bằng thái độ kính trọng và chân thành.\n(2) Chú ý lắng nghe lời nhận xét và góp ý của thầy cô để tiến bộ.\n(3) Nói trống không khi trả lời các câu hỏi kiểm tra của thầy cô.\n(4) Tự ý làm việc riêng trong giờ học khi thầy cô đang giảng bài.\n(5) Hợp tác tích cực với thầy cô để hoàn thành tốt các nhiệm vụ lớp.\n(6) Đứng dậy thưa gửi rõ ràng, lễ độ khi muốn phát biểu ý kiến.\nHọc sinh chọn các nhận định đúng và ghi dãy số theo thứ tự tăng dần.",
+        a: "1256",
+        e: "Nhận định (1), (2), (5), (6) là đúng vì thể hiện truyền thống tôn sư trọng đạo, thái độ cầu thị và văn hóa phát biểu trong giờ học. Nhận định (3), (4) là sai vì vi phạm nghiêm trọng nội quy và chuẩn mực giao tiếp với thầy cô."
+      },
+      {
+        id: "HDTN.48",
+        q: "Cho 6 nhận định sau về phòng chống bắt nạt học đường trong nhà trường:\n(1) Tuyệt đối không tham gia vào các hành vi đe dọa hay cô lập bạn bè.\n(2) Đăng tải thông tin xúc phạm và bôi nhọ danh dự bạn lên mạng xã hội.\n(3) Sẵn sàng lên tiếng bảo vệ những bạn học sinh yếu thế trong trường.\n(4) Kịp thời thông báo cho thầy cô khi phát hiện hành vi bạo lực học đường.\n(5) Cổ vũ reo hò khi thấy hai bạn học sinh đang đánh nhau ở cổng trường.\n(6) Tích cực tham gia các buổi diễn đàn về phòng chống bạo lực học đường.\nHọc sinh chọn các nhận định đúng và ghi dãy số theo thứ tự tăng dần.",
+        a: "1346",
+        e: "Nhận định (1), (3), (4), (6) là đúng vì là những biện pháp thiết thực giúp xây dựng trường học hạnh phúc, an toàn, không bạo lực. Nhận định (2) là hành vi bắt nạt mạng, (5) là hành vi kích động bạo lực rất đáng lên án."
+      },
+      {
+        id: "HDTN.49",
+        q: "Cho 6 nhận định sau về việc giữ gìn và phát huy truyền thống nhà trường:\n(1) Chăm chỉ học tập và rèn luyện đạo đức để làm rạng danh nhà trường.\n(2) Tích cực tham gia bảo vệ cây xanh và giữ gìn vệ sinh trường lớp.\n(3) Viết vẽ bậy lên bàn ghế và tường hành lang của các dãy phòng học.\n(4) Làm các sản phẩm tư liệu để đóng góp xây dựng truyền thống trường.\n(5) Đi học trễ giờ và trốn tránh các buổi sinh hoạt tập thể dưới cờ.\n(6) Kính trọng và biết ơn sâu sắc các thầy cô giáo đã tận tình giảng dạy.\nHọc sinh chọn các nhận định đúng và ghi dãy số theo thứ tự tăng dần.",
+        a: "1246",
+        e: "Nhận định (1), (2), (4), (6) là đúng vì thể hiện lòng tự hào, tinh thần trách nhiệm bồi đắp văn hóa và truyền thống nhà trường. Nhận định (3) là phá hoại cơ sở vật chất, (5) là vô kỉ luật."
+      },
+      {
+        id: "HDTN.50",
+        q: "Cho 6 nhận định sau về hành vi văn hóa khi tham gia lao động công ích:\n(1) Tự giác nhận nhiệm vụ và phối hợp nhịp nhàng cùng bạn bè trong nhóm.\n(2) Giữ gìn và bảo quản tốt các dụng cụ lao động như chổi, cuốc, xẻng.\n(3) Trốn tránh vào các góc khuất để chơi điện thoại trong giờ lao động.\n(4) Đùn đẩy các công việc nặng nhọc cho các bạn có tính cách hiền lành.\n(5) Hoàn thành công việc được phân công đúng thời gian và đạt chất lượng.\n(6) Giúp đỡ các bạn khác khi bản thân đã hoàn thành sớm phần việc mình.\nHọc sinh chọn các nhận định đúng và ghi dãy số theo thứ tự tăng dần.",
+        a: "1256",
+        e: "Nhận định (1), (2), (5), (6) là đúng vì rèn luyện tinh thần trách nhiệm, lòng yêu lao động và tinh thần tương thân tương ái. Nhận định (3), (4) là hành vi lười biếng, đùn đẩy trách nhiệm."
+      },
+      {
+        id: "HDTN.51",
+        q: "Cho 6 nhận định sau về văn hóa ứng xử nơi công cộng của học sinh:\n(1) Xếp hàng ngay ngắn, không chen lấn xô đẩy khi tham gia các hoạt động.\n(2) Giữ trật tự chung và nói năng nhẹ nhàng khi ở trong thư viện trường.\n(3) Khạc nhổ bừa bãi và vứt rác thải ra lối đi chung của sân trường.\n(4) Biết nói lời cảm ơn khi được giúp đỡ và xin lỗi khi có lỗi lầm.\n(5) Nói tục, chửi thề để thể hiện bản thân là người cá tính và mạnh mẽ.\n(6) Chủ động nhường chỗ cho người già, phụ nữ mang thai trên xe buýt.\nHọc sinh chọn các nhận định đúng và ghi dãy số theo thứ tự tăng dần.",
+        a: "1246",
+        e: "Nhận định (1), (2), (4), (6) là đúng vì tuân thủ chuẩn mực đạo đức, lịch sự nơi công cộng. Nhận định (3) vi phạm vệ sinh môi trường, (5) là lệch lạc về nhận thức giá trị bản thân."
+      },
+      {
+        id: "HDTN.52",
+        q: "Cho 6 nhận định sau về cách giải quyết mâu thuẫn bất đồng trong học đường:\n(1) Giữ bình tĩnh và kiểm soát tốt cảm xúc cá nhân khi xảy ra tranh cãi.\n(2) Lắng nghe lời giải thích của đối phương để hiểu rõ ngọn ngành vấn đề.\n(3) Dùng bạo lực để giải quyết ngay mâu thuẫn nhằm phân định kẻ thắng người thua.\n(4) Nhờ thầy cô hoặc bạn bè có uy tín đứng ra làm trung gian hòa giải.\n(5) Kêu gọi nhóm bạn thân đến đe dọa và gây áp lực tinh thần cho đối phương.\n(6) Tự nhận khuyết điểm của bản thân và chủ động nói lời xin lỗi chân thành.\nHọc sinh chọn các nhận định đúng và ghi dãy số theo thứ tự tăng dần.",
+        a: "1246",
+        e: "Nhận định (1), (2), (4), (6) là đúng vì giải quyết tranh chấp bằng đối thoại, hòa giải trên tinh thần xây dựng và tự phê phán. Nhận định (3), (5) dùng vũ lực và bạo lực tập thể là sai trái nghiêm trọng."
+      },
+      {
+        id: "HDTN.53",
+        q: "Cho 6 nhận định sau về tôn trọng sự khác biệt phong cách của bạn bè:\n(1) Tôn trọng các làn điệu âm nhạc truyền thống mà bạn yêu thích.\n(2) Cười nhạo bạn vì bạn có năng khiếu nghệ thuật khác biệt với đa số.\n(3) Tôn trọng phong cách ăn mặc giản dị, đúng quy định học sinh của bạn.\n(4) Chế giễu bạn nam có tính cách cẩn thận, tỉ mỉ trong việc sắp xếp sách.\n(5) Động viên bạn phát huy năng khiếu và sở trường riêng của bản thân.\n(6) Bắt bạn phải từ bỏ thói quen đọc sách để chơi game điện tử cùng mình.\nHọc sinh chọn các nhận định đúng và ghi dãy số theo thứ tự tăng dần.",
+        a: "135",
+        e: "Nhận định (1), (3), (5) là đúng vì mỗi cá nhân đều có sở thích nghệ thuật và tính cách riêng cần được tôn trọng và khích lệ. Nhận định (2), (4), (6) mang tính phán xét, chế giễu và áp đặt sở thích tiêu cực."
+      },
+      {
+        id: "HDTN.54",
+        q: "Cho 6 nhận định sau về tinh thần đoàn kết và sẻ chia trong lớp học:\n(1) Sẵn sàng giúp đỡ các bạn học yếu để cả lớp cùng nhau tiến bộ hơn.\n(2) Tẩy chay những bạn có hoàn cảnh gia đình còn nhiều khó khăn, thiếu thốn.\n(3) Thăm hỏi và động viên khi trong lớp có bạn không may bị ốm đau.\n(4) Giấu tài liệu hay không chia sẻ vì sợ bạn đạt điểm số cao hơn mình.\n(5) Hòa nhã, thân thiện chào đón và hỗ trợ các bạn học sinh mới vào lớp.\n(6) Lắng nghe và tôn trọng ý kiến đóng góp của các bạn trong giờ sinh hoạt.\nHọc sinh chọn các nhận định đúng và ghi dãy số theo thứ tự tăng dần.",
+        a: "1356",
+        e: "Nhận định (1), (3), (5), (6) là đúng vì thể hiện tình bạn trong sáng, tinh thần tương trợ và gắn kết tập thể. Nhận định (2) là hành vi kì thị nhẫn tâm, (4) là biểu hiện của tính đố kị nhỏ nhen."
+      },
+      {
+        id: "HDTN.55",
+        q: "Cho 6 nhận định sau về thái độ đúng đắn đối với cơ sở vật chất nhà trường:\n(1) Tắt quạt điện và bóng đèn khi cả lớp di chuyển ra ngoài học thể dục.\n(2) Khắc tên và viết số điện thoại lên mặt bàn gỗ trong phòng học.\n(3) Giữ gìn sách báo cẩn thận khi đọc tại thư viện của nhà trường.\n(4) Đóng mở cửa sổ nhẹ tay để bảo vệ các chốt khóa và cánh cửa sổ.\n(5) Bẻ cành cây xanh trong sân trường để làm đồ chơi trong giờ ra chơi.\n(6) Báo cáo ngay cho các thầy cô khi phát hiện bàn ghế bị hư hỏng, lung lay.\nHọc sinh chọn các nhận định đúng và ghi dãy số theo thứ tự tăng dần.",
+        a: "1346",
+        e: "Nhận định (1), (3), (4), (6) là đúng vì thể hiện trách nhiệm bảo vệ của công và tiết kiệm tài nguyên cho nhà trường. Nhận định (2), (5) là hành vi phá hoại tài sản và cảnh quan trường học."
+      },
+      {
+        id: "HDTN.56",
+        q: "Cho 6 nhận định sau về văn hóa phát biểu và xây dựng bài trong lớp học:\n(1) Giơ tay xin phép trước khi đứng dậy phát biểu đóng góp ý kiến.\n(2) Tự do nói chen ngang khi thầy cô đang hướng dẫn bài tập trên bảng.\n(3) Chú ý lắng nghe câu trả lời của bạn để bổ sung những điểm còn thiếu.\n(4) Cười lớn chế nhạo khi thấy bạn mình trả lời sai câu hỏi của thầy cô.\n(5) Trình bày ý kiến cá nhân với thái độ khiêm tốn, lịch sự và rõ ràng.\n(6) Tôn trọng các cách giải bài tập sáng tạo và khác biệt của bạn bè.\nHọc sinh chọn các nhận định đúng và ghi dãy số theo thứ tự tăng dần.",
+        a: "1356",
+        e: "Nhận định (1), (3), (5), (6) là đúng vì đảm bảo tính kỉ luật, sự khiêm tốn và tôn trọng trí tuệ của tập thể. Nhận định (2) làm gián đoạn bài giảng, (4) làm bạn xấu hổ và nản chí."
+      },
+      {
+        id: "HDTN.57",
+        q: "Cho 6 nhận định sau về ứng xử văn minh trong giờ tự học và thảo luận nhóm:\n(1) Giữ trật tự chung để tạo không gian yên tĩnh cho các bạn cùng học bài.\n(2) Hát hò và cười đùa lớn tiếng làm ảnh hưởng đến các lớp học bên cạnh.\n(3) Tôn trọng sự phân công công việc của nhóm trưởng trong các dự án học.\n(4) Tích cực trao đổi, đóng góp ý tưởng xây dựng bài một cách nghiêm túc.\n(5) Tự ý bỏ ra ngoài chơi bóng trong khi cả nhóm đang tích cực làm bài tập.\n(6) Khiêm tốn tiếp thu các lời nhận xét, góp ý mang tính xây dựng của bạn.\nHọc sinh chọn các nhận định đúng và ghi dãy số theo thứ tự tăng dần.",
+        a: "1346",
+        e: "Nhận định (1), (3), (4), (6) là đúng vì giúp giờ tự học đạt hiệu cao, phát huy năng lực hợp tác nhóm. Nhận định (2), (5) gây mất trật tự và thiếu trách nhiệm với tập thể."
+      },
+      {
+        id: "HDTN.58",
+        q: "Cho 6 nhận định sau về tinh thần tôn trọng sự đa dạng vùng miền:\n(1) Tôn trọng giọng nói và các từ ngữ địa phương đặc trưng của các bạn.\n(2) Nhại lại giọng nói vùng miền của bạn để trêu chọc và chế giễu bạn.\n(3) Tôn trọng phong tục tập quán truyền thống tốt đẹp của các dân tộc.\n(4) Cô lập và không chơi cùng với những bạn đến từ tỉnh thành khác đến.\n(5) Tìm hiểu nét đẹp văn hóa và ẩm thực của quê hương bạn bè trong lớp.\n(6) Giúp đỡ bạn mới chuyển trường nhanh chóng hòa nhập với môi trường lớp.\nHọc sinh chọn các nhận định đúng và ghi dãy số theo thứ tự tăng dần.",
+        a: "1356",
+        e: "Nhận định (1), (3), (5), (6) là đúng vì thể hiện sự văn minh, trân trọng các giá trị văn hóa đa dạng của đất nước. Nhận định (2) là trêu chọc ác ý, (4) là sự kì thị vùng miền cần bị loại trừ."
+      },
+      {
+        id: "HDTN.59",
+        q: "Cho 6 nhận định sau về trách nhiệm của học sinh đối với tập thể lớp:\n(1) Tích cực tham gia các phong trào văn nghệ và thể thao do trường tổ chức.\n(2) Trốn tránh không tham gia các hoạt động ngoại khóa chung của lớp học.\n(3) Thực hiện tốt các quy định về đồng phục và nề nếp của nhà trường.\n(4) Cùng cả lớp chung tay xây dựng tinh thần đoàn kết, giúp đỡ lẫn nhau.\n(5) Vi phạm nội quy lớp học để chứng tỏ mình là người dũng cảm, nổi bật.\n(6) Đóng góp những ý tưởng sáng tạo nhằm nâng cao hiệu quả học tập của lớp.\nHọc sinh chọn các nhận định đúng và ghi dãy số theo thứ tự tăng dần.",
+        a: "1346",
+        e: "Nhận định (1), (3), (4), (6) là đúng vì đóng góp tích cực cho phong trào và kỉ cương tập thể. Nhận định (2) thiếu tinh thần cộng đồng, (5) là suy nghĩ bồng bột, thể hiện sai lệch giá trị cá nhân."
+      },
+      {
+        id: "HDTN.60",
+        q: "Cho 6 nhận định sau về hành vi thể hiện lòng biết ơn trong môi trường giáo dục:\n(1) Tri ân công lao dạy bảo của thầy cô nhân ngày Nhà giáo Việt Nam 20/11.\n(2) Gửi lời cảm ơn chân thành đến các cô bác phục vụ bữa ăn trưa bán trú.\n(3) Chào hỏi lễ phép và cảm ơn bác bảo vệ đã trông giữ an toàn cho trường.\n(4) Cho rằng sự chăm sóc và dạy dỗ của người lớn là điều hiển nhiên phải có.\n(5) Cố gắng học tập tốt và rèn luyện đạo đức để đền đáp công ơn thầy cô.\n(6) Tỏ thái độ khó chịu khi được thầy cô giáo uốn nắn và nhắc nhở khuyết điểm.\nHọc sinh chọn các nhận định đúng và ghi dãy số theo thứ tự tăng dần.",
+        a: "1235",
+        e: "Nhận định (1), (2), (3), (5) là đúng vì thể hiện lòng biết ơn chân thành tới tất cả những người chăm sóc, dạy dỗ và phục vụ trong nhà trường. Nhận định (4) là suy nghĩ vô ơn, (6) là thiếu tôn trọng sự dạy bảo của thầy cô."
+      }
+    ]
   }
-];
-
-// ==========================================
-// PHẦN II. TRẮC NGHIỆM ĐÚNG / SAI (BANK_TF)
-// ==========================================
-const BANK_TF = [
-  {
-    id: "HDTN.31",
-    context: "Về việc tôn trọng sự khác biệt của bạn bè trong nhà trường:",
-    items: [
-      "Chấp nhận sự khác nhau về tính cách và sở thích của mỗi bạn.",
-      "Cười nhạo những bạn có hoàn cảnh khó khăn hoặc ngoại hình khác biệt.",
-      "Lắng nghe và tôn trọng ý kiến đóng góp của các bạn trong nhóm.",
-      "Mọi người bắt buộc phải có cùng phong cách ăn mặc giống hệt nhau."
-    ],
-    c: [true, false, true, false],
-    ex: "a-Đúng: Tôn trọng cá tính của mỗi người; b-Sai: Cười nhạo hoàn cảnh/ngoại hình là vi phạm đạo đức; c-Đúng: Biết lắng nghe giúp nhóm phát triển; d-Sai: Không thể ép buộc phong cách cá nhân phải giống hệt nhau."
-  },
-  {
-    id: "HDTN.32",
-    context: "Về thái độ ứng xử đúng mực đối với thầy cô giáo:",
-    items: [
-      "Chú ý lắng nghe lời giảng và ghi chép bài đầy đủ trong giờ học.",
-      "Tự ý ngắt lời thầy cô khi thầy cô đang giải thích bài tập.",
-      "Lễ phép chào hỏi thầy cô giáo khi gặp ở sân trường hay ngoài đường.",
-      "Tôn trọng phong cách giảng dạy và làm việc riêng của mỗi thầy cô."
-    ],
-    c: [true, false, true, true],
-    ex: "a-Đúng: Tôn trọng giờ dạy; b-Sai: Cắt ngang lời thầy cô là thiếu lễ độ; c-Đúng: Chào hỏi thể hiện sự tôn kính; d-Đúng: Mỗi giáo viên có phương pháp sư phạm riêng đáng được tôn trọng."
-  },
-  {
-    id: "HDTN.33",
-    context: "Về hành vi phòng chống bắt nạt học đường trong nhà trường:",
-    items: [
-      "Lập nhóm kín trên mạng xã hội để chế giễu và cô lập bạn cùng lớp.",
-      "Kịp thời thông báo cho giáo viên chủ nhiệm khi thấy bạn bị ức hiếp.",
-      "Khuyên nhủ và bảo vệ những bạn rụt rè không để bạn bị bắt nạt.",
-      "Im lặng bỏ qua khi thấy hành vi bạo lực vì sợ bản thân bị liên lụy."
-    ],
-    c: [false, true, true, false],
-    ex: "a-Sai: Lập nhóm nói xấu là hành vi bạo lực mạng; b-Đúng: Cần báo ngay người có thẩm quyền; c-Đúng: Che chở và đoàn kết giúp bạn tự tin; d-Sai: Thờ ơ vô cảm tiếp tay cho cái xấu."
-  },
-  {
-    id: "HDTN.34",
-    context: "Về văn hóa giao tiếp và ứng xử nơi công cộng của học sinh:",
-    items: [
-      "Biết nói lời cảm ơn khi nhận được sự giúp đỡ từ người khác.",
-      "Chen lấn xô đẩy khi xếp hàng ra vào lớp hoặc mua đồ căn tin.",
-      "Biết nói lời xin lỗi chân thành khi vô tình làm phiền người khác.",
-      "Nói chuyện to tiếng và văng tục trong khuôn viên thư viện trường."
-    ],
-    c: [true, false, true, false],
-    ex: "a-Đúng: Biết ơn là văn hóa ứng xử; b-Sai: Chen lấn là hành vi thiếu văn minh; c-Đúng: Dũng cảm nhận lỗi; d-Sai: Vi phạm quy định giữ im lặng của thư viện."
-  },
-  {
-    id: "HDTN.35",
-    context: "Về hoạt động xây dựng và giữ gìn truyền thống nhà trường:",
-    items: [
-      "Tích cực tham gia các phong trào thi đua dạy tốt học tốt của trường.",
-      "Bẻ cành hoa và viết vẽ bậy lên các bức tường của phòng học.",
-      "Giữ gìn vệ sinh chung giúp trường lớp luôn xanh, sạch, đẹp.",
-      "Sưu tầm tranh ảnh và hiện vật để trưng bày phòng truyền thống."
-    ],
-    c: [true, false, true, true],
-    ex: "a-Đúng: Học tốt làm rạng danh trường; b-Sai: Hủy hoại cảnh quan học đường; c-Đúng: Xây dựng môi trường sư phạm xanh; d-Đúng: Giúp lưu giữ kỉ niệm và truyền thống nhà trường."
-  },
-  {
-    id: "HDTN.36",
-    context: "Về việc làm việc nhóm và tôn trọng quan điểm cá nhân:",
-    items: [
-      "Lắng nghe ý kiến của các thành viên trước khi đưa ra kết luận chung.",
-      "Cho rằng ý kiến cá nhân mình luôn đúng và phớt lờ ý kiến của bạn.",
-      "Sẵn sàng chia sẻ tài liệu và giúp đỡ bạn cùng nhóm hoàn thành việc.",
-      "Bắt buộc các thành viên khác phải tuyệt đối nghe theo quyết định mình."
-    ],
-    c: [true, false, true, false],
-    ex: "a-Đúng: Thể hiện tính dân chủ khi làm việc nhóm; b-Sai: Tự phụ, coi thường ý kiến tập thể; c-Đúng: Tinh thần sẻ chia và hỗ trợ đồng đội; d-Sai: Độc đoán, cản trở sự sáng tạo."
-  },
-  {
-    id: "HDTN.37",
-    context: "Về thái độ ứng xử đối với nhân viên và người lao động trong trường:",
-    items: [
-      "Lễ phép cúi đầu chào bác bảo vệ mỗi khi đến trường và tan học.",
-      "Vứt rác bừa bãi vì cho rằng việc dọn dẹp là của cô lao công.",
-      "Thể hiện lòng biết ơn đối với những người phục vụ bữa ăn bán trú.",
-      "Tôn trọng công sức lao động của tất cả các cán bộ nhân viên nhà trường."
-    ],
-    c: [true, false, true, true],
-    ex: "a-Đúng: Chào hỏi lễ độ với người lớn; b-Sai: Thiếu ý thức giữ gìn vệ sinh và coi thường người lao động; c-Đúng: Trân quý công sức nấu ăn; d-Đúng: Mọi lao động chân chính đều đáng tôn kính."
-  },
-  {
-    id: "HDTN.38",
-    context: "Về cách xử lí khi xảy ra mâu thuẫn bất đồng ý kiến với bạn:",
-    items: [
-      "Giữ bình tĩnh, kiểm soát cảm xúc và không dùng lời thô bạo.",
-      "Sử dụng vũ lực để giải quyết và phân định thắng thua ngay lập tức.",
-      "Chủ động ngồi lại trao đổi thẳng thắn để hiểu rõ nguyên nhân.",
-      "Rủ bạn bè ngoài trường vào đe dọa để thị uy với bạn có bất đồng."
-    ],
-    c: [true, false, true, false],
-    ex: "a-Đúng: Kiểm soát cảm xúc là kỹ năng cốt lõi; b-Sai: Tuyệt đối không dùng bạo lực; c-Đúng: Đối thoại ôn hòa tháo gỡ hiểu lầm; d-Sai: Hành vi lôi kéo đe dọa vi phạm pháp luật."
-  },
-  {
-    id: "HDTN.39",
-    context: "Về việc tham gia các buổi lao động công ích tại nhà trường:",
-    items: [
-      "Tự giác hoàn thành phần việc được phân công đúng thời hạn.",
-      "Đùn đẩy phần việc nặng nhọc cho các bạn nữ hoặc bạn rụt rè.",
-      "Phối hợp nhịp nhàng với bạn bè để hoàn thành công việc nhanh chóng.",
-      "Đi muộn về sớm và ngồi chơi điện thoại trong lúc các bạn làm việc."
-    ],
-    c: [true, false, true, false],
-    ex: "a-Đúng: Trách nhiệm cao với công việc; b-Sai: Đùn đẩy là thói quen xấu; c-Đúng: Tinh thần đồng đội; d-Sai: Thiếu kỉ luật và coi thường tập thể."
-  },
-  {
-    id: "HDTN.40",
-    context: "Về việc tôn trọng sự đa dạng văn hóa và vùng miền của học sinh:",
-    items: [
-      "Chấp nhận và tôn trọng nét đặc trưng giọng nói của các vùng miền.",
-      "Nhại giọng địa phương để gây cười và trêu chọc bạn học sinh mới.",
-      "Tìm hiểu và trân trọng nét đẹp văn hóa truyền thống của từng dân tộc.",
-      "Tẩy chay các bạn có phong tục tập quán khác với phong tục của mình."
-    ],
-    c: [true, false, true, false],
-    ex: "a-Đúng: Giọng nói là bản sắc vùng miền; b-Sai: Nhại giọng là chế giễu, kì thị; c-Đúng: Tôn trọng và tiếp thu tinh hoa văn hóa các dân tộc; d-Sai: Tẩy chay là hành vi sai trái."
-  },
-  {
-    id: "HDTN.41",
-    context: "Về tinh thần chia sẻ và giúp đỡ bạn bè cùng tiến bộ:",
-    items: [
-      "Tận tình hướng dẫn bạn phương pháp giải các bài toán khó hiểu.",
-      "Giấu kín tài liệu ôn tập hữu ích vì sợ bạn có điểm số cao hơn mình.",
-      "Động viên bạn khi bạn gặp chuyện buồn hoặc điểm số chưa như ý.",
-      "Chê bai và cười cợt khi bạn trả lời sai câu hỏi của thầy cô giáo."
-    ],
-    c: [true, false, true, false],
-    ex: "a-Đúng: Chia sẻ kiến thức để cùng nhau tiến bộ; b-Sai: Tính đố kị, hẹp hòi; c-Đúng: Tình bạn cần sự sẻ chia, an ủi; d-Sai: Làm tổn thương lòng tự trọng của bạn."
-  },
-  {
-    id: "HDTN.42",
-    context: "Về việc xây dựng môi trường học đường không bạo lực:",
-    items: [
-      "Tích cực tham gia các buổi tuyên truyền phòng chống bắt nạt học đường.",
-      "Thờ ơ xem như không biết khi bạn bị cô lập và tẩy chay trong lớp.",
-      "Thân thiện chào đón và gắn kết tất cả các bạn học sinh trong lớp.",
-      "Đặt biệt danh xấu nhằm trêu chọc khuyết điểm cơ thể của người khác."
-    ],
-    c: [true, false, true, false],
-    ex: "a-Đúng: Lan tỏa thông điệp hòa bình; b-Sai: Thờ ơ là gián tiếp tiếp tay cho bạo lực; c-Đúng: Xây dựng tập thể lớp đoàn kết; d-Sai: Body shaming (miệt thị ngoại hình) là hành vi bắt nạt."
-  },
-  {
-    id: "HDTN.43",
-    context: "Về trách nhiệm bảo vệ tài sản và cơ sở vật chất nhà trường:",
-    items: [
-      "Tắt quạt và đèn điện trước khi ra khỏi phòng học để tiết kiệm.",
-      "Dùng compa hoặc dao nhọn khắc hình lên mặt bàn học trong lớp.",
-      "Có ý thức giữ gìn và bảo quản máy móc trong phòng học tin học.",
-      "Đóng mở cửa sổ nhẹ nhàng và cẩn thận để tránh làm hư hỏng kính."
-    ],
-    c: [true, false, true, true],
-    ex: "a-Đúng: Tiết kiệm điện năng cho nhà trường; b-Sai: Phá hoại tài sản chung của lớp; c-Đúng: Bảo quản thiết bị học tập; d-Đúng: Giữ gìn độ bền của cửa và chống vỡ kính."
-  },
-  {
-    id: "HDTN.44",
-    context: "Về kỹ năng giao tiếp lịch sự trong môi trường học tập:",
-    items: [
-      "Biết lắng nghe chăm chú khi người khác đang trình bày ý kiến.",
-      "Tự do cắt ngang lời nói của bạn mà không cần xin phép trước.",
-      "Sử dụng ánh mắt thiện cảm và nụ cười thân thiện khi giao tiếp.",
-      "Vừa nói chuyện với thầy cô vừa đeo tai nghe và bấm điện thoại."
-    ],
-    c: [true, false, true, false],
-    ex: "a-Đúng: Thể hiện sự tôn trọng người đối thoại; b-Sai: Cắt ngang lời người khác là bất lịch sự; c-Đúng: Tạo cảm giác cởi mở, ấm áp; d-Sai: Thể hiện sự thiếu lễ độ nghiêm trọng với thầy cô."
-  },
-  {
-    id: "HDTN.45",
-    context: "Về ý thức tự hào và phát huy truyền thống trường THCS Thanh Thủy:",
-    items: [
-      "Nỗ lực phấn đấu đạt thành tích tốt trong học tập và rèn luyện.",
-      "Coi nhẹ các hoạt động phong trào và truyền thống của nhà trường.",
-      "Kính trọng và biết ơn công lao dạy dỗ của các thế hệ thầy cô giáo.",
-      "Giữ gìn hình ảnh đẹp của học sinh nhà trường ở mọi lúc mọi nơi."
-    ],
-    c: [true, false, true, true],
-    ex: "a-Đúng: Học tập rèn luyện tốt làm rạng danh nhà trường; b-Sai: Coi nhẹ phong trào làm suy giảm truyền thống; c-Đúng: Đạo lí uống nước nhớ nguồn; d-Đúng: Giữ gìn danh dự và phẩm chất học sinh THCS Thanh Thủy."
-  }
-];
-
-// ==========================================
-// PHẦN III. TRẢ LỜI NGẮN (BANK_SHORT)
-// ==========================================
-const BANK_SHORT = [
-  {
-    id: "HDTN.46",
-    q: "Cho 6 nhận định sau về thái độ tôn trọng sự khác biệt giữa các học sinh:\n(1) Chấp nhận và tôn trọng sở thích âm nhạc lành mạnh của từng bạn.\n(2) Chê bai bạn vì bạn có hoàn cảnh gia đình khó khăn hơn mình.\n(3) Tôn trọng ý kiến phát biểu xây dựng bài dù ý kiến đó khác mình.\n(4) Cười nhạo bạn khi bạn có phong cách ăn mặc giản dị nơi trường lớp.\n(5) Giữ thái độ hòa đồng và không phân biệt đối xử với bất kì ai.\n(6) Bắt buộc người khác phải thay đổi thói quen cho giống hệt với mình.\nHọc sinh chọn các nhận định đúng và ghi dãy số theo thứ tự tăng dần.",
-    c: "135",
-    ex: "Nhận định (1), (3), (5) là đúng vì thể hiện thái độ tôn trọng sự đa dạng, không phán xét và hòa nhã với mọi người. Các nhận định (2), (4), (6) là sai vì thể hiện thái độ kì thị, áp đặt và xem thường hoàn cảnh của người khác."
-  },
-  {
-    id: "HDTN.47",
-    q: "Cho 6 nhận định sau về giao tiếp văn minh, lịch sự với thầy cô giáo:\n(1) Lễ phép chào hỏi thầy cô bằng thái độ kính trọng và chân thành.\n(2) Chú ý lắng nghe lời nhận xét và góp ý của thầy cô để tiến bộ.\n(3) Nói trống không khi trả lời các câu hỏi kiểm tra của thầy cô.\n(4) Tự ý làm việc riêng trong giờ học khi thầy cô đang giảng bài.\n(5) Hợp tác tích cực với thầy cô để hoàn thành tốt các nhiệm vụ lớp.\n(6) Đứng dậy thưa gửi rõ ràng, lễ độ khi muốn phát biểu ý kiến.\nHọc sinh chọn các nhận định đúng và ghi dãy số theo thứ tự tăng dần.",
-    c: "1256",
-    ex: "Nhận định (1), (2), (5), (6) là đúng vì thể hiện truyền thống tôn sư trọng đạo, thái độ cầu thị và văn hóa phát biểu trong giờ học. Nhận định (3), (4) là sai vì vi phạm nghiêm trọng nội quy và chuẩn mực giao tiếp với thầy cô."
-  },
-  {
-    id: "HDTN.48",
-    q: "Cho 6 nhận định sau về phòng chống bắt nạt học đường trong nhà trường:\n(1) Tuyệt đối không tham gia vào các hành vi đe dọa hay cô lập bạn bè.\n(2) Đăng tải thông tin xúc phạm và bôi nhọ danh dự bạn lên mạng xã hội.\n(3) Sẵn sàng lên tiếng bảo vệ những bạn học sinh yếu thế trong trường.\n(4) Kịp thời thông báo cho thầy cô khi phát hiện hành vi bạo lực học đường.\n(5) Cổ vũ reo hò khi thấy hai bạn học sinh đang đánh nhau ở cổng trường.\n(6) Tích cực tham gia các buổi diễn đàn về phòng chống bạo lực học đường.\nHọc sinh chọn các nhận định đúng và ghi dãy số theo thứ tự tăng dần.",
-    c: "1346",
-    ex: "Nhận định (1), (3), (4), (6) là đúng vì là những biện pháp thiết thực giúp xây dựng trường học hạnh phúc, an toàn, không bạo lực. Nhận định (2) là hành vi bắt nạt mạng, (5) là hành vi kích động bạo lực rất đáng lên án."
-  },
-  {
-    id: "HDTN.49",
-    q: "Cho 6 nhận định sau về việc giữ gìn và phát huy truyền thống nhà trường:\n(1) Chăm chỉ học tập và rèn luyện đạo đức để làm rạng danh nhà trường.\n(2) Tích cực tham gia bảo vệ cây xanh và giữ gìn vệ sinh trường lớp.\n(3) Viết vẽ bậy lên bàn ghế và tường hành lang của các dãy phòng học.\n(4) Làm các sản phẩm tư liệu để đóng góp xây dựng truyền thống trường.\n(5) Đi học trễ giờ và trốn tránh các buổi sinh hoạt tập thể dưới cờ.\n(6) Kính trọng và biết ơn sâu sắc các thầy cô giáo đã tận tình giảng dạy.\nHọc sinh chọn các nhận định đúng và ghi dãy số theo thứ tự tăng dần.",
-    c: "1246",
-    ex: "Nhận định (1), (2), (4), (6) là đúng vì thể hiện lòng tự hào, tinh thần trách nhiệm bồi đắp văn hóa và truyền thống nhà trường. Nhận định (3) là phá hoại cơ sở vật chất, (5) là vô kỉ luật."
-  },
-  {
-    id: "HDTN.50",
-    q: "Cho 6 nhận định sau về hành vi văn hóa khi tham gia lao động công ích:\n(1) Tự giác nhận nhiệm vụ và phối hợp nhịp nhàng cùng bạn bè trong nhóm.\n(2) Giữ gìn và bảo quản tốt các dụng cụ lao động như chổi, cuốc, xẻng.\n(3) Trốn tránh vào các góc khuất để chơi điện thoại trong giờ lao động.\n(4) Đùn đẩy các công việc nặng nhọc cho các bạn có tính cách hiền lành.\n(5) Hoàn thành công việc được phân công đúng thời gian và đạt chất lượng.\n(6) Giúp đỡ các bạn khác khi bản thân đã hoàn thành sớm phần việc mình.\nHọc sinh chọn các nhận định đúng và ghi dãy số theo thứ tự tăng dần.",
-    c: "1256",
-    ex: "Nhận định (1), (2), (5), (6) là đúng vì rèn luyện tinh thần trách nhiệm, lòng yêu lao động và tinh thần tương thân tương ái. Nhận định (3), (4) là hành vi lười biếng, đùn đẩy trách nhiệm."
-  },
-  {
-    id: "HDTN.51",
-    q: "Cho 6 nhận định sau về văn hóa ứng xử nơi công cộng của học sinh:\n(1) Xếp hàng ngay ngắn, không chen lấn xô đẩy khi tham gia các hoạt động.\n(2) Giữ trật tự chung và nói năng nhẹ nhàng khi ở trong thư viện trường.\n(3) Khạc nhổ bừa bãi và vứt rác thải ra lối đi chung của sân trường.\n(4) Biết nói lời cảm ơn khi được giúp đỡ và xin lỗi khi có lỗi lầm.\n(5) Nói tục, chửi thề để thể hiện bản thân là người cá tính và mạnh mẽ.\n(6) Chủ động nhường chỗ cho người già, phụ nữ mang thai trên xe buýt.\nHọc sinh chọn các nhận định đúng và ghi dãy số theo thứ tự tăng dần.",
-    c: "1246",
-    ex: "Nhận định (1), (2), (4), (6) là đúng vì tuân thủ chuẩn mực đạo đức, lịch sự nơi công cộng. Nhận định (3) vi phạm vệ sinh môi trường, (5) là lệch lạc về nhận thức giá trị bản thân."
-  },
-  {
-    id: "HDTN.52",
-    q: "Cho 6 nhận định sau về cách giải quyết mâu thuẫn bất đồng trong học đường:\n(1) Giữ bình tĩnh và kiểm soát tốt cảm xúc cá nhân khi xảy ra tranh cãi.\n(2) Lắng nghe lời giải thích của đối phương để hiểu rõ ngọn ngành vấn đề.\n(3) Dùng bạo lực để giải quyết ngay mâu thuẫn nhằm phân định kẻ thắng người thua.\n(4) Nhờ thầy cô hoặc bạn bè có uy tín đứng ra làm trung gian hòa giải.\n(5) Kêu gọi nhóm bạn thân đến đe dọa và gây áp lực tinh thần cho đối phương.\n(6) Tự nhận khuyết điểm của bản thân và chủ động nói lời xin lỗi chân thành.\nHọc sinh chọn các nhận định đúng và ghi dãy số theo thứ tự tăng dần.",
-    c: "1246",
-    ex: "Nhận định (1), (2), (4), (6) là đúng vì giải quyết tranh chấp bằng đối thoại, hòa giải trên tinh thần xây dựng và tự phê phán. Nhận định (3), (5) dùng vũ lực và bạo lực tập thể là sai trái nghiêm trọng."
-  },
-  {
-    id: "HDTN.53",
-    q: "Cho 6 nhận định sau về tôn trọng sự khác biệt phong cách của bạn bè:\n(1) Tôn trọng các làn điệu âm nhạc truyền thống mà bạn yêu thích.\n(2) Cười nhạo bạn vì bạn có năng khiếu nghệ thuật khác biệt với đa số.\n(3) Tôn trọng phong cách ăn mặc giản dị, đúng quy định học sinh của bạn.\n(4) Chế giễu bạn nam có tính cách cẩn thận, tỉ mỉ trong việc sắp xếp sách.\n(5) Động viên bạn phát huy năng khiếu và sở trường riêng của bản thân.\n(6) Bắt bạn phải từ bỏ thói quen đọc sách để chơi game điện tử cùng mình.\nHọc sinh chọn các nhận định đúng và ghi dãy số theo thứ tự tăng dần.",
-    c: "135",
-    ex: "Nhận định (1), (3), (5) là đúng vì mỗi cá nhân đều có sở thích nghệ thuật và tính cách riêng cần được tôn trọng và khích lệ. Nhận định (2), (4), (6) mang tính phán xét, chế giễu và áp đặt sở thích tiêu cực."
-  },
-  {
-    id: "HDTN.54",
-    q: "Cho 6 nhận định sau về tinh thần đoàn kết và sẻ chia trong lớp học:\n(1) Sẵn sàng giúp đỡ các bạn học yếu để cả lớp cùng nhau tiến bộ hơn.\n(2) Tẩy chay những bạn có hoàn cảnh gia đình còn nhiều khó khăn, thiếu thốn.\n(3) Thăm hỏi và động viên khi trong lớp có bạn không may bị ốm đau.\n(4) Giấu tài liệu hay không chia sẻ vì sợ bạn đạt điểm số cao hơn mình.\n(5) Hòa nhã, thân thiện chào đón và hỗ trợ các bạn học sinh mới vào lớp.\n(6) Lắng nghe và tôn trọng ý kiến đóng góp của các bạn trong giờ sinh hoạt.\nHọc sinh chọn các nhận định đúng và ghi dãy số theo thứ tự tăng dần.",
-    c: "1356",
-    ex: "Nhận định (1), (3), (5), (6) là đúng vì thể hiện tình bạn trong sáng, tinh thần tương trợ và gắn kết tập thể. Nhận định (2) là hành vi kì thị nhẫn tâm, (4) là biểu hiện của tính đố kị nhỏ nhen."
-  },
-  {
-    id: "HDTN.55",
-    q: "Cho 6 nhận định sau về thái độ đúng đắn đối với cơ sở vật chất nhà trường:\n(1) Tắt quạt điện và bóng đèn khi cả lớp di chuyển ra ngoài học thể dục.\n(2) Khắc tên và viết số điện thoại lên mặt bàn gỗ trong phòng học.\n(3) Giữ gìn sách báo cẩn thận khi đọc tại thư viện của nhà trường.\n(4) Đóng mở cửa sổ nhẹ tay để bảo vệ các chốt khóa và cánh cửa sổ.\n(5) Bẻ cành cây xanh trong sân trường để làm đồ chơi trong giờ ra chơi.\n(6) Báo cáo ngay cho các thầy cô khi phát hiện bàn ghế bị hư hỏng, lung lay.\nHọc sinh chọn các nhận định đúng và ghi dãy số theo thứ tự tăng dần.",
-    c: "1346",
-    ex: "Nhận định (1), (3), (4), (6) là đúng vì thể hiện trách nhiệm bảo vệ của công và tiết kiệm tài nguyên cho nhà trường. Nhận định (2), (5) là hành vi phá hoại tài sản và cảnh quan trường học."
-  },
-  {
-    id: "HDTN.56",
-    q: "Cho 6 nhận định sau về văn hóa phát biểu và xây dựng bài trong lớp học:\n(1) Giơ tay xin phép trước khi đứng dậy phát biểu đóng góp ý kiến.\n(2) Tự do nói chen ngang khi thầy cô đang hướng dẫn bài tập trên bảng.\n(3) Chú ý lắng nghe câu trả lời của bạn để bổ sung những điểm còn thiếu.\n(4) Cười lớn chế nhạo khi thấy bạn mình trả lời sai câu hỏi của thầy cô.\n(5) Trình bày ý kiến cá nhân với thái độ khiêm tốn, lịch sự và rõ ràng.\n(6) Tôn trọng các cách giải bài tập sáng tạo và khác biệt của bạn bè.\nHọc sinh chọn các nhận định đúng và ghi dãy số theo thứ tự tăng dần.",
-    c: "1356",
-    ex: "Nhận định (1), (3), (5), (6) là đúng vì đảm bảo tính kỉ luật, sự khiêm tốn và tôn trọng trí tuệ của tập thể. Nhận định (2) làm gián đoạn bài giảng, (4) làm bạn xấu hổ và nản chí."
-  },
-  {
-    id: "HDTN.57",
-    q: "Cho 6 nhận định sau về ứng xử văn minh trong giờ tự học và thảo luận nhóm:\n(1) Giữ trật tự chung để tạo không gian yên tĩnh cho các bạn cùng học bài.\n(2) Hát hò và cười đùa lớn tiếng làm ảnh hưởng đến các lớp học bên cạnh.\n(3) Tôn trọng sự phân công công việc của nhóm trưởng trong các dự án học.\n(4) Tích cực trao đổi, đóng góp ý tưởng xây dựng bài một cách nghiêm túc.\n(5) Tự ý bỏ ra ngoài chơi bóng trong khi cả nhóm đang tích cực làm bài tập.\n(6) Khiêm tốn tiếp thu các lời nhận xét, góp ý mang tính xây dựng của bạn.\nHọc sinh chọn các nhận định đúng và ghi dãy số theo thứ tự tăng dần.",
-    c: "1346",
-    ex: "Nhận định (1), (3), (4), (6) là đúng vì giúp giờ tự học đạt hiệu quả cao, phát huy năng lực hợp tác nhóm. Nhận định (2), (5) gây mất trật tự và thiếu trách nhiệm với tập thể."
-  },
-  {
-    id: "HDTN.58",
-    q: "Cho 6 nhận định sau về tinh thần tôn trọng sự đa dạng vùng miền:\n(1) Tôn trọng giọng nói và các từ ngữ địa phương đặc trưng của các bạn.\n(2) Nhại lại giọng nói vùng miền của bạn để trêu chọc và chế giễu bạn.\n(3) Tôn trọng phong tục tập quán truyền thống tốt đẹp của các dân tộc.\n(4) Cô lập và không chơi cùng với những bạn đến từ tỉnh thành khác đến.\n(5) Tìm hiểu nét đẹp văn hóa và ẩm thực của quê hương bạn bè trong lớp.\n(6) Giúp đỡ bạn mới chuyển trường nhanh chóng hòa nhập với môi trường lớp.\nHọc sinh chọn các nhận định đúng và ghi dãy số theo thứ tự tăng dần.",
-    c: "1356",
-    ex: "Nhận định (1), (3), (5), (6) là đúng vì thể hiện sự văn minh, trân trọng các giá trị văn hóa đa dạng của đất nước. Nhận định (2) là trêu chọc ác ý, (4) là sự kì thị vùng miền cần bị loại trừ."
-  },
-  {
-    id: "HDTN.59",
-    q: "Cho 6 nhận định sau về trách nhiệm của học sinh đối với tập thể lớp:\n(1) Tích cực tham gia các phong trào văn nghệ và thể thao do trường tổ chức.\n(2) Trốn tránh không tham gia các hoạt động ngoại khóa chung của lớp học.\n(3) Thực hiện tốt các quy định về đồng phục và nề nếp của nhà trường.\n(4) Cùng cả lớp chung tay xây dựng tinh thần đoàn kết, giúp đỡ lẫn nhau.\n(5) Vi phạm nội quy lớp học để chứng tỏ mình là người dũng cảm, nổi bật.\n(6) Đóng góp những ý tưởng sáng tạo nhằm nâng cao hiệu quả học tập của lớp.\nHọc sinh chọn các nhận định đúng và ghi dãy số theo thứ tự tăng dần.",
-    c: "1346",
-    ex: "Nhận định (1), (3), (4), (6) là đúng vì đóng góp tích cực cho phong trào và kỉ cương tập thể. Nhận định (2) thiếu tinh thần cộng đồng, (5) là suy nghĩ bồng bột, thể hiện sai lệch giá trị cá nhân."
-  },
-  {
-    id: "HDTN.60",
-    q: "Cho 6 nhận định sau về hành vi thể hiện lòng biết ơn trong môi trường giáo dục:\n(1) Tri ân công lao dạy bảo của thầy cô nhân ngày Nhà giáo Việt Nam 20/11.\n(2) Gửi lời cảm ơn chân thành đến các cô bác phục vụ bữa ăn trưa bán trú.\n(3) Chào hỏi lễ phép và cảm ơn bác bảo vệ đã trông giữ an toàn cho trường.\n(4) Cho rằng sự chăm sóc và dạy dỗ của người lớn là điều hiển nhiên phải có.\n(5) Cố gắng học tập tốt và rèn luyện đạo đức để đền đáp công ơn thầy cô.\n(6) Tỏ thái độ khó chịu khi được thầy cô giáo uốn nắn và nhắc nhở khuyết điểm.\nHọc sinh chọn các nhận định đúng và ghi dãy số theo thứ tự tăng dần.",
-    c: "1235",
-    ex: "Nhận định (1), (2), (3), (5) là đúng vì thể hiện lòng biết ơn chân thành tới tất cả những người chăm sóc, dạy dỗ và phục vụ trong nhà trường. Nhận định (4) là suy nghĩ vô ơn, (6) là thiếu tôn trọng sự dạy bảo của thầy cô."
-  }
-];
-// Xuất toàn bộ ngân hàng câu hỏi dùng cho Hue SmartTest 7991
-window.HUE_SMARTTEST_BANK = {
-  mcq: BANK_MCQ,
-  truefalse: BANK_TF,
-  short: BANK_SHORT
 };
 
 function autoScaleApp() {
