@@ -533,629 +533,631 @@ let importedStudentsCache = []; // Caching for excel import
 const audioPing = new Audio('https://www.soundjay.com/buttons/sounds/button-16.mp3');
 const audioFinish = new Audio('https://www.soundjay.com/misc/sounds/bell-ringing-05.mp3');
 
-// CƠ SỞ DỮ LIỆU ĐƯỢC CHUẨN HÓA CHO HUE SMARTTEST 7991
+// ==========================================
+// NGÂN HÀNG CÂU HỎI: ĐẠO ĐỨC TRONG SỬ DỤNG TRÍ TUỆ NHÂN TẠO (AI)
+// BẢN QUYỀN: THS. NGUYỄN VĂN CẦN - TRƯỜNG THCS THANH THỦY, TP. HUẾ
 // ==========================================
 const ALL_BANKS = {
   "htsd_2026": {
     mcq: [
       {
-        id: "HDTN.01",
-        q: "Hành động nào sau đây thể hiện thái độ tôn trọng sự khác biệt của bạn bè trong lớp học?",
+        id: "AI.01",
+        q: "Hành vi nào sau đây thể hiện việc sử dụng AI có đạo đức và văn hóa học đường?",
         o: [
-          "Phán xét phong cách ăn mặc của bạn.",
-          "Cười nhạo sở thích âm nhạc của bạn.",
-          "Lắng nghe và tôn trọng sở thích của bạn.",
-          "Cô lập bạn có tính cách rụt rè."
+          "Giấu kín việc dùng AI để làm văn.",
+          "Khai báo rõ việc có sử dụng AI.",
+          "Dùng AI mạo danh giáo viên dạy học.",
+          "Đưa thông tin bí mật trường lên AI."
         ],
-        a: "Lắng nghe và tôn trọng sở thích của bạn.",
-        e: "Đáp án C đúng vì mỗi cá nhân đều có sở thích riêng biệt, việc biết lắng nghe và tôn trọng bạn bè là biểu hiện văn minh và hòa nhã."
+        a: "Khai báo rõ việc có sử dụng AI.",
+        e: "Phương án B đúng vì tính minh bạch và trung thực học thuật đòi hỏi người học phải công khai, giải trình rõ ràng mức độ hỗ trợ của công nghệ AI trong sản phẩm học tập của mình."
       },
       {
-        id: "HDTN.02",
-        q: "Khi một bạn trong lớp có ý kiến trái ngược với số đông, cách ứng xử văn minh nhất là gì?",
+        id: "AI.02",
+        q: "Khi một ứng dụng AI yêu cầu nhập mật khẩu cá nhân để tiếp tục, học sinh nên xử lí thế nào?",
         o: [
-          "Ngắt lời và bác bỏ ý kiến của bạn.",
-          "Lắng nghe và trao đổi một cách lịch sự.",
-          "Rủ các bạn khác tẩy chay ý kiến đó.",
-          "Chế giễu suy nghĩ khác biệt của bạn."
+          "Nhập ngay mật khẩu cá nhân của mình.",
+          "Từ chối và tuyệt đối không cung cấp.",
+          "Nhập mật khẩu tài khoản của bạn thân.",
+          "Đăng tải mật khẩu lên nhóm học tập."
         ],
-        a: "Lắng nghe và trao đổi một cách lịch sự.",
-        e: "Đáp án B đúng vì sự đa dạng ý kiến là động lực cho tư duy đa chiều; lắng nghe và thảo luận ôn hòa giúp tìm ra giải pháp tối ưu."
+        a: "Từ chối và tuyệt đối không cung cấp.",
+        e: "Phương án B đúng vì mật khẩu là dữ liệu xác thực tối mật; việc cung cấp mật khẩu cho ứng dụng AI hoặc bên thứ ba tiềm ẩn rủi ro bị chiếm đoạt tài khoản và rò rỉ dữ liệu cá nhân."
       },
       {
-        id: "HDTN.03",
-        q: "Hành vi nào sau đây thể hiện thái độ ứng xử đúng mực và tôn trọng thầy cô giáo?",
+        id: "AI.03",
+        q: "Thông tin nào sau đây thuộc nhóm dữ liệu cá nhân cần bảo vệ nghiêm ngặt?",
         o: [
-          "Lơ là không chú ý khi thầy cô giảng bài.",
-          "Chăm chú lắng nghe lời giảng và góp ý.",
-          "Bình phẩm phong cách giảng dạy của thầy cô.",
-          "Tự ý làm việc riêng trong giờ học."
+          "Địa chỉ nhà riêng và hình ảnh gia đình.",
+          "Tên một bài thơ trong sách Ngữ văn.",
+          "Lời bài hát trong chương trình Âm nhạc.",
+          "Bảng cửu chương trong sách môn Toán."
         ],
-        a: "Chăm chú lắng nghe lời giảng và góp ý.",
-        e: "Đáp án B đúng vì việc chăm chú lắng nghe, ghi chép và tiếp thu chỉ dẫn là thái độ lễ độ, tôn sư trọng đạo."
+        a: "Địa chỉ nhà riêng và hình ảnh gia đình.",
+        e: "Phương án A đúng vì địa chỉ nơi ở và hình ảnh gia đình là thông tin định danh cá nhân nhạy cảm, gắn liền với quyền riêng tư và an toàn đời sống thực."
       },
       {
-        id: "HDTN.04",
-        q: "Khi thấy một bạn trong trường bị trêu chọc và bắt nạt, hành động đúng đắn nhất là gì?",
+        id: "AI.04",
+        q: "Khi gặp một thông tin mới do chatbot AI đưa ra, thao tác an toàn nhất là gì?",
         o: [
-          "Đứng ngoài reo hò cổ vũ theo nhóm.",
-          "Dùng điện thoại quay video đăng mạng.",
-          "Báo ngay cho thầy cô hoặc người lớn.",
-          "Lặng lẽ bỏ đi vì không liên quan mình."
+          "Kiểm chứng lại với nguồn tin cậy.",
+          "Chia sẻ ngay lên các trang mạng xã hội.",
+          "Tin tưởng tuyệt đối kết quả của máy.",
+          "Bỏ qua không cần suy ngẫm hay kiểm tra."
         ],
-        a: "Báo ngay cho thầy cô hoặc người lớn.",
-        e: "Đáp án C đúng vì báo cáo kịp thời cho thầy cô hoặc người lớn giúp ngăn chặn bạo lực học đường và bảo vệ bạn bị hại."
+        a: "Kiểm chứng lại với nguồn tin cậy.",
+        e: "Phương án A đúng vì các mô hình AI có khả năng tạo ra ảo giác (thông tin sai lệch nhưng nghe rất hợp lí); học sinh cần đối chiếu với sách giáo khoa và tài liệu chính thống."
       },
       {
-        id: "HDTN.05",
-        q: "Biểu hiện nào sau đây thuộc về hành vi giao tiếp tích cực nơi công cộng?",
+        id: "AI.05",
+        q: "Hành động nào sau đây là lạm dụng AI và vi phạm tính trung thực trong học tập?",
         o: [
-          "Chen lấn xô đẩy khi xếp hàng mua vé.",
-          "Cười nói to làm ảnh hưởng người xung quanh.",
-          "Giữ trật tự và nhường ghế cho người già.",
-          "Bật loa ngoài điện thoại thật lớn."
+          "Tra cứu nghĩa một từ vựng tiếng Anh.",
+          "Luyện nghe phát âm một câu giao tiếp.",
+          "Nhờ AI viết hộ bài thu hoạch nộp cô.",
+          "Tìm kiếm gợi ý ý tưởng làm bài tập."
         ],
-        a: "Giữ trật tự và nhường ghế cho người già.",
-        e: "Đáp án C đúng vì giữ trật tự và nhường ghế cho người cao tuổi là chuẩn mực đạo đức, ứng xử văn minh nơi công cộng."
+        a: "Nhờ AI viết hộ bài thu hoạch nộp cô.",
+        e: "Phương án C đúng vì để AI làm thay toàn bộ bài tập và nộp bài dưới danh nghĩa của mình là hành vi đạo văn và gian lận học thuật."
       },
       {
-        id: "HDTN.06",
-        q: "Khi bạn gặp khó khăn trong học tập, hành động nào thể hiện tinh thần sẻ chia?",
+        id: "AI.06",
+        q: "Trong việc sử dụng hệ thống AI, chủ thể nào chịu trách nhiệm cuối cùng về kết quả?",
         o: [
-          "Chê bai bạn học yếu kém hơn mình.",
-          "Giúp đỡ bạn cùng tiến bộ trong học tập.",
-          "Giấu tài liệu để bạn không làm được.",
-          "Mỉa mai khi bạn bị điểm số chưa tốt."
+          "Con người trực tiếp sử dụng AI.",
+          "Hệ điều hành đang chạy trên máy tính.",
+          "Thiết bị máy tính cá nhân người dùng.",
+          "Nhà cung cấp dịch vụ mạng Internet."
         ],
-        a: "Giúp đỡ bạn cùng tiến bộ trong học tập.",
-        e: "Đáp án B đúng vì tương trợ, giảng bài cho bạn thể hiện tinh thần sẻ chia và giúp đỡ nhau cùng tiến bộ."
+        a: "Con người trực tiếp sử dụng AI.",
+        e: "Phương án A đúng vì AI chỉ là công cụ tính toán và xử lí dữ liệu do con người sáng tạo; con người mới có tư cách pháp nhân và nghĩa vụ đạo đức chịu trách nhiệm cho hành vi của mình."
       },
       {
-        id: "HDTN.07",
-        q: "Việc làm nào sau đây trực tiếp góp phần xây dựng truyền thống tốt đẹp của nhà trường?",
+        id: "AI.07",
+        q: "Khi chuẩn bị dữ liệu dạy cho AI, việc làm nào sau đây vi phạm đạo đức số?",
         o: [
-          "Vẽ bậy lên bàn học và tường lớp.",
-          "Tích cực thi đua học tốt và rèn luyện.",
-          "Đi học muộn và trốn các buổi lao động.",
-          "Tự ý bỏ rác ra sân trường bừa bãi."
+          "Sử dụng kho ảnh mở miễn phí trên mạng.",
+          "Tự vẽ tranh minh họa bằng tay cá nhân.",
+          "Lén lấy ảnh riêng tư của người khác.",
+          "Thu âm giọng đọc bài của chính bản thân."
         ],
-        a: "Tích cực thi đua học tốt và rèn luyện.",
-        e: "Đáp án B đúng vì thi đua học tốt, rèn luyện chăm chỉ trực tiếp bồi đắp và phát huy truyền thống vẻ vang của nhà trường."
+        a: "Lén lấy ảnh riêng tư của người khác.",
+        e: "Phương án C đúng vì việc thu thập hình ảnh cá nhân khi chưa có sự đồng thuận là hành vi xâm phạm quyền riêng tư và vi phạm bản quyền dữ liệu."
       },
       {
-        id: "HDTN.08",
-        q: "Trong buổi thảo luận nhóm, cách thể hiện sự khiêm tốn và hòa đồng là gì?",
+        id: "AI.08",
+        q: "Hiện tượng AI đưa ra kết quả thiên lệch, bất công đối với xã hội bắt nguồn từ đâu?",
         o: [
-          "Tự cho ý kiến của mình là đúng nhất.",
-          "Biết kiềm chế cảm xúc và lắng nghe bạn.",
-          "Bắt buộc các bạn phải nghe theo mình.",
-          "Tỏ thái độ kiêu ngạo khi đạt thành tích."
+          "Thiết bị máy tính bị nóng vi xử lý.",
+          "Do dữ liệu huấn luyện bị thiên kiến.",
+          "Màn hình máy tính có độ tương phản cao.",
+          "Tốc độ kết nối mạng Internet bị chập chờn."
         ],
-        a: "Biết kiềm chế cảm xúc và lắng nghe bạn.",
-        e: "Đáp án B đúng vì làm việc nhóm đòi hỏi sự cầu thị, biết lắng nghe đa chiều và làm chủ cảm xúc của bản thân."
+        a: "Do dữ liệu huấn luyện bị thiên kiến.",
+        e: "Phương án B đúng vì mô hình máy học phản ánh chính xác các định kiến, sự thiếu hụt hoặc phiến diện tồn tại trong tập dữ liệu đầu vào dùng để huấn luyện."
       },
       {
-        id: "HDTN.09",
-        q: "Khi thầy cô chỉ ra điểm hạn chế trong bài làm của em, em nên ứng xử thế nào?",
+        id: "AI.09",
+        q: "Hành động nào sau đây góp phần xây dựng môi trường mạng an toàn khi dùng AI?",
         o: [
-          "Bực bội và tranh cãi gay gắt với cô.",
-          "Tiếp thu nghiêm túc và sửa chữa khuyết điểm.",
-          "Bỏ mặc không quan tâm lời cô nhận xét.",
-          "Đổ lỗi cho các bạn khác trong nhóm."
+          "Báo cáo các nội dung độc hại phát hiện.",
+          "Cài thử nghiệm các mã độc vào ứng dụng AI.",
+          "Gửi tin nhắn rác hàng loạt qua chatbot.",
+          "Thu thập dữ liệu các bạn đưa lên AI."
         ],
-        a: "Tiếp thu nghiêm túc và sửa chữa khuyết điểm.",
-        e: "Đáp án B đúng vì thái độ cầu thị, tiếp thu nhận xét của thầy cô giúp bản thân nhận thức sai sót và tiến bộ vững chắc."
+        a: "Báo cáo các nội dung độc hại phát hiện.",
+        e: "Phương án A đúng vì hành động báo cáo nội dung xấu độc giúp nhà phát triển ngăn chặn nguy cơ mất an toàn và bảo vệ cộng đồng số."
       },
       {
-        id: "HDTN.10",
-        q: "Hành vi nào sau đây bị xem là bắt nạt học đường trên không gian mạng?",
+        id: "AI.10",
+        q: "Khi làm sản phẩm có dùng hình minh họa do AI tạo ra, hành vi nào tôn trọng bản quyền?",
         o: [
-          "Chúc mừng sinh nhật bạn trên nhóm lớp.",
-          "Đăng ảnh bôi nhọ và xúc phạm danh dự bạn.",
-          "Chia sẻ tài liệu học tập bổ ích cho bạn.",
-          "Hỏi thăm tình hình sức khỏe của bạn bè."
+          "Ghi chú rõ nguồn tranh do AI vẽ.",
+          "Tự nhận tác phẩm do chính tay mình vẽ.",
+          "Dùng phần mềm xóa chữ ký nguồn ảnh.",
+          "Nói dối là tranh vẽ của họa sĩ nổi tiếng."
         ],
-        a: "Đăng ảnh bôi nhọ và xúc phạm danh dự bạn.",
-        e: "Đáp án B đúng vì phát tán hình ảnh hoặc bình luận ác ý nhằm bôi nhọ người khác là hành vi bạo lực học đường trên không gian mạng."
+        a: "Ghi chú rõ nguồn tranh do AI vẽ.",
+        e: "Phương án A đúng vì ghi rõ xuất xứ và phương thức tạo lập hình ảnh thể hiện thái độ tôn trọng sự thật và tuân thủ chuẩn mực liêm chính học thuật."
       },
       {
-        id: "HDTN.11",
-        q: "Để duy trì mối quan hệ hòa nhã với bạn bè, học sinh cần rèn luyện điều gì?",
+        id: "AI.11",
+        q: "Vì sao con người cần luôn nắm giữ quyền ra quyết định cuối cùng khi dùng AI?",
         o: [
-          "Thói quen luôn so sánh mình với bạn.",
-          "Lòng bao dung và chấp nhận sự khác biệt.",
-          "Thái độ hơn thua trong mọi cuộc thi đua.",
-          "Tính cách ích kỷ chỉ nghĩ đến bản thân."
+          "Nhằm bảo đảm an toàn và tính nhân văn.",
+          "Giúp máy tính tiết kiệm được năng lượng.",
+          "Để phần mềm AI không bị quá tải bộ nhớ.",
+          "Vì pháp luật cấm AI xử lí dữ liệu lớn."
         ],
-        a: "Lòng bao dung và chấp nhận sự khác biệt.",
-        e: "Đáp án B đúng vì lòng bao dung và sự tôn trọng bản sắc của từng người là nền tảng của tình bạn trong sáng, bền chặt."
+        a: "Nhằm bảo đảm an toàn và tính nhân văn.",
+        e: "Phương án A đúng vì AI thiếu lòng trắc ẩn, sự thấu cảm và trách nhiệm đạo đức; quyền kiểm soát của con người bảo đảm các phán quyết luôn nhân bản và an toàn."
       },
       {
-        id: "HDTN.12",
-        q: "Khi một bạn học sinh mới chuyển từ địa phương khác đến trường, em nên ứng xử ra sao?",
+        id: "AI.12",
+        q: "Khi phát hiện một ứng dụng AI liên tục đưa thông tin sai sự thật, học sinh nên làm gì?",
         o: [
-          "Chủ động chào hỏi và giúp bạn làm quen.",
-          "Nhại lại giọng nói vùng miền của bạn.",
-          "Bàn tán sau lưng về trang phục của bạn.",
-          "Tránh xa và không cho bạn tham gia nhóm."
+          "Ngừng dùng và báo ngay cho người lớn.",
+          "Gửi đường dẫn rủ bạn bè cùng sử dụng.",
+          "Tải phần mềm đó cài vào máy tính bạn.",
+          "Viết bài chia sẻ ca ngợi ứng dụng đó."
         ],
-        a: "Chủ động chào hỏi và giúp bạn làm quen.",
-        e: "Đáp án A đúng vì sự nhiệt tình, chào đón cởi mở giúp bạn mới xua tan bỡ ngỡ và nhanh chóng hòa nhập cùng tập thể lớp."
+        a: "Ngừng dùng và báo ngay cho người lớn.",
+        e: "Phương án A đúng vì ngừng sử dụng và báo cáo cho thầy cô hoặc cha mẹ giúp ngăn chặn tác hại của tin giả và bảo đảm an toàn thông tin."
       },
       {
-        id: "HDTN.13",
-        q: "Việc làm nào sau đây thể hiện ý thức giữ gìn vệ sinh và cảnh quan trường THCS Thanh Thủy?",
+        id: "AI.13",
+        q: "Công nghệ AI tạo ra hình ảnh hoặc video giả mạo người thật rất tinh vi gọi là gì?",
         o: [
-          "Vứt vỏ hộp sữa vào các bồn hoa.",
-          "Tích cực tham gia trồng và chăm sóc cây xanh.",
-          "Bẻ cành cây non để chơi đùa ở sân.",
-          "Khắc tên cá nhân lên thân cây xanh."
+          "Deepfake.",
+          "Phần mềm độc hại.",
+          "Dữ liệu lớn.",
+          "Trình duyệt web."
         ],
-        a: "Tích cực tham gia trồng và chăm sóc cây xanh.",
-        e: "Đáp án B đúng vì trồng và chăm sóc cây xanh trực tiếp giữ gìn môi trường trường học xanh, sạch, đẹp."
+        a: "Deepfake.",
+        e: "Phương án A đúng vì Deepfake (kết hợp giữa Deep learning và Fake) là thuật ngữ chỉ kỹ thuật giả mạo khuôn mặt, giọng nói hoặc cử chỉ của con người một cách tinh vi."
       },
       {
-        id: "HDTN.14",
-        q: "Khi bạn cùng bàn có sở thích vẽ truyện tranh khác với sở thích của em, em nên làm gì?",
+        id: "AI.14",
+        q: "Việc dùng AI làm giả giọng nói người khác gọi điện vay tiền là hành vi gì?",
         o: [
-          "Xé tranh của bạn khi bạn không để ý.",
-          "Tôn trọng niềm đam mê lành mạnh của bạn.",
-          "Chê bai sở thích đó là vô bổ lãng phí.",
-          "Bắt bạn phải đổi sang chơi trò giống mình."
+          "Một trò đùa vui không có hại.",
+          "Hành vi lừa đảo vi phạm pháp luật.",
+          "Hoạt động nghiên cứu công nghệ số.",
+          "Phương thức giao tiếp thông minh."
         ],
-        a: "Tôn trọng niềm đam mê lành mạnh của bạn.",
-        e: "Đáp án B đúng vì mỗi người có đam mê lành mạnh riêng; tôn trọng sở thích của bạn là biểu hiện của sự văn minh."
+        a: "Hành vi lừa đảo vi phạm pháp luật.",
+        e: "Phương án B đúng vì giả mạo danh tính để chiếm đoạt tài sản là hành vi phạm tội lừa đảo, bị xử lí nghiêm minh theo quy định pháp luật."
       },
       {
-        id: "HDTN.15",
-        q: "Biểu hiện nào sau đây chứng tỏ một học sinh có lời nói văn minh, lịch sự?",
+        id: "AI.15",
+        q: "Trách nhiệm phải giải thích rõ cách dùng AI và chịu trách nhiệm về bài làm gọi là gì?",
         o: [
-          "Sử dụng từ ngữ thô tục khi trò chuyện.",
-          "Biết nói lời cảm ơn và xin lỗi đúng lúc.",
-          "Nói trống không khi trả lời thầy cô giáo.",
-          "Cố tình đặt biệt danh xấu cho bạn bè."
+          "Trách nhiệm pháp lý quốc tế.",
+          "Quyền miễn trừ của người dùng.",
+          "Trách nhiệm giải trình học thuật.",
+          "Quyền sở hữu thương mại điện tử."
         ],
-        a: "Biết nói lời cảm ơn và xin lỗi đúng lúc.",
-        e: "Đáp án B đúng vì biết nói lời cảm ơn khi được giúp đỡ và xin lỗi khi có lỗi lầm là chuẩn mực giao tiếp văn hóa tối thiểu."
+        a: "Trách nhiệm giải trình học thuật.",
+        e: "Phương án C đúng vì trách nhiệm giải trình yêu cầu người học phải giải thích được quy trình làm bài, nguồn gốc kiến thức và chứng minh sự làm chủ sản phẩm của mình."
       },
       {
-        id: "HDTN.16",
-        q: "Khi tham gia buổi lao động công ích dọn vệ sinh trường, học sinh cần thể hiện thái độ gì?",
+        id: "AI.16",
+        q: "Lĩnh vực nào đòi hỏi sự thấu cảm sâu sắc nên AI không thể thay thế hoàn toàn con người?",
         o: [
-          "Làm việc qua loa cho nhanh hết giờ.",
-          "Tự giác, nhiệt tình và hợp tác tốt.",
-          "Trốn tránh và đùn đẩy việc cho bạn.",
-          "Ngồi nghịch điện thoại bỏ mặc việc chung."
+          "Dạy học và bồi dưỡng nhân cách.",
+          "Quét mã vạch sản phẩm tiêu dùng.",
+          "Phát hiện lỗi chính tả văn bản tự động.",
+          "Thống kê số lượng mưa trong năm."
         ],
-        a: "Tự giác, nhiệt tình và hợp tác tốt.",
-        e: "Đáp án B đúng vì tinh thần tự giác, nhiệt tình và hợp tác giúp hoàn thành nhiệm vụ chung và nâng cao ý thức cộng đồng."
+        a: "Dạy học và bồi dưỡng nhân cách.",
+        e: "Phương án A đúng vì giáo dục và uốn nắn nhân cách đòi hỏi sự yêu thương, đồng cảm và truyền cảm hứng - những phẩm chất tinh thần chỉ con người mới có."
       },
       {
-        id: "HDTN.17",
-        q: "Nhận xét nào sau đây phản ánh đúng về giá trị của sự khác biệt cá nhân?",
+        id: "AI.17",
+        q: "Hậu quả nghiêm trọng nhất khi học sinh hoàn toàn ỷ lại vào các công cụ AI là gì?",
         o: [
-          "Sự khác biệt chỉ mang lại những rắc rối.",
-          "Mỗi người là một cá nhân độc đáo, đáng quý.",
-          "Mọi người đều phải có suy nghĩ giống hệt nhau.",
-          "Khác biệt tính cách là điều cần xóa bỏ."
+          "Giảm dung lượng pin của điện thoại.",
+          "Bị suy giảm tư duy phản biện độc lập.",
+          "Tốc độ gõ phím máy tính bị chậm đi.",
+          "Thiết bị máy tính bị hao mòn vi mạch."
         ],
-        a: "Mỗi người là một cá nhân độc đáo, đáng quý.",
-        e: "Đáp án B đúng vì mỗi người đều sở hữu cá tính, tiềm năng độc đáo làm phong phú và đa dạng thêm cho cộng đồng."
+        a: "Bị suy giảm tư duy phản biện độc lập.",
+        e: "Phương án B đúng vì việc phụ thuộc hoàn toàn vào máy tính làm triệt tiêu khả năng tự tư duy, phân tích, phán đoán và giải quyết vấn đề của não bộ."
       },
       {
-        id: "HDTN.18",
-        q: "Khi hai bạn trong lớp xảy ra xích mích hiểu lầm, cách can thiệp đúng đắn là gì?",
+        id: "AI.18",
+        q: "Khi thiết kế một chatbot học đường, điều nào cần tuyệt đối tránh về mặt đạo đức?",
         o: [
-          "Cổ vũ hai bạn dùng bạo lực giải quyết.",
-          "Khuyên nhủ hai bạn bình tĩnh giảng hòa.",
-          "Đăng tải thông tin mâu thuẫn lên mạng xã hội.",
-          "Thiên vị và kích động một bên đánh bạn."
+          "Sử dụng phông chữ tiếng Việt chuẩn hóa.",
+          "Cung cấp câu trả lời xúc phạm người khác.",
+          "Hướng dẫn nội quy của nhà trường cho bạn.",
+          "Thông báo lịch học cho các lớp hàng tuần."
         ],
-        a: "Khuyên nhủ hai bạn bình tĩnh giảng hòa.",
-        e: "Đáp án B đúng vì can thiệp hòa giải ôn hòa giúp làm dịu căng thẳng và tháo gỡ hiểu lầm giữa các bạn."
+        a: "Cung cấp câu trả lời xúc phạm người khác.",
+        e: "Phương án B đúng vì chatbot học đường phải chuẩn mực, an toàn, tôn trọng phẩm giá con người và tuyệt đối không phát ngôn miệt thị, độc hại."
       },
       {
-        id: "HDTN.19",
-        q: "Hành động nào sau đây thể hiện sự tôn trọng không gian học tập chung của lớp?",
+        id: "AI.19",
+        q: "Để bảo vệ quyền riêng tư cá nhân, học sinh cần làm gì khi truy cập vào hệ thống AI?",
         o: [
-          "Hát hò và cười đùa lớn trong giờ tự học.",
-          "Giữ trật tự để cả lớp cùng tập trung bài.",
-          "Chạy nhảy và xô đẩy bàn ghế rầm rộ.",
-          "Đập bàn phát ra âm thanh khó chịu."
+          "Tìm hiểu chính sách bảo vệ dữ liệu.",
+          "Cung cấp đầy đủ số điện thoại người thân.",
+          "Bật chia sẻ vị trí nhà riêng mọi lúc.",
+          "Tải toàn bộ ảnh giấy tờ cá nhân lên máy."
         ],
-        a: "Giữ trật tự để cả lớp cùng tập trung bài.",
-        e: "Đáp án B đúng vì giữ gìn trật tự mang lại không gian học tập yên tĩnh, giúp mọi học sinh phát huy tối đa sự tập trung."
+        a: "Tìm hiểu chính sách bảo vệ dữ liệu.",
+        e: "Phương án A đúng vì việc nắm vững chính sách quyền riêng tư giúp người dùng biết được dữ liệu nào bị thu thập và cách thức nền tảng xử lí thông tin của mình."
       },
       {
-        id: "HDTN.20",
-        q: "Việc học sinh chủ động chào hỏi bác bảo vệ và cô lao công thể hiện điều gì?",
+        id: "AI.20",
+        q: "Nhận xét nào sau đây phản ánh đúng bản chất của công nghệ nhận diện cảm xúc bằng AI?",
         o: [
-          "Sự sợ hãi đối với người lớn tuổi.",
-          "Lòng tôn trọng mọi người lao động trong trường.",
-          "Thói quen muốn gây sự chú ý với trường.",
-          "Hành động chỉ làm khi bị thầy cô nhắc."
+          "AI cảm nhận được cảm xúc thật của người.",
+          "AI chỉ mô phỏng qua nét mặt và giọng nói.",
+          "AI có tình cảm thương yêu như con người.",
+          "AI nhận biết cảm xúc chính xác tuyệt đối."
         ],
-        a: "Lòng tôn trọng mọi người lao động trong trường.",
-        e: "Đáp án B đúng vì mọi ngành nghề chân chính đều đáng quý; chào hỏi lễ phép thể hiện sự tôn trọng và biết ơn sâu sắc đối với người lao động."
+        a: "AI chỉ mô phỏng qua nét mặt và giọng nói.",
+        e: "Phương án B đúng vì máy móc chỉ phân tích các dấu hiệu cơ học (hình dạng khuôn mặt, phổ âm thanh) thông qua thuật toán xác suất chứ không thực sự có tri giác hay trải nghiệm cảm xúc."
       },
       {
-        id: "HDTN.21",
-        q: "Khi bạn phát biểu xây dựng bài chưa chính xác, em nên làm gì?",
+        id: "AI.21",
+        q: "Hiện tượng mô hình AI tạo ra thông tin nghe có vẻ đúng nhưng bịa đặt gọi là gì?",
         o: [
-          "Cười lớn để bạn cảm thấy ngượng ngùng.",
-          "Chăm chú nghe và góp ý nhẹ nhàng sau đó.",
-          "Trêu chọc bạn suốt cả buổi học tiếp theo.",
-          "Cắt ngang lời phát biểu của bạn ngay."
+          "Ảo giác AI (Hallucination).",
+          "Chập mạch điện tử phần cứng.",
+          "Quá tải đường truyền mạng máy tính.",
+          "Mất điện đột ngột trong hệ thống."
         ],
-        a: "Chăm chú nghe và góp ý nhẹ nhàng sau đó.",
-        e: "Đáp án B đúng vì sự lắng nghe và đóng góp ý kiến nhẹ nhàng giúp bạn giữ vững tự tin để học hỏi cái mới."
+        a: "Ảo giác AI (Hallucination).",
+        e: "Phương án A đúng vì ảo giác AI (Hallucination) là hiện tượng mô hình ngôn ngữ lớn tự tin sinh ra các dữ kiện, trích dẫn hoàn toàn không có thật trong thực tế."
       },
       {
-        id: "HDTN.22",
-        q: "Hoạt động nào sau đây giúp gắn kết tình cảm bạn bè và thầy cô trong nhà trường?",
+        id: "AI.22",
+        q: "Khi gặp một video có dấu hiệu deepfake bôi nhọ người khác trên mạng, học sinh nên làm gì?",
         o: [
-          "Tham gia các hội thi văn nghệ, thể thao chung.",
-          "Thành lập nhóm kín để nói xấu người khác.",
-          "Trốn các hoạt động ngoại khóa tập thể.",
-          "So bì điểm số giữa các tổ trong lớp."
+          "Không chia sẻ và báo cáo nội dung xấu.",
+          "Tải video gửi cho nhiều nhóm học tập.",
+          "Bình luận thêm thông tin giật gân vào bài.",
+          "Lưu lại video để đe dọa người khác."
         ],
-        a: "Tham gia các hội thi văn nghệ, thể thao chung.",
-        e: "Đáp án A đúng vì hội thi văn nghệ, thể thao tạo môi trường giao lưu lành mạnh, gắn kết tình đoàn kết bạn bè và thầy trò."
+        a: "Không chia sẻ và báo cáo nội dung xấu.",
+        e: "Phương án A đúng vì không lan truyền tin độc hại và thực hiện báo cáo nội dung xấu là trách nhiệm văn hóa của mỗi công dân số."
       },
       {
-        id: "HDTN.23",
-        q: "Khi muốn mượn dụng cụ học tập của bạn, lời nói nào sau đây là văn minh nhất?",
+        id: "AI.23",
+        q: "Nguyên tắc \"Công bằng\" trong đạo đức AI quy định điều gì?",
         o: [
-          "\"Đưa bút đây cho tôi dùng ngay đi!\"",
-          "\"Cậu có thể cho mình mượn chiếc bút được không?\"",
-          "\"Bút này của cậu giờ là của mình nhé!\"",
-          "Tự ý lấy dùng không cần hỏi ý kiến bạn."
+          "Tránh thiên vị và phân biệt đối xử.",
+          "Bán các công cụ AI với giá rẻ như nhau.",
+          "Bắt buộc mọi người dùng cùng loại máy.",
+          "Quy định mọi học sinh có cùng điểm số."
         ],
-        a: "\"Cậu có thể cho mình mượn chiếc bút được không?\"",
-        e: "Đáp án B đúng vì lời hỏi mượn lịch thiệp, tôn trọng quyền sở hữu của bạn là phép tắc giao tiếp chuẩn mực."
+        a: "Tránh thiên vị và phân biệt đối xử.",
+        e: "Phương án A đúng vì nguyên tắc công bằng (Fairness) đòi hỏi các thuật toán AI không được mang định kiến hay phân biệt đối xử theo giới tính, tôn giáo, vùng miền."
       },
       {
-        id: "HDTN.24",
-        q: "Hành vi nào sau đây thể hiện sự tôn trọng phòng truyền thống nhà trường?",
+        id: "AI.24",
+        q: "Trong thời đại AI phát triển, phẩm chất nào của học sinh là cốt lõi để ngăn ngừa gian lận?",
         o: [
-          "Đi nhẹ, nói khẽ và không sờ hiện vật.",
-          "Chạy nhảy rượt đuổi nhau trong phòng.",
-          "Mang đồ ăn nước uống vào làm rơi vãi.",
-          "Tự ý thay đổi vị trí các đồ lưu niệm."
+          "Tính nhút nhát và rụt rè.",
+          "Tính trung thực và tự giác.",
+          "Tính ganh đua và hiếu thắng.",
+          "Tính phó mặc cho công nghệ."
         ],
-        a: "Đi nhẹ, nói khẽ và không sờ hiện vật.",
-        e: "Đáp án A đúng vì phòng truyền thống lưu giữ những dấu ấn thiêng liêng, cần giữ thái độ trang nghiêm và bảo vệ hiện vật cẩn thận."
+        a: "Tính trung thực và tự giác.",
+        e: "Phương án B đúng vì lòng tự trọng, tính trung thực trong khoa học và tinh thần tự giác là gốc rễ giúp người học không lạm dụng công nghệ để gian lận."
       },
       {
-        id: "HDTN.25",
-        q: "Nhận định nào sau đây đúng về quyền bình đẳng của học sinh trong nhà trường?",
+        id: "AI.25",
+        q: "Vì sao cần kiểm thử mô hình AI bằng tập dữ liệu mới lạ chưa từng học?",
         o: [
-          "Học sinh có hoàn cảnh khá giả được ưu tiên hơn.",
-          "Mọi học sinh đều có quyền được tôn trọng và học tập.",
-          "Học sinh học giỏi có quyền coi thường bạn khác.",
-          "Học sinh yếu thế hơn thì phải chấp nhận bị trêu."
+          "Nhằm đánh giá độ tin cậy và khách quan.",
+          "Để máy tính tốn ít năng lượng tiêu thụ.",
+          "Nhằm giúp tắt mạng Internet của thiết bị.",
+          "Để che giấu lỗi lập trình của mô hình."
         ],
-        a: "Mọi học sinh đều có quyền được tôn trọng và học tập.",
-        e: "Đáp án B đúng vì trong môi trường giáo dục, mọi học sinh không phân biệt điều kiện, hoàn cảnh đều có quyền bình đẳng trong học tập và được tôn trọng."
+        a: "Nhằm đánh giá độ tin cậy và khách quan.",
+        e: "Phương án A đúng vì việc kiểm thử với dữ liệu ngoài tập huấn luyện giúp đánh giá chính xác năng lực tổng quát hóa, tính khách quan và hạn chế hiện tượng học vẹt (overfitting)."
       },
       {
-        id: "HDTN.26",
-        q: "Khi một bạn khuyết tật gặp khó khăn khi di chuyển lên lớp, hành động đẹp nhất là gì?",
+        id: "AI.26",
+        q: "Trách nhiệm đạo đức quan trọng nhất của người làm ra sản phẩm AI là gì?",
         o: [
-          "Đứng nhìn và chỉ trỏ bàn tán cùng bạn.",
-          "Nhanh chóng đến hỗ trợ giúp đỡ bạn di chuyển.",
-          "Phớt lờ và bỏ đi chơi chỗ khác ngay.",
-          "Cười cợt dáng đi tập tễnh của bạn."
+          "Đảm bảo an toàn và không gây hại.",
+          "Thu thập dữ liệu người dùng thật nhiều.",
+          "Ép buộc người dùng nạp tiền sử dụng.",
+          "Xóa hết mã nguồn lập trình của phần mềm."
         ],
-        a: "Nhanh chóng đến hỗ trợ giúp đỡ bạn di chuyển.",
-        e: "Đáp án B đúng vì kịp thời tương trợ người gặp khó khăn phản ánh tinh thần nhân ái và trách nhiệm tương thân tương ái."
+        a: "Đảm bảo an toàn và không gây hại.",
+        e: "Phương án A đúng vì tôn chỉ hàng đầu của thiết kế công nghệ là nguyên tắc không gây hại (Do No Harm), đảm bảo an toàn cho nhân loại và xã hội."
       },
       {
-        id: "HDTN.27",
-        q: "Thái độ sống hài hòa với bạn bè và thầy cô mang lại lợi ích gì cho học sinh?",
+        id: "AI.27",
+        q: "Việc dùng AI tạo ảnh chế giễu bạn cùng lớp vi phạm nguyên tắc cơ bản nào?",
         o: [
-          "Tạo môi trường học tập vui vẻ, an toàn.",
-          "Khiến bản thân cảm thấy bị áp lực hơn.",
-          "Làm giảm đi tinh thần đoàn kết của lớp.",
-          "Khiến thầy cô không còn nghiêm khắc nữa."
+          "Tôn trọng phẩm giá và quyền con người.",
+          "Tiết kiệm dung lượng bộ nhớ máy tính.",
+          "Tối ưu hóa đường truyền mạng không dây.",
+          "Phân loại cấu trúc dữ liệu theo nhóm."
         ],
-        a: "Tạo môi trường học tập vui vẻ, an toàn.",
-        e: "Đáp án A đúng vì mối quan hệ hài hòa mang lại tâm lí thoải mái, hạnh phúc, tạo động lực to lớn để học tập và rèn luyện tốt nhất."
+        a: "Tôn trọng phẩm giá và quyền con người.",
+        e: "Phương án A đúng vì chế giễu, bôi nhọ người khác qua mạng là hành vi xúc phạm danh dự, xâm phạm quyền được tôn trọng phẩm giá con người."
       },
       {
-        id: "HDTN.28",
-        q: "Khi vô tình va chạm làm rơi sách vở của bạn, cách xử lí đúng mực là gì?",
+        id: "AI.28",
+        q: "Rèn luyện năng lực phản biện khi tiếp nhận tin từ AI mang lại ích lợi đạo đức nào?",
         o: [
-          "Bỏ chạy ngay để không phải nhặt sách.",
-          "Cúi xuống nhặt giúp và nói lời xin lỗi.",
-          "Mắng bạn vì đi đứng không chú ý cẩn thận.",
-          "Đứng im chờ bạn tự nhặt sách lên."
+          "Tránh bị dẫn dắt bởi thông tin sai lệch.",
+          "Làm cho vi xử lý máy tính chạy mát hơn.",
+          "Giúp không cần học bài cũ trên trường lớp.",
+          "Trở thành chuyên gia công nghệ ngay lập tức."
         ],
-        a: "Cúi xuống nhặt giúp và nói lời xin lỗi.",
-        e: "Đáp án B đúng vì nhận trách nhiệm với hành vi vô ý của mình và chủ động khắc phục bằng lời xin lỗi là nét đẹp ứng xử."
+        a: "Tránh bị dẫn dắt bởi thông tin sai lệch.",
+        e: "Phương án A đúng vì tư duy phản biện giúp học sinh nhận diện sự thao túng, tránh tiếp thu mù quáng và không tiếp tay lan truyền các thông tin sai sự thật."
       },
       {
-        id: "HDTN.29",
-        q: "Điều nào sau đây là nguyên tắc quan trọng để phòng chống bắt nạt học đường?",
+        id: "AI.29",
+        q: "Biện pháp căn bản nào giúp ngăn chặn sự thiên lệch định kiến xã hội trong AI?",
         o: [
-          "Luôn im lặng chịu đựng mọi sự ức hiếp.",
-          "Tôn trọng sự khác biệt và biết yêu thương.",
-          "Dùng bạo lực đáp trả lại những kẻ bắt nạt.",
-          "Kết bè phái đông người để đi đe dọa lại."
+          "Xây dựng tập dữ liệu đa dạng và chuẩn xác.",
+          "Chỉ thu thập dữ liệu của một nhóm nhỏ.",
+          "Giảm bớt số lượng mẫu dữ liệu nạp vào.",
+          "Giấu kín các thuật toán sử dụng trong máy."
         ],
-        a: "Tôn trọng sự khác biệt và biết yêu thương.",
-        e: "Đáp án B đúng vì lan tỏa lòng nhân ái và tôn trọng bản sắc riêng của mỗi người là giải pháp cốt lõi để loại trừ bạo lực học đường."
+        a: "Xây dựng tập dữ liệu đa dạng và chuẩn xác.",
+        e: "Phương án A đúng vì dữ liệu đầu vào bao quát, cân bằng và phản ánh đúng thực tế xã hội sẽ giúp mô hình đưa ra phán đoán công bằng và không thiên kiến."
       },
       {
-        id: "HDTN.30",
-        q: "Hành động nào sau đây góp phần bồi đắp lòng tự hào về mái trường thân yêu?",
+        id: "AI.30",
+        q: "Chủ thể giữ vai trò tối cao trong việc dẫn dắt và kiểm soát hệ sinh thái AI là ai?",
         o: [
-          "Luôn chê bai cơ sở vật chất của nhà trường.",
-          "Nỗ lực học tập để mang vinh quang về trường.",
-          "So sánh tiêu cực trường mình với trường khác.",
-          "Vi phạm nội quy để tỏ ra cá tính nổi bật."
+          "Con người.",
+          "Hệ thống người máy tự động.",
+          "Các ứng dụng chatbot thông minh.",
+          "Mạng lưới máy chủ điện toán toàn cầu."
         ],
-        a: "Nỗ lực học tập để mang vinh quang về trường.",
-        e: "Đáp án B đúng vì nỗ lực phấn đấu đạt thành tích tốt trong học tập và phong trào thi đua là cách thiết thực nhất để làm rạng danh nhà trường."
+        a: "Con người.",
+        e: "Phương án A đúng vì con người là tác giả, là người thiết lập mục tiêu đạo đức và luôn là trung tâm giám sát hoạt động của mọi hệ thống công nghệ."
       }
     ],
     tf: [
       {
-        id: "HDTN.31",
-        ctx: "Về việc tôn trọng sự khác biệt của bạn bè trong nhà trường:",
+        id: "AI.31",
+        ctx: "Xét các nhận định về nguồn gốc và bản chất của trí tuệ nhân tạo:",
         sts: [
-          { l: "a)", t: "Chấp nhận sự khác nhau về tính cách và sở thích của mỗi bạn.", a: true },
-          { l: "b)", t: "Cười nhạo những bạn có hoàn cảnh khó khăn hoặc ngoại hình khác biệt.", a: false },
-          { l: "c)", t: "Lắng nghe và tôn trọng ý kiến đóng góp của các bạn trong nhóm.", a: true },
-          { l: "d)", t: "Mọi người bắt buộc phải có cùng phong cách ăn mặc giống hệt nhau.", a: false }
+          { l: "a)", t: "AI là sản phẩm khoa học do con người lập trình và điều khiển.", a: true },
+          { l: "b)", t: "AI có cảm xúc và đời sống tinh thần giống hệt như con người.", a: false },
+          { l: "c)", t: "Học sinh cần kiểm tra lại kết quả do AI cung cấp trước khi vận dụng.", a: true },
+          { l: "d)", t: "Mọi công cụ AI trên Internet đều đảm bảo an toàn tuyệt đối cho người dùng.", a: false }
         ],
-        e: "Ý a đúng: Tôn trọng cá tính; Ý b sai: Cười nhạo là vi phạm đạo đức; Ý c đúng: Lắng nghe giúp nhóm phát triển; Ý d sai: Không thể áp đặt phong cách cá nhân."
+        e: "Ý a đúng: AI là thành tựu khoa học máy tính do con người tạo ra; Ý b sai: AI không có cảm xúc hay ý thức; Ý c đúng: Cần đối chiếu để tránh ảo giác AI; Ý d sai: Nhiều công cụ có rủi ro về mã độc và rò rỉ dữ liệu."
       },
       {
-        id: "HDTN.32",
-        ctx: "Về thái độ ứng xử đúng mực đối với thầy cô giáo:",
+        id: "AI.32",
+        ctx: "Xét các khía cạnh bảo vệ thông tin riêng tư của học sinh khi sử dụng AI:",
         sts: [
-          { l: "a)", t: "Chú ý lắng nghe lời giảng và ghi chép bài đầy đủ trong giờ học.", a: true },
-          { l: "b)", t: "Tự ý ngắt lời thầy cô khi thầy cô đang giải thích bài tập.", a: false },
-          { l: "c)", t: "Lễ phép chào hỏi thầy cô giáo khi gặp ở sân trường hay ngoài đường.", a: true },
-          { l: "d)", t: "Tôn trọng phong cách giảng dạy và làm việc riêng của mỗi thầy cô.", a: true }
+          { l: "a)", t: "Học sinh có thể tùy ý cung cấp mã số định danh cá nhân cho các chatbot.", a: false },
+          { l: "b)", t: "Lộ dữ liệu cá nhân có thể dẫn đến nguy cơ bị lừa đảo trên mạng.", a: true },
+          { l: "c)", t: "Người dùng có quyền từ chối cung cấp dữ liệu riêng tư nhạy cảm.", a: true },
+          { l: "d)", t: "Nền tảng AI được quyền tự do mua bán hình ảnh của trẻ em mà không cần xin phép.", a: false }
         ],
-        e: "Ý a đúng: Tôn trọng giờ học; Ý b sai: Cắt ngang lời thầy cô là thiếu lễ phép; Ý c đúng: Chào hỏi thể hiện sự tôn kính; Ý d đúng: Tôn trọng phong cách sư phạm của thầy cô."
+        e: "Ý a sai: Không được để lộ mã định danh cá nhân; Ý b đúng: Dữ liệu bị lộ dễ bị kẻ xấu trục lợi lừa đảo; Ý c đúng: Quyền riêng tư cho phép từ chối cung cấp thông tin; Ý d sai: Mua bán dữ liệu trẻ em là vi phạm nghiêm trọng pháp luật."
       },
       {
-        id: "HDTN.33",
-        ctx: "Về hành vi phòng chống bắt nạt học đường trong nhà trường:",
+        id: "AI.33",
+        ctx: "Về tính trung thực và đạo đức học tập khi dùng công cụ AI:",
         sts: [
-          { l: "a)", t: "Lập nhóm kín trên mạng xã hội để chế giễu và cô lập bạn cùng lớp.", a: false },
-          { l: "b)", t: "Kịp thời thông báo cho giáo viên chủ nhiệm khi thấy bạn bị ức hiếp.", a: true },
-          { l: "c)", t: "Khuyên nhủ và bảo vệ những bạn rụt rè không để bạn bị bắt nạt.", a: true },
-          { l: "d)", t: "Im lặng bỏ qua khi thấy hành vi bạo lực vì sợ bản thân bị liên lụy.", a: false }
+          { l: "a)", t: "Dùng AI dịch thuật ngữ tiếng nước ngoài để học tập là điều phù hợp.", a: true },
+          { l: "b)", t: "Nhờ AI làm hộ toàn bộ bài kiểm tra giúp học sinh tự lập hơn trong học tập.", a: false },
+          { l: "c)", t: "Khai báo trung thực việc có dùng AI thể hiện thái độ học tập đúng đắn.", a: true },
+          { l: "d)", t: "Toàn bộ câu trả lời của AI luôn là chân lý và không bao giờ mắc lỗi.", a: false }
         ],
-        e: "Ý a sai: Lập nhóm nói xấu là bạo lực mạng; Ý b đúng: Báo cáo người có trách nhiệm; Ý c đúng: Che chở bạn yếu thế; Ý d sai: Im lặng là gián tiếp tiếp tay cho cái xấu."
+        e: "Ý a đúng: AI là công cụ hỗ trợ tra cứu ngoại ngữ hiệu quả; Ý b sai: Nhờ làm hộ là ỷ lại, triệt tiêu tư duy độc lập; Ý c đúng: Minh bạch là chuẩn mực liêm chính học thuật; Ý d sai: AI có thể mắc lỗi do dữ liệu huấn luyện."
       },
       {
-        id: "HDTN.34",
-        ctx: "Về văn hóa giao tiếp và ứng xử nơi công cộng của học sinh:",
+        id: "AI.34",
+        ctx: "Về quyền tự chủ của con người khi tương tác với các hệ thống AI:",
         sts: [
-          { l: "a)", t: "Biết nói lời cảm ơn khi nhận được sự giúp đỡ từ người khác.", a: true },
-          { l: "b)", t: "Chen lấn xô đẩy khi xếp hàng ra vào lớp hoặc mua đồ căn tin.", a: false },
-          { l: "c)", t: "Biết nói lời xin lỗi chân thành khi vô tình làm phiền người khác.", a: true },
-          { l: "d)", t: "Nói chuyện to tiếng và văng tục trong khuôn viên thư viện trường.", a: false }
+          { l: "a)", t: "Con người phải luôn giữ quyền ra quyết định cuối cùng trong mọi việc hệ trọng.", a: true },
+          { l: "b)", t: "Có thể giao toàn bộ việc chấm điểm đạo đức học sinh cho phần mềm AI tự xử lí.", a: false },
+          { l: "c)", t: "Việc đối chiếu thông tin từ nhiều nguồn giúp ngăn ngừa các quyết định sai.", a: true },
+          { l: "d)", t: "Người vận hành hoàn toàn vô can khi hệ thống AI do mình dùng gây ra thiệt hại.", a: false }
         ],
-        e: "Ý a đúng: Biết ơn là văn hóa ứng xử; Ý b sai: Chen lấn là thiếu văn minh; Ý c đúng: Dũng cảm nhận lỗi; Ý d sai: Vi phạm nội quy giữ im lặng ở thư viện."
+        e: "Ý a đúng: Con người phải làm chủ quyết định sinh mệnh, pháp lý và đạo đức; Ý b sai: Đạo đức cần sự thấu hiểu toàn diện của giáo viên; Ý c đúng: Tránh phán đoán phiến diện; Ý d sai: Người sử dụng luôn phải chịu trách nhiệm pháp lý."
       },
       {
-        id: "HDTN.35",
-        ctx: "Về hoạt động xây dựng và giữ gìn truyền thống nhà trường:",
+        id: "AI.35",
+        ctx: "Về chất lượng dữ liệu huấn luyện và nguyên tắc công bằng của AI:",
         sts: [
-          { l: "a)", t: "Tích cực tham gia các phong trào thi đua dạy tốt học tốt của trường.", a: true },
-          { l: "b)", t: "Bẻ cành hoa và viết vẽ bậy lên các bức tường của phòng học.", a: false },
-          { l: "c)", t: "Giữ gìn vệ sinh chung giúp trường lớp luôn xanh, sạch, đẹp.", a: true },
-          { l: "d)", t: "Sưu tầm tranh ảnh và hiện vật để trưng bày phòng truyền thống.", a: true }
+          { l: "a)", t: "Dữ liệu huấn luyện phiến diện sẽ khiến AI đưa ra kết luận thiếu công bằng.", a: true },
+          { l: "b)", t: "Tập dữ liệu đa dạng giúp hạn chế nguy cơ phân biệt đối xử của thuật toán.", a: true },
+          { l: "c)", t: "Hệ thống AI tự động có đạo đức mà không cần con người định hướng.", a: false },
+          { l: "d)", t: "Tự ý lấy ảnh chụp của người khác làm dữ liệu dạy máy là vi phạm bản quyền.", a: true }
         ],
-        e: "Ý a đúng: Thi đua học tốt làm vẻ vang trường; Ý b sai: Hủy hoại cảnh quan; Ý c đúng: Giữ vệ sinh trường lớp; Ý d đúng: Lưu giữ truyền thống lịch sử nhà trường."
+        e: "Ý a đúng: Dữ liệu lệch lạc dẫn đến kết quả sai lệch; Ý b đúng: Tăng tính đại diện cho mọi nhóm người; Ý c sai: AI không tự có đạo đức nếu không được cài đặt quy chuẩn; Ý d đúng: Vi phạm quyền hình ảnh cá nhân."
       },
       {
-        id: "HDTN.36",
-        ctx: "Về việc làm việc nhóm và tôn trọng quan điểm cá nhân:",
+        id: "AI.36",
+        ctx: "Về văn hóa ứng xử của học sinh trên không gian mạng có ứng dụng AI:",
         sts: [
-          { l: "a)", t: "Lắng nghe ý kiến của các thành viên trước khi đưa ra kết luận chung.", a: true },
-          { l: "b)", t: "Cho rằng ý kiến cá nhân mình luôn đúng và phớt lờ ý kiến của bạn.", a: false },
-          { l: "c)", t: "Sẵn sàng chia sẻ tài liệu và giúp đỡ bạn cùng nhóm hoàn thành việc.", a: true },
-          { l: "d)", t: "Bắt buộc các thành viên khác phải tuyệt đối nghe theo quyết định mình.", a: false }
+          { l: "a)", t: "Kịp thời báo cáo cho giáo viên khi phát hiện chatbot đưa ra thông tin bạo lực.", a: true },
+          { l: "b)", t: "Khuyến khích bạn bè tải về các ứng dụng AI độc hại để trêu đùa nhau.", a: false },
+          { l: "c)", t: "Tuân thủ các quy tắc an toàn thông tin khi sử dụng thiết bị tại phòng máy.", a: true },
+          { l: "d)", t: "Việc sao chép văn bản từ AI nộp bài là đúng nếu thầy cô không phát hiện ra.", a: false }
         ],
-        e: "Ý a đúng: Đảm bảo tính dân chủ; Ý b sai: Tự phụ, độc đoán; Ý c đúng: Tinh thần sẻ chia đồng đội; Ý d sai: Áp đặt người khác."
+        e: "Ý a đúng: Ngăn chặn môi trường độc hại; Ý b sai: Lan truyền ứng dụng độc hại là hành vi xấu; Ý c đúng: Bảo vệ an toàn mạng nhà trường; Ý d sai: Gian lận vẫn là hành vi sai trái dù có bị phát hiện hay không."
       },
       {
-        id: "HDTN.37",
-        ctx: "Về thái độ ứng xử đối với nhân viên và người lao động trong trường:",
+        id: "AI.37",
+        ctx: "Về giới hạn của công nghệ và vai trò không thể thay thế của con người:",
         sts: [
-          { l: "a)", t: "Lễ phép cúi đầu chào bác bảo vệ mỗi khi đến trường và tan học.", a: true },
-          { l: "b)", t: "Vứt rác bừa bãi vì cho rằng việc dọn dẹp là của cô lao công.", a: false },
-          { l: "c)", t: "Thể hiện lòng biết ơn đối với những người phục vụ bữa ăn bán trú.", a: true },
-          { l: "d)", t: "Tôn trọng công sức lao động của tất cả các cán bộ nhân viên nhà trường.", a: true }
+          { l: "a)", t: "AI hỗ trợ bác sĩ chẩn đoán hình ảnh phim X-quang rất hiệu quả.", a: true },
+          { l: "b)", t: "AI có thể thay thế hoàn toàn sự đồng cảm và tình yêu thương của thầy cô giáo.", a: false },
+          { l: "c)", t: "Bác sĩ con người luôn là người chịu trách nhiệm về phác đồ điều trị bệnh.", a: true },
+          { l: "d)", t: "Học sinh nên xem AI là công cụ hỗ trợ chứ không để AI làm thay tư duy.", a: true }
         ],
-        e: "Ý a đúng: Lễ phép với người lớn; Ý b sai: Vứt rác bừa bãi là thiếu ý thức; Ý c đúng: Trân trọng người phục vụ; Ý d đúng: Mọi lao động chân chính đều đáng tôn kính."
+        e: "Ý a đúng: AI xử lí ảnh y tế rất tốt; Ý b sai: Tình cảm và sự đồng cảm là đặc quyền của con người; Ý c đúng: Con người chịu trách nhiệm y đức; Ý d đúng: Dùng AI làm đòn bẩy phát triển tư duy."
       },
       {
-        id: "HDTN.38",
-        ctx: "Về cách xử lí khi xảy ra mâu thuẫn bất đồng ý kiến với bạn:",
+        id: "AI.38",
+        ctx: "Về nguy cơ thao túng người dùng và trách nhiệm khi sử dụng AI:",
         sts: [
-          { l: "a)", t: "Giữ bình tĩnh, kiểm soát cảm xúc và không dùng lời thô bạo.", a: true },
-          { l: "b)", t: "Sử dụng vũ lực để giải quyết và phân định thắng thua ngay lập tức.", a: false },
-          { l: "c)", t: "Chủ động ngồi lại trao đổi thẳng thắn để hiểu rõ nguyên nhân.", a: true },
-          { l: "d)", t: "Rủ bạn bè ngoài trường vào đe dọa để thị uy với bạn có bất đồng.", a: false }
+          { l: "a)", t: "Thuật toán mạng xã hội có thể dùng AI gợi ý thông tin để dẫn dắt người xem.", a: true },
+          { l: "b)", t: "Người dùng có thể bị thao túng tâm lý nếu tiếp nhận thông tin thụ động từ AI.", a: true },
+          { l: "c)", t: "Người dùng AI tạo tin đồn thất thiệt không phải chịu trách nhiệm pháp lý.", a: false },
+          { l: "d)", t: "Học sinh cần quản lí thời gian dùng thiết bị số để bảo vệ sức khỏe tâm thần.", a: true }
         ],
-        e: "Ý a đúng: Kiểm soát cảm xúc là kỹ năng thiết yếu; Ý b sai: Không dùng vũ lực; Ý c đúng: Đối thoại giải quyết mâu thuẫn; Ý d sai: Đe dọa là vi phạm nghiêm trọng."
+        e: "Ý a đúng: Thuật toán tạo bong bóng thông tin để giữ chân người dùng; Ý b đúng: Thụ động dễ bị dắt mũi; Ý c sai: Tung tin giả bị phạt theo Luật An ninh mạng; Ý d đúng: Cần cân bằng cuộc sống thực và ảo."
       },
       {
-        id: "HDTN.39",
-        ctx: "Về việc tham gia các buổi lao động công ích tại nhà trường:",
+        id: "AI.39",
+        ctx: "Về nguy cơ giả mạo từ deepfake và ý thức phòng tránh của học sinh:",
         sts: [
-          { l: "a)", t: "Tự giác hoàn thành phần việc được phân công đúng thời hạn.", a: true },
-          { l: "b)", t: "Đùn đẩy phần việc nặng nhọc cho các bạn nữ hoặc bạn rụt rè.", a: false },
-          { l: "c)", t: "Phối hợp nhịp nhàng với bạn bè để hoàn thành công việc nhanh chóng.", a: true },
-          { l: "d)", t: "Đi muộn về sớm và ngồi chơi điện thoại trong lúc các bạn làm việc.", a: false }
+          { l: "a)", t: "Dùng deepfake chế ảnh xúc phạm danh dự người khác là hành vi vi phạm pháp luật.", a: true },
+          { l: "b)", t: "Mạo danh giọng nói qua điện thoại để lừa đảo là hành vi tội phạm nguy hiểm.", a: true },
+          { l: "c)", t: "Kiểm tra cử động miệng và ánh mắt giúp nhận diện hình ảnh deepfake.", a: true },
+          { l: "d)", t: "Mọi hình ảnh lan truyền trên mạng đều là ảnh chụp thật 100% không thể làm giả.", a: false }
         ],
-        e: "Ý a đúng: Tự giác hoàn thành nhiệm vụ; Ý b sai: Đùn đẩy là thói quen xấu; Ý c đúng: Tinh thần hợp tác; Ý d sai: Vô trách nhiệm với tập thể."
+        e: "Ý a đúng: Vi phạm quyền bảo vệ danh dự con người; Ý b đúng: Thủ đoạn lừa đảo tinh vi; Ý c đúng: Deepfake thường có lỗi khớp viền cử động mặt và mắt; Ý d sai: Công nghệ hiện đại có thể giả mạo hình ảnh chân thực."
       },
       {
-        id: "HDTN.40",
-        ctx: "Về việc tôn trọng sự đa dạng văn hóa và vùng miền của học sinh:",
+        id: "AI.40",
+        ctx: "Về trách nhiệm giải trình của học sinh khi làm bài tập có sự hỗ trợ của AI:",
         sts: [
-          { l: "a)", t: "Chấp nhận và tôn trọng nét đặc trưng giọng nói của các vùng miền.", a: true },
-          { l: "b)", t: "Nhại giọng địa phương để gây cười và trêu chọc bạn học sinh mới.", a: false },
-          { l: "c)", t: "Tìm hiểu và trân trọng nét đẹp văn hóa truyền thống của từng dân tộc.", a: true },
-          { l: "d)", t: "Tẩy chay các bạn có phong tục tập quán khác với phong tục của mình.", a: false }
+          { l: "a)", t: "Học sinh cần chỉ rõ phần nội dung nào do mình làm và phần nào do AI hỗ trợ.", a: true },
+          { l: "b)", t: "Nhận tranh do AI vẽ là tác phẩm nghệ thuật do chính tay mình sáng tạo.", a: false },
+          { l: "c)", t: "Khi AI đưa ra tài liệu dẫn chứng, học sinh phải tự mình đọc và kiểm chứng lại.", a: true },
+          { l: "d)", t: "Trách nhiệm giải trình chỉ dành cho chuyên gia, học sinh THCS không cần quan tâm.", a: false }
         ],
-        e: "Ý a đúng: Giọng nói là bản sắc vùng miền; Ý b sai: Nhại giọng là chế giễu; Ý c đúng: Tôn trọng văn hóa dân tộc; Ý d sai: Tẩy chay là hành vi sai trái."
+        e: "Ý a đúng: Đảm bảo tính trung thực trong học tập; Ý b sai: Mạo nhận quyền tác giả; Ý c đúng: Tránh đưa thông tin giả mạo vào bài nộp; Ý d sai: Học sinh cũng cần rèn luyện tính liêm chính từ sớm."
       },
       {
-        id: "HDTN.41",
-        ctx: "Về tinh thần chia sẻ và giúp đỡ bạn bè cùng tiến bộ:",
+        id: "AI.41",
+        ctx: "Về hiện tượng thông tin sai lệch từ các mô hình AI tạo sinh:",
         sts: [
-          { l: "a)", t: "Tận tình hướng dẫn bạn phương pháp giải các bài toán khó hiểu.", a: true },
-          { l: "b)", t: "Giấu kín tài liệu ôn tập hữu ích vì sợ bạn có điểm số cao hơn mình.", a: false },
-          { l: "c)", t: "Động viên bạn khi bạn gặp chuyện buồn hoặc điểm số chưa như ý.", a: true },
-          { l: "d)", t: "Chê bai và cười cợt khi bạn trả lời sai câu hỏi của thầy cô giáo.", a: false }
+          { l: "a)", t: "AI có thể tạo ra các trích dẫn sách hoàn toàn bịa đặt nhưng rất trôi chảy.", a: true },
+          { l: "b)", t: "Tất cả câu trả lời của mô hình ngôn ngữ lớn đều bảo đảm tính chính xác tuyệt đối.", a: false },
+          { l: "c)", t: "Rèn luyện tư duy phản biện giúp học sinh tránh được thông tin giả mạo từ AI.", a: true },
+          { l: "d)", t: "Học sinh tự chịu trách nhiệm khi phát tán thông tin sai lệch lấy từ AI.", a: true }
         ],
-        e: "Ý a đúng: Sẵn sàng giúp đỡ bạn; Ý b sai: Hẹp hòi, đố kị; Ý c đúng: Động viên, an ủi bạn bè; Ý d sai: Làm tổn thương lòng tự trọng của bạn."
+        e: "Ý a đúng: Hiện tượng ảo giác điển hình của LLM; Ý b sai: AI có thể đưa ra kết quả sai; Ý c đúng: Phản biện giúp gạn đục khơi trong; Ý d đúng: Người phát tán phải chịu trách nhiệm về thông tin do mình chia sẻ."
       },
       {
-        id: "HDTN.42",
-        ctx: "Về việc xây dựng môi trường học đường không bạo lực:",
+        id: "AI.42",
+        ctx: "Về nguyên tắc công bằng và chống định kiến xã hội trong trí tuệ nhân tạo:",
         sts: [
-          { l: "a)", t: "Tích cực tham gia các buổi tuyên truyền phòng chống bắt nạt học đường.", a: true },
-          { l: "b)", t: "Thờ ơ xem như không biết khi bạn bị cô lập và tẩy chay trong lớp.", a: false },
-          { l: "c)", t: "Thân thiện chào đón và gắn kết tất cả các bạn học sinh trong lớp.", a: true },
-          { l: "d)", t: "Đặt biệt danh xấu nhằm trêu chọc khuyết điểm cơ thể của người khác.", a: false }
+          { l: "a)", t: "Thuật toán tuyển dụng ưu tiên nam giới hơn nữ giới là biểu hiện của thiên kiến.", a: true },
+          { l: "b)", t: "Xây dựng mô hình AI tôn trọng sự đa dạng là tiêu chuẩn đạo đức cốt lõi.", a: true },
+          { l: "c)", t: "Nếu chỉ nạp dữ liệu của một nhóm nhỏ, kết quả đầu ra của AI sẽ rất phiến diện.", a: true },
+          { l: "d)", t: "Thuật toán máy tính tự có lòng trắc ẩn để bảo vệ người yếu thế trong xã hội.", a: false }
         ],
-        e: "Ý a đúng: Tuyên truyền phòng chống bạo lực; Ý b sai: Thờ ơ là vô cảm; Ý c đúng: Gắn kết tập thể; Ý d sai: Miệt thị ngoại hình là hành vi bắt nạt."
+        e: "Ý a đúng: Định kiến giới trong dữ liệu lịch sử; Ý b đúng: Tôn trọng bình đẳng xã hội; Ý c đúng: Thiếu tính đại diện; Ý d sai: Máy móc không có lòng trắc ẩn tự nhiên."
       },
       {
-        id: "HDTN.43",
-        ctx: "Về trách nhiệm bảo vệ tài sản và cơ sở vật chất nhà trường:",
+        id: "AI.43",
+        ctx: "Về trách nhiệm công dân số của học sinh THCS trong thời đại công nghệ:",
         sts: [
-          { l: "a)", t: "Tắt quạt và đèn điện trước khi ra khỏi phòng học để tiết kiệm.", a: true },
-          { l: "b)", t: "Dùng compa hoặc dao nhọn khắc hình lên mặt bàn học trong lớp.", a: false },
-          { l: "c)", t: "Có ý thức giữ gìn và bảo quản máy móc trong phòng học tin học.", a: true },
-          { l: "d)", t: "Đóng mở cửa sổ nhẹ nhàng và cẩn thận để tránh làm hư hỏng kính.", a: true }
+          { l: "a)", t: "Tham gia cảnh báo cho bạn bè về các thủ đoạn lừa đảo tinh vi bằng công nghệ AI.", a: true },
+          { l: "b)", t: "Cài mã độc có ứng dụng AI vào hệ thống máy tính của trường để thử nghiệm phá hoại.", a: false },
+          { l: "c)", t: "Giữ gìn nét đẹp văn hóa và thuần phong mỹ tục khi giao tiếp qua ứng dụng AI.", a: true },
+          { l: "d)", t: "Do công nghệ AI phát triển nhanh nên con người không cần đặt ra luật lệ gì thêm.", a: false }
         ],
-        e: "Ý a đúng: Tiết kiệm điện năng; Ý b sai: Phá hoại của công; Ý c đúng: Giữ gìn thiết bị học tập; Ý d đúng: Bảo quản cửa phòng học."
+        e: "Ý a đúng: Lan tỏa ý thức bảo vệ cộng đồng số; Ý b sai: Phá hoại tài sản nhà trường là vi phạm pháp luật; Ý c đúng: Văn hóa ứng xử văn minh trên mạng; Ý d sai: Luật pháp và đạo đức cần hoàn thiện liên tục để quản lí AI."
       },
       {
-        id: "HDTN.44",
-        ctx: "Về kỹ năng giao tiếp lịch sự trong môi trường học tập:",
+        id: "AI.44",
+        ctx: "Về chuẩn bị năng lực tự học của học sinh trong kỉ nguyên số:",
         sts: [
-          { l: "a)", t: "Biết lắng nghe chăm chú khi người khác đang trình bày ý kiến.", a: true },
-          { l: "b)", t: "Tự do cắt ngang lời nói của bạn mà không cần xin phép trước.", a: false },
-          { l: "c)", t: "Sử dụng ánh mắt thiện cảm và nụ cười thân thiện khi giao tiếp.", a: true },
-          { l: "d)", t: "Vừa nói chuyện với thầy cô vừa đeo tai nghe và bấm điện thoại.", a: false }
+          { l: "a)", t: "Tinh thần tự học suốt đời giúp học sinh làm chủ kiến thức và công nghệ.", a: true },
+          { l: "b)", t: "Lòng nhân ái và tính trung thực là nét riêng biệt giúp phân biệt người với máy.", a: true },
+          { l: "c)", t: "Khi AI phát triển thì học sinh không cần học các môn văn hóa cơ bản nữa.", a: false },
+          { l: "d)", t: "Hợp tác tích cực giữa người với người và với AI giúp nâng cao chất lượng việc làm.", a: true }
         ],
-        e: "Ý a đúng: Lắng nghe thể hiện sự tôn trọng; Ý b sai: Cắt ngang lời là bất lịch sự; Ý c đúng: Thái độ cởi mở; Ý d sai: Thiếu lễ độ với thầy cô."
+        e: "Ý a đúng: Tự học suốt đời là chìa khóa thích ứng; Ý b đúng: Phẩm chất đạo đức của con người là vô giá; Ý c sai: Kiến thức nền tảng giúp đánh giá đúng/sai câu trả lời của AI; Ý d đúng: Kỹ năng phối hợp nâng cao năng suất."
       },
       {
-        id: "HDTN.45",
-        ctx: "Về ý thức tự hào và phát huy truyền thống trường THCS Thanh Thủy:",
+        id: "AI.45",
+        ctx: "Về việc kiểm soát các tác nhân AI và sự an toàn của cộng đồng:",
         sts: [
-          { l: "a)", t: "Nỗ lực phấn đấu đạt thành tích tốt trong học tập và rèn luyện.", a: true },
-          { l: "b)", t: "Coi nhẹ các hoạt động phong trào và truyền thống của nhà trường.", a: false },
-          { l: "c)", t: "Kính trọng và biết ơn công lao dạy dỗ của các thế hệ thầy cô giáo.", a: true },
-          { l: "d)", t: "Giữ gìn hình ảnh đẹp của học sinh nhà trường ở mọi lúc mọi nơi.", a: true }
+          { l: "a)", t: "Các tác nhân AI tự hành phải hoạt động dưới sự giám sát chặt chẽ của con người.", a: true },
+          { l: "b)", t: "Cho phép tác nhân AI tự do sử dụng công cụ gây nguy hiểm mà không cần ai quản trị.", a: false },
+          { l: "c)", t: "Con người là chủ thể dẫn dắt và định hướng mục tiêu hoạt động cho hệ thống AI.", a: true },
+          { l: "d)", t: "Người điều hành hệ thống AI phải chịu trách nhiệm khi hệ thống gây tổn hại xã hội.", a: true }
         ],
-        e: "Ý a đúng: Phấn đấu học tốt; Ý b sai: Thiếu ý thức tập thể; Ý c đúng: Đạo lí tôn sư trọng đạo; Ý d đúng: Giữ gìn phẩm chất học sinh trường Thanh Thủy."
+        e: "Ý a đúng: Duy trì sự giám sát của con người (Human-in-the-loop); Ý b sai: Tiềm ẩn nguy cơ mất kiểm soát an ninh nghiêm trọng; Ý c đúng: Con người làm chủ công nghệ; Ý d đúng: Trách nhiệm giải trình của bên vận hành."
       }
     ],
     short: [
       {
-        id: "HDTN.46",
-        q: "Cho 6 nhận định sau về thái độ tôn trọng sự khác biệt giữa các học sinh:\n(1) Chấp nhận và tôn trọng sở thích âm nhạc lành mạnh của từng bạn.\n(2) Chê bai bạn vì bạn có hoàn cảnh gia đình khó khăn hơn mình.\n(3) Tôn trọng ý kiến phát biểu xây dựng bài dù ý kiến đó khác mình.\n(4) Cười nhạo bạn khi bạn có phong cách ăn mặc giản dị nơi trường lớp.\n(5) Giữ thái độ hòa đồng và không phân biệt đối xử với bất kì ai.\n(6) Bắt buộc người khác phải thay đổi thói quen cho giống hệt với mình.\nHọc sinh chọn các nhận định đúng và ghi dãy số theo thứ tự tăng dần.",
-        a: "135",
-        e: "Nhận định (1), (3), (5) là đúng vì thể hiện thái độ tôn trọng sự đa dạng, không phán xét và hòa nhã với mọi người. Các nhận định (2), (4), (6) là sai vì thể hiện thái độ kì thị, áp đặt và xem thường hoàn cảnh của người khác."
+        id: "AI.46",
+        q: "Cho 6 nhận định sau về nguồn gốc và giới hạn đạo đức của AI:\n(1) AI là sản phẩm khoa học do con người lập trình để phục vụ con người.\n(2) AI có cảm xúc yêu thương và lòng vị tha giống hệt như một con người.\n(3) Con người luôn là chủ thể chịu trách nhiệm cuối cùng khi sử dụng AI.\n(4) Học sinh cần kiểm tra lại kết quả trước khi tiếp nhận thông tin từ AI.\n(5) Tất cả câu trả lời của AI trên Internet đều chuẩn xác và không có lỗi.\n(6) Được phép dùng AI tạo văn bản trêu chọc bạn bè trong giờ giải lao.\nHọc sinh chọn các nhận định đúng và ghi dãy số theo thứ tự tăng dần.",
+        a: "134",
+        e: "Nhận định (1), (3), (4) là đúng vì AI là công cụ do người làm ra, con người chịu trách nhiệm và cần kiểm chứng thông tin. Nhận định (2) sai vì AI không có tình cảm; (5) sai vì AI có thể bị ảo giác; (6) sai vì xúc phạm bạn bè vi phạm đạo đức học đường."
       },
       {
-        id: "HDTN.47",
-        q: "Cho 6 nhận định sau về giao tiếp văn minh, lịch sự với thầy cô giáo:\n(1) Lễ phép chào hỏi thầy cô bằng thái độ kính trọng và chân thành.\n(2) Chú ý lắng nghe lời nhận xét và góp ý của thầy cô để tiến bộ.\n(3) Nói trống không khi trả lời các câu hỏi kiểm tra của thầy cô.\n(4) Tự ý làm việc riêng trong giờ học khi thầy cô đang giảng bài.\n(5) Hợp tác tích cực với thầy cô để hoàn thành tốt các nhiệm vụ lớp.\n(6) Đứng dậy thưa gửi rõ ràng, lễ độ khi muốn phát biểu ý kiến.\nHọc sinh chọn các nhận định đúng và ghi dãy số theo thứ tự tăng dần.",
-        a: "1256",
-        e: "Nhận định (1), (2), (5), (6) là đúng vì thể hiện truyền thống tôn sư trọng đạo, thái độ cầu thị và văn hóa phát biểu trong giờ học. Nhận định (3), (4) là sai vì vi phạm nghiêm trọng nội quy và chuẩn mực giao tiếp với thầy cô."
-      },
-      {
-        id: "HDTN.48",
-        q: "Cho 6 nhận định sau về phòng chống bắt nạt học đường trong nhà trường:\n(1) Tuyệt đối không tham gia vào các hành vi đe dọa hay cô lập bạn bè.\n(2) Đăng tải thông tin xúc phạm và bôi nhọ danh dự bạn lên mạng xã hội.\n(3) Sẵn sàng lên tiếng bảo vệ những bạn học sinh yếu thế trong trường.\n(4) Kịp thời thông báo cho thầy cô khi phát hiện hành vi bạo lực học đường.\n(5) Cổ vũ reo hò khi thấy hai bạn học sinh đang đánh nhau ở cổng trường.\n(6) Tích cực tham gia các buổi diễn đàn về phòng chống bạo lực học đường.\nHọc sinh chọn các nhận định đúng và ghi dãy số theo thứ tự tăng dần.",
-        a: "1346",
-        e: "Nhận định (1), (3), (4), (6) là đúng vì là những biện pháp thiết thực giúp xây dựng trường học hạnh phúc, an toàn, không bạo lực. Nhận định (2) là hành vi bắt nạt mạng, (5) là hành vi kích động bạo lực rất đáng lên án."
-      },
-      {
-        id: "HDTN.49",
-        q: "Cho 6 nhận định sau về việc giữ gìn và phát huy truyền thống nhà trường:\n(1) Chăm chỉ học tập và rèn luyện đạo đức để làm rạng danh nhà trường.\n(2) Tích cực tham gia bảo vệ cây xanh và giữ gìn vệ sinh trường lớp.\n(3) Viết vẽ bậy lên bàn ghế và tường hành lang của các dãy phòng học.\n(4) Làm các sản phẩm tư liệu để đóng góp xây dựng truyền thống trường.\n(5) Đi học trễ giờ và trốn tránh các buổi sinh hoạt tập thể dưới cờ.\n(6) Kính trọng và biết ơn sâu sắc các thầy cô giáo đã tận tình giảng dạy.\nHọc sinh chọn các nhận định đúng và ghi dãy số theo thứ tự tăng dần.",
-        a: "1246",
-        e: "Nhận định (1), (2), (4), (6) là đúng vì thể hiện lòng tự hào, tinh thần trách nhiệm bồi đắp văn hóa và truyền thống nhà trường. Nhận định (3) là phá hoại cơ sở vật chất, (5) là vô kỉ luật."
-      },
-      {
-        id: "HDTN.50",
-        q: "Cho 6 nhận định sau về hành vi văn hóa khi tham gia lao động công ích:\n(1) Tự giác nhận nhiệm vụ và phối hợp nhịp nhàng cùng bạn bè trong nhóm.\n(2) Giữ gìn và bảo quản tốt các dụng cụ lao động như chổi, cuốc, xẻng.\n(3) Trốn tránh vào các góc khuất để chơi điện thoại trong giờ lao động.\n(4) Đùn đẩy các công việc nặng nhọc cho các bạn có tính cách hiền lành.\n(5) Hoàn thành công việc được phân công đúng thời gian và đạt chất lượng.\n(6) Giúp đỡ các bạn khác khi bản thân đã hoàn thành sớm phần việc mình.\nHọc sinh chọn các nhận định đúng và ghi dãy số theo thứ tự tăng dần.",
-        a: "1256",
-        e: "Nhận định (1), (2), (5), (6) là đúng vì rèn luyện tinh thần trách nhiệm, lòng yêu lao động và tinh thần tương thân tương ái. Nhận định (3), (4) là hành vi lười biếng, đùn đẩy trách nhiệm."
-      },
-      {
-        id: "HDTN.51",
-        q: "Cho 6 nhận định sau về văn hóa ứng xử nơi công cộng của học sinh:\n(1) Xếp hàng ngay ngắn, không chen lấn xô đẩy khi tham gia các hoạt động.\n(2) Giữ trật tự chung và nói năng nhẹ nhàng khi ở trong thư viện trường.\n(3) Khạc nhổ bừa bãi và vứt rác thải ra lối đi chung của sân trường.\n(4) Biết nói lời cảm ơn khi được giúp đỡ và xin lỗi khi có lỗi lầm.\n(5) Nói tục, chửi thề để thể hiện bản thân là người cá tính và mạnh mẽ.\n(6) Chủ động nhường chỗ cho người già, phụ nữ mang thai trên xe buýt.\nHọc sinh chọn các nhận định đúng và ghi dãy số theo thứ tự tăng dần.",
-        a: "1246",
-        e: "Nhận định (1), (2), (4), (6) là đúng vì tuân thủ chuẩn mực đạo đức, lịch sự nơi công cộng. Nhận định (3) vi phạm vệ sinh môi trường, (5) là lệch lạc về nhận thức giá trị bản thân."
-      },
-      {
-        id: "HDTN.52",
-        q: "Cho 6 nhận định sau về cách giải quyết mâu thuẫn bất đồng trong học đường:\n(1) Giữ bình tĩnh và kiểm soát tốt cảm xúc cá nhân khi xảy ra tranh cãi.\n(2) Lắng nghe lời giải thích của đối phương để hiểu rõ ngọn ngành vấn đề.\n(3) Dùng bạo lực để giải quyết ngay mâu thuẫn nhằm phân định kẻ thắng người thua.\n(4) Nhờ thầy cô hoặc bạn bè có uy tín đứng ra làm trung gian hòa giải.\n(5) Kêu gọi nhóm bạn thân đến đe dọa và gây áp lực tinh thần cho đối phương.\n(6) Tự nhận khuyết điểm của bản thân và chủ động nói lời xin lỗi chân thành.\nHọc sinh chọn các nhận định đúng và ghi dãy số theo thứ tự tăng dần.",
-        a: "1246",
-        e: "Nhận định (1), (2), (4), (6) là đúng vì giải quyết tranh chấp bằng đối thoại, hòa giải trên tinh thần xây dựng và tự phê phán. Nhận định (3), (5) dùng vũ lực và bạo lực tập thể là sai trái nghiêm trọng."
-      },
-      {
-        id: "HDTN.53",
-        q: "Cho 6 nhận định sau về tôn trọng sự khác biệt phong cách của bạn bè:\n(1) Tôn trọng các làn điệu âm nhạc truyền thống mà bạn yêu thích.\n(2) Cười nhạo bạn vì bạn có năng khiếu nghệ thuật khác biệt với đa số.\n(3) Tôn trọng phong cách ăn mặc giản dị, đúng quy định học sinh của bạn.\n(4) Chế giễu bạn nam có tính cách cẩn thận, tỉ mỉ trong việc sắp xếp sách.\n(5) Động viên bạn phát huy năng khiếu và sở trường riêng của bản thân.\n(6) Bắt bạn phải từ bỏ thói quen đọc sách để chơi game điện tử cùng mình.\nHọc sinh chọn các nhận định đúng và ghi dãy số theo thứ tự tăng dần.",
-        a: "135",
-        e: "Nhận định (1), (3), (5) là đúng vì mỗi cá nhân đều có sở thích nghệ thuật và tính cách riêng cần được tôn trọng và khích lệ. Nhận định (2), (4), (6) mang tính phán xét, chế giễu và áp đặt sở thích tiêu cực."
-      },
-      {
-        id: "HDTN.54",
-        q: "Cho 6 nhận định sau về tinh thần đoàn kết và sẻ chia trong lớp học:\n(1) Sẵn sàng giúp đỡ các bạn học yếu để cả lớp cùng nhau tiến bộ hơn.\n(2) Tẩy chay những bạn có hoàn cảnh gia đình còn nhiều khó khăn, thiếu thốn.\n(3) Thăm hỏi và động viên khi trong lớp có bạn không may bị ốm đau.\n(4) Giấu tài liệu hay không chia sẻ vì sợ bạn đạt điểm số cao hơn mình.\n(5) Hòa nhã, thân thiện chào đón và hỗ trợ các bạn học sinh mới vào lớp.\n(6) Lắng nghe và tôn trọng ý kiến đóng góp của các bạn trong giờ sinh hoạt.\nHọc sinh chọn các nhận định đúng và ghi dãy số theo thứ tự tăng dần.",
-        a: "1356",
-        e: "Nhận định (1), (3), (5), (6) là đúng vì thể hiện tình bạn trong sáng, tinh thần tương trợ và gắn kết tập thể. Nhận định (2) là hành vi kì thị nhẫn tâm, (4) là biểu hiện của tính đố kị nhỏ nhen."
-      },
-      {
-        id: "HDTN.55",
-        q: "Cho 6 nhận định sau về thái độ đúng đắn đối với cơ sở vật chất nhà trường:\n(1) Tắt quạt điện và bóng đèn khi cả lớp di chuyển ra ngoài học thể dục.\n(2) Khắc tên và viết số điện thoại lên mặt bàn gỗ trong phòng học.\n(3) Giữ gìn sách báo cẩn thận khi đọc tại thư viện của nhà trường.\n(4) Đóng mở cửa sổ nhẹ tay để bảo vệ các chốt khóa và cánh cửa sổ.\n(5) Bẻ cành cây xanh trong sân trường để làm đồ chơi trong giờ ra chơi.\n(6) Báo cáo ngay cho các thầy cô khi phát hiện bàn ghế bị hư hỏng, lung lay.\nHọc sinh chọn các nhận định đúng và ghi dãy số theo thứ tự tăng dần.",
-        a: "1346",
-        e: "Nhận định (1), (3), (4), (6) là đúng vì thể hiện trách nhiệm bảo vệ của công và tiết kiệm tài nguyên cho nhà trường. Nhận định (2), (5) là hành vi phá hoại tài sản và cảnh quan trường học."
-      },
-      {
-        id: "HDTN.56",
-        q: "Cho 6 nhận định sau về văn hóa phát biểu và xây dựng bài trong lớp học:\n(1) Giơ tay xin phép trước khi đứng dậy phát biểu đóng góp ý kiến.\n(2) Tự do nói chen ngang khi thầy cô đang hướng dẫn bài tập trên bảng.\n(3) Chú ý lắng nghe câu trả lời của bạn để bổ sung những điểm còn thiếu.\n(4) Cười lớn chế nhạo khi thấy bạn mình trả lời sai câu hỏi của thầy cô.\n(5) Trình bày ý kiến cá nhân với thái độ khiêm tốn, lịch sự và rõ ràng.\n(6) Tôn trọng các cách giải bài tập sáng tạo và khác biệt của bạn bè.\nHọc sinh chọn các nhận định đúng và ghi dãy số theo thứ tự tăng dần.",
-        a: "1356",
-        e: "Nhận định (1), (3), (5), (6) là đúng vì đảm bảo tính kỉ luật, sự khiêm tốn và tôn trọng trí tuệ của tập thể. Nhận định (2) làm gián đoạn bài giảng, (4) làm bạn xấu hổ và nản chí."
-      },
-      {
-        id: "HDTN.57",
-        q: "Cho 6 nhận định sau về ứng xử văn minh trong giờ tự học và thảo luận nhóm:\n(1) Giữ trật tự chung để tạo không gian yên tĩnh cho các bạn cùng học bài.\n(2) Hát hò và cười đùa lớn tiếng làm ảnh hưởng đến các lớp học bên cạnh.\n(3) Tôn trọng sự phân công công việc của nhóm trưởng trong các dự án học.\n(4) Tích cực trao đổi, đóng góp ý tưởng xây dựng bài một cách nghiêm túc.\n(5) Tự ý bỏ ra ngoài chơi bóng trong khi cả nhóm đang tích cực làm bài tập.\n(6) Khiêm tốn tiếp thu các lời nhận xét, góp ý mang tính xây dựng của bạn.\nHọc sinh chọn các nhận định đúng và ghi dãy số theo thứ tự tăng dần.",
-        a: "1346",
-        e: "Nhận định (1), (3), (4), (6) là đúng vì giúp giờ tự học đạt hiệu cao, phát huy năng lực hợp tác nhóm. Nhận định (2), (5) gây mất trật tự và thiếu trách nhiệm với tập thể."
-      },
-      {
-        id: "HDTN.58",
-        q: "Cho 6 nhận định sau về tinh thần tôn trọng sự đa dạng vùng miền:\n(1) Tôn trọng giọng nói và các từ ngữ địa phương đặc trưng của các bạn.\n(2) Nhại lại giọng nói vùng miền của bạn để trêu chọc và chế giễu bạn.\n(3) Tôn trọng phong tục tập quán truyền thống tốt đẹp của các dân tộc.\n(4) Cô lập và không chơi cùng với những bạn đến từ tỉnh thành khác đến.\n(5) Tìm hiểu nét đẹp văn hóa và ẩm thực của quê hương bạn bè trong lớp.\n(6) Giúp đỡ bạn mới chuyển trường nhanh chóng hòa nhập với môi trường lớp.\nHọc sinh chọn các nhận định đúng và ghi dãy số theo thứ tự tăng dần.",
-        a: "1356",
-        e: "Nhận định (1), (3), (5), (6) là đúng vì thể hiện sự văn minh, trân trọng các giá trị văn hóa đa dạng của đất nước. Nhận định (2) là trêu chọc ác ý, (4) là sự kì thị vùng miền cần bị loại trừ."
-      },
-      {
-        id: "HDTN.59",
-        q: "Cho 6 nhận định sau về trách nhiệm của học sinh đối với tập thể lớp:\n(1) Tích cực tham gia các phong trào văn nghệ và thể thao do trường tổ chức.\n(2) Trốn tránh không tham gia các hoạt động ngoại khóa chung của lớp học.\n(3) Thực hiện tốt các quy định về đồng phục và nề nếp của nhà trường.\n(4) Cùng cả lớp chung tay xây dựng tinh thần đoàn kết, giúp đỡ lẫn nhau.\n(5) Vi phạm nội quy lớp học để chứng tỏ mình là người dũng cảm, nổi bật.\n(6) Đóng góp những ý tưởng sáng tạo nhằm nâng cao hiệu quả học tập của lớp.\nHọc sinh chọn các nhận định đúng và ghi dãy số theo thứ tự tăng dần.",
-        a: "1346",
-        e: "Nhận định (1), (3), (4), (6) là đúng vì đóng góp tích cực cho phong trào và kỉ cương tập thể. Nhận định (2) thiếu tinh thần cộng đồng, (5) là suy nghĩ bồng bột, thể hiện sai lệch giá trị cá nhân."
-      },
-      {
-        id: "HDTN.60",
-        q: "Cho 6 nhận định sau về hành vi thể hiện lòng biết ơn trong môi trường giáo dục:\n(1) Tri ân công lao dạy bảo của thầy cô nhân ngày Nhà giáo Việt Nam 20/11.\n(2) Gửi lời cảm ơn chân thành đến các cô bác phục vụ bữa ăn trưa bán trú.\n(3) Chào hỏi lễ phép và cảm ơn bác bảo vệ đã trông giữ an toàn cho trường.\n(4) Cho rằng sự chăm sóc và dạy dỗ của người lớn là điều hiển nhiên phải có.\n(5) Cố gắng học tập tốt và rèn luyện đạo đức để đền đáp công ơn thầy cô.\n(6) Tỏ thái độ khó chịu khi được thầy cô giáo uốn nắn và nhắc nhở khuyết điểm.\nHọc sinh chọn các nhận định đúng và ghi dãy số theo thứ tự tăng dần.",
+        id: "AI.47",
+        q: "Cho 6 nhận định sau về bảo mật dữ liệu cá nhân khi tương tác với AI:\n(1) Mật khẩu và địa chỉ nhà riêng là dữ liệu cá nhân cần giữ kín.\n(2) Gửi ảnh chụp cá nhân nhạy cảm lên chatbot có nguy cơ bị lộ thông tin.\n(3) Người dùng có quyền từ chối cung cấp dữ liệu riêng tư cho phần mềm.\n(4) Nhập số thẻ căn cước vào trang web AI lạ là việc làm rất an toàn.\n(5) Nên báo ngay cho cha mẹ hoặc thầy cô khi phát hiện nguy cơ mất dữ liệu.\n(6) Trang web AI miễn phí có quyền tùy tiện phát tán ảnh cá nhân người dùng.\nHọc sinh chọn các nhận định đúng và ghi dãy số theo thứ tự tăng dần.",
         a: "1235",
-        e: "Nhận định (1), (2), (3), (5) là đúng vì thể hiện lòng biết ơn chân thành tới tất cả những người chăm sóc, dạy dỗ và phục vụ trong nhà trường. Nhận định (4) là suy nghĩ vô ơn, (6) là thiếu tôn trọng sự dạy bảo của thầy cô."
+        e: "Nhận định (1), (2), (3), (5) là đúng vì tuân thủ nguyên tắc bảo vệ quyền riêng tư số và xử lí kịp thời nguy cơ mất dữ liệu. Nhận định (4) sai vì nguy cơ bị đánh cắp danh tính; (6) sai vì phát tán ảnh cá nhân là vi phạm pháp luật."
+      },
+      {
+        id: "AI.48",
+        q: "Cho 6 nhận định sau về tính trung thực học thuật khi học tập cùng AI:\n(1) Tra từ vựng tiếng Anh qua trợ lí AI là hình thức học tập đúng đắn.\n(2) Yêu cầu AI làm hộ toàn bộ bài viết thu hoạch để nộp thầy cô giáo.\n(3) Đối chiếu thông tin của AI với sách giáo khoa giúp hiểu bài sâu hơn.\n(4) Khai báo trung thực sự hỗ trợ của AI thể hiện tinh thần trách nhiệm.\n(5) Tin tưởng tuyệt đối câu trả lời của AI là cách học tập tốt nhất.\n(6) Tự nhận câu trả lời của máy tính là bài viết sáng tạo của riêng mình.\nHọc sinh chọn các nhận định đúng và ghi dãy số theo thứ tự tăng dần.",
+        a: "134",
+        e: "Nhận định (1), (3), (4) là đúng vì thể hiện việc sử dụng AI như công cụ hỗ trợ và liêm chính trong học tập. Nhận định (2), (6) là gian lận học thuật; (5) thiếu tư duy phản biện."
+      },
+      {
+        id: "AI.49",
+        q: "Cho 6 nhận định sau về quyền tự chủ của con người khi kiểm soát AI:\n(1) Con người luôn cần giữ quyền ra quyết định cuối cùng trong công việc.\n(2) Để máy móc tự động quyết định mức kỷ luật học sinh là điều nhân văn.\n(3) Thói quen kiểm chứng nguồn tin giúp tránh quyết định sai lầm do AI.\n(4) Khi kết quả AI gây hại xã hội, người vận hành hoàn toàn không liên can.\n(5) Con người cần ngăn chặn các dự án thiết kế công cụ AI có tính phá hoại.\n(6) Cung cấp vị trí học tập của lớp liên tục cho ứng dụng AI mà không hỏi ý kiến.\nHọc sinh chọn các nhận định đúng và ghi dãy số theo thứ tự tăng dần.",
+        a: "135",
+        e: "Nhận định (1), (3), (5) là đúng vì khẳng định vị thế chủ thể, tính cẩn trọng và trách nhiệm bảo vệ an toàn của con người. Nhận định (2) sai vì kỷ luật cần sự thấu cảm của nhà giáo; (4) trốn tránh trách nhiệm; (6) xâm phạm quyền riêng tư của tập thể."
+      },
+      {
+        id: "AI.50",
+        q: "Cho 6 nhận định sau về chất lượng dữ liệu huấn luyện và tính công bằng:\n(1) Dữ liệu huấn luyện phong phú giúp mô hình AI phân loại khách quan hơn.\n(2) Dữ liệu huấn luyện bị phiến diện là nguyên nhân gây ra sự thiên vị.\n(3) Máy tính tự động nhận biết lẽ phải và công lý giống như con người.\n(4) Lén thu thập hình ảnh của người khác để dạy máy là hành vi sai trái.\n(5) Dữ liệu đa dạng góp phần tạo ra công cụ AI bình đẳng cho xã hội.\n(6) Mọi dữ liệu trôi nổi trên mạng đều đạt chuẩn để huấn luyện mô hình.\nHọc sinh chọn các nhận định đúng và ghi dãy số theo thứ tự tăng dần.",
+        a: "1245",
+        e: "Nhận định (1), (2), (4), (5) là đúng vì làm rõ tầm quan trọng của dữ liệu sạch, đa dạng và tôn trọng bản quyền. Nhận định (3) sai vì máy móc chỉ tính toán số học; (6) sai vì dữ liệu mạng chứa nhiều rác và tin giả."
+      },
+      {
+        id: "AI.51",
+        q: "Cho 6 nhận định sau về văn hóa số và hành vi văn minh khi dùng AI:\n(1) Tôn trọng quyền tác giả khi tham khảo các ý tưởng từ hệ thống AI.\n(2) Kịp thời báo cáo cho nhà trường khi thấy AI tạo nội dung xấu.\n(3) Che giấu nguồn gốc bài viết do AI tạo ra để nộp dự thi viết văn.\n(4) Tuân thủ các quy tắc an toàn thông tin phòng máy của trường quy định.\n(5) Đưa toàn bộ danh bạ điện thoại gia đình lên các chatbot trên mạng.\n(6) Dùng AI chỉnh sửa tranh ảnh nhằm bêu xấu danh dự của các bạn trong lớp.\nHọc sinh chọn các nhận định đúng và ghi dãy số theo thứ tự tăng dần.",
+        a: "124",
+        e: "Nhận định (1), (2), (4) là đúng vì thể hiện văn hóa ứng xử liêm chính và bảo vệ an toàn trường học. Nhận định (3) là đạo văn; (5) làm lộ dữ liệu người thân; (6) là hành vi bắt nạt mạng vi phạm pháp luật."
+      },
+      {
+        id: "AI.52",
+        q: "Cho 6 nhận định sau về giới hạn của AI và vai trò của thầy cô giáo:\n(1) AI có thể hỗ trợ chấm điểm và phát hiện lỗi bài thi trắc nghiệm rất nhanh.\n(2) AI có thể thay thế hoàn toàn vai trò truyền cảm hứng đạo đức của người thầy.\n(3) Sự lắng nghe và thấu cảm tâm lý học sinh là điều máy móc không làm được.\n(4) Tình yêu thương giữa thầy và trò là giá trị cốt lõi không thể thay thế.\n(5) Cấm học sinh hoàn toàn việc tìm hiểu và tiếp cận kiến thức công nghệ AI.\n(6) Giáo viên luôn là người kiểm duyệt và chịu trách nhiệm về nội dung bài giảng.\nHọc sinh chọn các nhận định đúng và ghi dãy số theo thứ tự tăng dần.",
+        a: "1346",
+        e: "Nhận định (1), (3), (4), (6) là đúng vì khẳng định vai trò công nghệ là bổ trợ, còn thầy cô giáo là người dẫn dắt tâm hồn và nhân cách. Nhận định (2) sai vì máy tính thiếu lòng trắc ẩn; (5) là suy nghĩ cực đoan, lạc hậu."
+      },
+      {
+        id: "AI.53",
+        q: "Cho 6 nhận định sau về rủi ro khi lạm dụng các công cụ AI tạo sinh:\n(1) Ỷ lại vào chatbot để làm văn khiến năng lực tư duy phản biện giảm sút.\n(2) Lạm dụng AI giải hộ bài tập làm mòn kỹ năng tự xử lí tình huống khó.\n(3) Dùng AI càng nhiều thì trí thông minh tự nhiên của người càng tăng lên.\n(4) Học sinh cần suy nghĩ độc lập trước khi đọc các gợi ý từ phần mềm AI.\n(5) Sử dụng thông tin chưa kiểm chứng từ AI dễ dẫn đến tiếp nhận kiến thức sai.\n(6) Có công cụ AI hỗ trợ thì học sinh không cần đọc sách giáo khoa nữa.\nHọc sinh chọn các nhận định đúng và ghi dãy số theo thứ tự tăng dần.",
+        a: "1245",
+        e: "Nhận định (1), (2), (4), (5) là đúng vì chỉ rõ các rủi ro thui chột tư duy và cảnh báo nguy cơ tiếp nhận sai lệch. Nhận định (3) sai vì ỷ lại làm suy giảm trí tuệ; (6) sai vì sách giáo khoa cung cấp tri thức chuẩn mực bắt buộc."
+      },
+      {
+        id: "AI.54",
+        q: "Cho 6 nhận định sau về hiện tượng thao túng người dùng và trách nhiệm:\n(1) Thuật toán gợi ý có thể hướng người xem vào các nội dung thông tin xấu.\n(2) Người dùng AI tạo ảnh xúc phạm danh dự người khác phải chịu trách nhiệm.\n(3) Nhà cung cấp dịch vụ AI có trách nhiệm ngăn chặn việc phát tán tin rác.\n(4) Dữ liệu sở thích người dùng có thể bị lợi dụng để điều hướng hành vi mua.\n(5) Mọi hành vi sai phạm trên Internet qua phần mềm AI đều không bị xử lí.\n(6) Người dùng không có quyền quản lí hay xóa lịch sử tìm kiếm trên trang AI.\nHọc sinh chọn các nhận định đúng và ghi dãy số theo thứ tự tăng dần.",
+        a: "1234",
+        e: "Nhận định (1), (2), (3), (4) là đúng vì nhận diện được rủi ro bị thao túng tâm lí, quyền bảo vệ người tiêu dùng và trách nhiệm pháp lí. Nhận định (5) sai vì pháp luật xử lí mọi hành vi tội phạm mạng; (6) sai vì người dùng có quyền xóa dữ liệu cá nhân."
+      },
+      {
+        id: "AI.55",
+        q: "Cho 6 nhận định sau về công nghệ deepfake và tin tức giả mạo trên mạng:\n(1) Deepfake là kỹ thuật dùng AI để tạo video giả mạo người thật rất tinh vi.\n(2) Deepfake có thể bị kẻ xấu lợi dụng để lừa đảo chiếm đoạt tài sản.\n(3) Kiểm tra chéo với báo chí chính thống giúp phát hiện hình ảnh giả mạo.\n(4) Toàn bộ video clip chia sẻ trên mạng xã hội đều là sự thật khách quan.\n(5) Hành vi phát tán video giả bôi nhọ người khác là vi phạm pháp luật nghiêm trọng.\n(6) Học sinh được phép dùng công nghệ deepfake trêu chọc giáo viên trường mình.\nHọc sinh chọn các nhận định đúng và ghi dãy số theo thứ tự tăng dần.",
+        a: "1235",
+        e: "Nhận định (1), (2), (3), (5) là đúng vì mô tả đúng bản chất công nghệ, nguy cơ lừa đảo và trách nhiệm pháp lí. Nhận định (4) sai vì mạng xã hội tràn lan tin giả; (6) sai vì xúc phạm nhà giáo là hành vi phi đạo đức và vi phạm nội quy trường học."
+      },
+      {
+        id: "AI.56",
+        q: "Cho 6 nhận định sau về hiện tượng ảo giác AI và trách nhiệm giải trình:\n(1) Ảo giác AI là hiện tượng mô hình AI tạo ra thông tin không có thật.\n(2) Ảo giác AI phát sinh từ xác suất toán học chứ không phải lỗi cố ý của máy.\n(3) Trách nhiệm giải trình yêu cầu người dùng nêu rõ công cụ AI đã trợ giúp.\n(4) Nếu thông tin bài nộp bị sai, học sinh có thể đổ hết lỗi cho phần mềm AI.\n(5) Cần đối chiếu các trích dẫn tài liệu của AI với sách khoa học chính thống.\n(6) Công cụ AI hiện nay đã đạt mức tuyệt hảo và xóa bỏ hoàn toàn hiện tượng ảo giác.\nHọc sinh chọn các nhận định đúng và ghi dãy số theo thứ tự tăng dần.",
+        a: "1235",
+        e: "Nhận định (1), (2), (3), (5) là đúng vì làm rõ nguồn gốc ảo giác AI và tinh thần trách nhiệm của người sử dụng. Nhận định (4) sai vì con người phải chịu trách nhiệm về bài làm của mình; (6) sai vì ảo giác vẫn là thách thức chưa thể xóa bỏ hoàn toàn của AI hiện nay."
+      },
+      {
+        id: "AI.57",
+        q: "Cho 6 nhận định sau về cải thiện chất lượng dữ liệu và đạo đức người tạo AI:\n(1) Loại bỏ mẫu dữ liệu sai nhãn giúp mô hình AI phân loại chính xác hơn.\n(2) Thu thập dữ liệu tôn trọng quyền bình đẳng giúp hạn chế sự thiên kiến.\n(3) Lập trình viên được tự ý sao chép ảnh của trường để nạp cho máy học.\n(4) Thử nghiệm mô hình với các dữ liệu thực tế giúp nâng cao tính an toàn.\n(5) Người tạo ra AI có nghĩa vụ giải thích quy trình khi phần mềm có lỗi.\n(6) Nạp càng nhiều dữ liệu sai lệch vào máy thì thuật toán vận hành càng tốt.\nHọc sinh chọn các nhận định đúng và ghi dãy số theo thứ tự tăng dần.",
+        a: "1245",
+        e: "Nhận định (1), (2), (4), (5) là đúng vì thể hiện trách nhiệm chuyên môn và đạo đức của người lập trình AI. Nhận định (3) vi phạm quyền riêng tư và bản quyền; (6) sai vì nạp dữ liệu sai sẽ tạo ra mô hình phế phẩm (Garbage In, Garbage Out)."
+      },
+      {
+        id: "AI.58",
+        q: "Cho 6 nhận định sau về các nguyên tắc phát triển AI vì lợi ích xã hội:\n(1) Hệ thống AI phải được thiết kế vì mục đích nâng cao chất lượng cuộc sống.\n(2) Việc chế tạo các công cụ AI nhằm mục đích lừa đảo là hành vi bị cấm.\n(3) Tối ưu hóa mô hình AI để tiết kiệm năng lượng điện là tiêu chuẩn cần thiết.\n(4) Xã hội nên hủy bỏ quyền riêng tư để công nghệ AI phát triển nhanh nhất.\n(5) Các ứng dụng AI cần tôn trọng truyền thống văn hóa tốt đẹp của dân tộc.\n(6) Doanh nghiệp công nghệ có quyền sở hữu trọn đời bí mật đời tư khách hàng.\nHọc sinh chọn các nhận định đúng và ghi dãy số theo thứ tự tăng dần.",
+        a: "1235",
+        e: "Nhận định (1), (2), (3), (5) là đúng vì hướng tới sự phát triển công nghệ bền vững, nhân văn và bảo vệ môi trường. Nhận định (4), (6) vi phạm nghiêm trọng quyền con người và quyền riêng tư cá nhân."
+      },
+      {
+        id: "AI.59",
+        q: "Cho 6 nhận định sau về chuẩn mực đạo đức của học sinh trong không gian số:\n(1) Luôn giữ thái độ trung thực và trách nhiệm khi học tập qua môi trường số.\n(2) Không chia sẻ hay lan truyền các hình ảnh chỉnh sửa độc hại do AI tạo ra.\n(3) Luôn tôn trọng thành quả lao động sáng tạo khoa học của người khác.\n(4) Dùng AI phá mật khẩu máy tính của người khác để thể hiện sự thông minh.\n(5) Tích cực vận dụng AI để hỗ trợ học tập và giúp đỡ việc chung của trường.\n(6) Học sinh không cần quan tâm đến luật an ninh mạng vì chỉ dùng để giải trí.\nHọc sinh chọn các nhận định đúng và ghi dãy số theo thứ tự tăng dần.",
+        a: "1235",
+        e: "Nhận định (1), (2), (3), (5) là đúng vì là những biểu hiện cụ thể của một công dân số có trách nhiệm, liêm chính và văn minh. Nhận định (4) là tội phạm công nghệ; (6) sai vì mọi công dân đều phải tuân thủ pháp luật."
+      },
+      {
+        id: "AI.60",
+        q: "Cho 6 nhận định sau về vai trò định hướng của con người đối với công nghệ AI:\n(1) Con người luôn giữ vai trò chủ đạo trong việc định hướng tương lai của AI.\n(2) Tác nhân AI tự chủ phải hoạt động trong giới hạn an toàn người lập ra.\n(3) Trí tuệ nhân tạo sẽ tự mình thay thế toàn bộ quyền làm chủ của nhân loại.\n(4) Rèn luyện lòng nhân ái là nền tảng giúp con người sử dụng công nghệ an toàn.\n(5) Phát triển công nghệ AI cần song hành với việc hoàn thiện chuẩn mực đạo đức.\n(6) Con người nên phó mặc các quyết định đạo đức khó khăn cho thuật toán máy.\nHọc sinh chọn các nhận định đúng và ghi dãy số theo thứ tự tăng dần.",
+        a: "1245",
+        e: "Nhận định (1), (2), (4), (5) là đúng vì nhấn mạnh vai trò làm chủ tối thượng, nhân văn và sự cần thiết của hành lang đạo đức khi phát triển AI. Nhận định (3), (6) từ bỏ quyền tự chủ và hạ thấp trách nhiệm đạo đức của con người."
       }
     ]
   }
